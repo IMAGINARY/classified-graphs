@@ -1,0 +1,22 @@
+---
+root: true
+env:
+  browser: true
+  es6: true
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2021
+  sourceType: module
+  ecmaFeatures: {}
+  project: 'tsconfig.json'
+plugins:
+  - '@typescript-eslint/eslint-plugin'
+extends:
+  - 'eslint:recommended'
+  - 'airbnb-base'
+  - 'airbnb-typescript/base'
+  - 'prettier'
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:@typescript-eslint/recommended-requiring-type-checking'
+rules:
+  no-underscore-dangle: ['error', { 'allowAfterThis': true }]
