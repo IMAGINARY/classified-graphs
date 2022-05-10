@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import cytoscape from "cytoscape";
+
 const cy = cytoscape({
 
     container: document.getElementById('cy'), // container to render in
