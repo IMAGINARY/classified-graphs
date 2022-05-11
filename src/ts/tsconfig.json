@@ -8,6 +8,6 @@
     "esModuleInterop": true,
     "module": "es2022",
     "moduleResolution": "node",
-    "lib": ["ES2021", "dom", "dom.iterable"],
+    "lib": ["ES2021", "dom", "dom.iterable"]
   }
 }
