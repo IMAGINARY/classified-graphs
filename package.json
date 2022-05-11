@@ -55,6 +55,7 @@
   "scripts": {
     "serve": "parcel serve --dist-dir dist-dev ./src/html/index.html",
     "build": "rm -r dist; parcel build --public-url . ./src/html/index.html",
+    "format": "prettier --write '{src/**/*,*}.{htm,html,js,ts,jsx,tsx,md,json,yaml,yml,css,scss}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
