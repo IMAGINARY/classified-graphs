@@ -1,216 +1,82 @@
 import $ from 'jquery';
-import cytoscape from 'cytoscape';
+import cytoscape, {
+  EventObject,
+  EventObjectNode,
+  NodeSingular,
+  Position,
+} from 'cytoscape';
+import edgehandles from 'cytoscape-edgehandles';
 import ready from 'document-ready';
+import cloneDeep from 'lodash/cloneDeep';
+
+import { cyOptions } from './constants';
+
+cytoscape.use(edgehandles);
 
 function main() {
   const cy = cytoscape({
-    container: document.getElementById('cy'), // container to render in
-
-    // elements: [ // list of graph elements to start with
-    //   { // node a
-    //     data: { id: 'a' }
-    //   },
-    //   { // node b
-    //     data: { id: 'b' }
-    //   },
-    //   { data: { id: 'c' } },
-    //   { data: { id: 'd' } },
-    //   { data: { id: 'e' } },
-    //   { data: { id: 'f' } },
-    //
-    //   { // edge ab
-    //     data: { id: 'ab', source: 'a', target: 'b' }
-    //   },
-    //   { data: { source: 'c', target: 'b' } },
-    //
-    // ],
-
-    style: [
-      // the stylesheet for the graph
-      {
-        selector: 'node',
-        style: {
-          'background-color': '#666',
-          'label': 'data(id)',
-        },
-      },
-
-      {
-        selector: 'edge',
-        style: {
-          'width': 3,
-          'line-color': '#ccc',
-          // 'target-arrow-color': '#0cc',
-          // 'target-arrow-shape': 'triangle',
-          'curve-style': 'bezier',
-        },
-      },
-    ],
-
-    layout: {
-      name: 'random',
-      rows: 1,
-    },
-
-    autoungrabify: true,
+    ...cloneDeep(cyOptions),
+    ...{ container: document.getElementById('cy') },
   });
 
-  idNodeCount = 1;
-  idEdgeCount = 1;
+  let idNodeCount = 1;
+  let idEdgeCount = 1;
 
-  // cy.on('click','node',function(event){
-  //   console.log("clicked on node")
-  //   event.stopPropagation();
-  // })
+  const edgeHandlesOptions = {
+    edgeParams: () => ({ data: { id: `E${idEdgeCount}` } }),
+  };
+  const cyEdgeHandles = cy.edgehandles(edgeHandlesOptions);
 
-  // modes (assign event handlers)
-
-  cy.on('click', addNode); // click on background
-
-  // cy.on('click', 'edge', function(event){event.target.remove()})
-  // cy.on('click', 'node', function(event){event.target.remove()})
-
-  let currentNode;
-  let creatingMode;
-  let draggingMode;
-  let pressTimer;
-  let pressTimerActive;
-
-  cy.on('mousedown', 'node', (event) => {
-    currentNode = event.target.data('id');
-    creatingMode = true;
-    pressTimer = window.setTimeout(() => {
-      creatingMode = false;
-      draggingMode = true;
-      pressTimerActive = false;
-    }, 500);
-    pressTimerActive = true;
-  });
-
-  cy.on('mousemove', (event) => {
-    if (event.target.data('id') != currentNode && pressTimerActive) {
-      // if we are drawing edge
-      clearTimeout(pressTimer);
-      pressTimerActive = false;
-      addTempEdge(event);
-    }
-    if (creatingMode) {
-      moveTempEdge(event);
-    }
-    if (draggingMode) {
-      moveNode(event);
-    }
-  });
-
-  cy.on('mouseup', (event) => {
-    if (creatingMode) {
-      fixTempEdge(event);
-      creatingMode = false;
-    }
-    if (draggingMode) {
-      draggingMode = false;
-    }
-  });
-
-  //
-  // modeSelector();
-  //
-  // function modeSelector(){
-  //   cy.removeAllListeners()
-  //
-  //   // var currentNode;
-  //
-  //
-  //
-  //
-  //     // modeCreate();
-  //     addTempEdge(event);
-  //
-  //
-  //
-  //
-  //   })
-  //
-  //
-  // }
-  //
-  //
-  //
-  // function modeDrag(){
-  //   console.log("Mode Drag")
-  //   // cy.autoungrabify(true);
-  //   cy.on('mousemove','node', moveNode);
-  //
-  // }
-  //
-  // function modeCreate(){
-  //   console.log("Mode Create")
-  //   // cy.autoungrabify(true);
-  //   // cy.on('click',addNode) //click on background
-  //   // cy.on('mousedown','node', addTempEdge);
-  //   // cy.on('mousemove',moveTempEdge);
-  //   // cy.on('mouseup',fixTempEdge);
-  //
-  // }
-
-  // event handlers
-  function moveNode(event) {
-    cy.$(`#${currentNode}`).position(event.position);
+  function addNode(position: Position) {
+    cy.add({
+      group: 'nodes',
+      data: { id: `N${idNodeCount}` },
+      position,
+    });
+    idNodeCount += 1;
   }
 
-  function addNode(event) {
-    if (event.target.data('id') == undefined) {
-      // click on background
-      cy.add([
-        {
-          group: 'nodes',
-          data: { id: `N${idNodeCount++}` },
-          position: event.position,
-        },
-      ]);
-    }
+  function handleTap(event: EventObject) {
+    // add a new node to the graph
+    addNode(event.position);
   }
 
-  function addTempEdge(event) {
-    console.log('addingEdge');
-    console.log(currentNode);
-    cy.add([
-      { group: 'nodes', data: { id: 'ntemp' }, position: event.position },
-      {
-        group: 'edges',
-        data: { id: 'etemp', source: currentNode, target: 'ntemp' },
-      },
-    ]);
-    cy.$('#ntemp').style('visibility', 'hidden');
+  function handleTabHoldOnNode(event: EventObjectNode) {
+    // initiate adding a new edge to the graph
+
+    // prevent dragging of the source node
+    const node = event.target;
+    node.ungrabify();
+
+    // start a new dangling edge at the node the user tap-holds on
+    // TODO: wait for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/60279 getting fixed
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    cyEdgeHandles.start(event.target);
   }
 
-  function moveTempEdge(event) {
-    if (cy.$('#ntemp')) {
-      cy.$('#ntemp').position(event.position);
-    }
+  function handleEdgeHandlesStop(event: EventObject, sourceNode: NodeSingular) {
+    // allow dragging of the source node again
+    sourceNode.grabify();
   }
 
-  function fixTempEdge(event) {
-    if (cy.$('#ntemp')) {
-      src = cy.$('#etemp').data('source');
-      tgt = event.target.data('id');
-      console.log(src + tgt);
-      if (tgt) {
-        cy.add([
-          {
-            group: 'edges',
-            data: { id: `E${idEdgeCount++}`, source: src, target: tgt },
-          },
-        ]);
-      }
-      cy.remove('#ntemp');
-      cy.remove('#etemp');
-    }
+  function handleEdgeHandlesComplete() {
+    // a new edge has been added -> increment the edge id counter
+    idEdgeCount += 1;
   }
 
-  $('#showJSON').click(() => {
-    $('#outputText').html(JSON.stringify(cy.json(), null, 4));
-  });
+  cy.on('tap', handleTap);
+  cy.on('taphold', 'node', handleTabHoldOnNode);
+  cy.on('ehstop', handleEdgeHandlesStop);
+  cy.on('ehcomplete', handleEdgeHandlesComplete);
+
+  function showGraphExport() {
+    const json = cy.json();
+    const jsonString = JSON.stringify(json, null, 4);
+    $('#outputText').text(jsonString);
+  }
+
+  $('#showJSON').on('click', showGraphExport);
 }
 
 ready(main);

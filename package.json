@@ -28,7 +28,6 @@
     "@types/lodash": "^4.14",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
-    "assert": "^2.0.0",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-typescript": "^16.1.2",
     "eslint-config-prettier": "^8.5.0",
@@ -44,11 +43,14 @@
   },
   "dependencies": {
     "@types/cytoscape": "^3.19.4",
+    "@types/cytoscape-edgehandles": "^4.0.0",
     "@types/document-ready": "^2.0.0",
     "@types/jquery": "^3.5.14",
     "cytoscape": "^3.21.1",
+    "cytoscape-edgehandles": "^4.0.1",
     "document-ready": "^2.0.2",
-    "jquery": "^3.6.0"
+    "jquery": "^3.6.0",
+    "lodash": "^4.17.21"
   },
   "scripts": {
     "serve": "parcel serve --dist-dir dist-dev ./src/html/index.html",
