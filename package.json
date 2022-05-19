@@ -39,6 +39,7 @@
     "parcel": "^2.5.0",
     "prettier": "^2.5.1",
     "process": "^0.11.10",
+    "typedoc": "^0.22.15",
     "typescript": "^4.6.2"
   },
   "dependencies": {
@@ -56,6 +57,7 @@
     "serve": "parcel serve --dist-dir dist-dev ./src/html/index.html",
     "build": "rm -r dist; parcel build --public-url . ./src/html/index.html",
     "format": "prettier --write '{src/**/*,*}.{htm,html,js,ts,jsx,tsx,md,json,yaml,yml,css,scss}'",
+    "doc": "typedoc",
     "lint": "cd src/ts && eslint '{**/*,*}.{js,ts,jsx,tsx}'",
     "lint:fix": "cd src/ts && eslint --fix '{**/*,*}.{js,ts,jsx,tsx}'",
     "test": "echo \"Error: no test specified\" && exit 1"
