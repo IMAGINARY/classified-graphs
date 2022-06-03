@@ -1,16 +1,15 @@
 {
-  "name": "climate-crisis-box-models",
+  "name": "classified-graphs",
   "version": "0.0.0",
-  "description": "Simulation of climate science box models",
+  "description": "Playground for graphs",
   "author": {
-    "name": "Christian Stussak",
-    "email": "christian.stussak@imaginary.org",
-    "url": "http://barnyrubble.tumblr.com/"
+    "name": "Daniel Ramos",
+    "email": "daniel.ramos@imaginary.org"
   },
-  "repository": "github:IMAGINARY/climate-crisis-box-models",
+  "repository": "https://github.com/IMAGINARY/classified-graphs",
   "bugs": {
-    "url": "https://github.com/IMAGINARY/climate-crisis-box-models/issues",
-    "email": "christian.stussak@imaginary.org"
+    "url": "https://github.com/IMAGINARY/classified-graphs/issues",
+    "email": "daniel.ramos@imaginary.org"
   },
   "license": "MIT",
   "engines": {
