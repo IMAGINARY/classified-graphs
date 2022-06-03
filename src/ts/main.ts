@@ -1,15 +1,12 @@
 import $ from 'jquery';
-import cytoscape, {
-  EventObject,
-  EventObjectNode,
-  NodeSingular,
-  Position,
-} from 'cytoscape';
+import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { cyOptions } from './constants';
+
+import { modeNull, modeNode, modeEdge, modeDijkstra } from './modes';
 
 cytoscape.use(edgehandles);
 
@@ -19,56 +16,40 @@ function main() {
     ...{ container: document.getElementById('cy') },
   });
 
-  let idNodeCount = 1;
-  let idEdgeCount = 1;
+  const parameters = { idNodeCount: 1, idEdgeCount: 1 };
+  const myModeNull = new modeNull(cy, parameters);
+  const myModeNode = new modeNode(cy, parameters);
+  const myModeEdge = new modeEdge(cy, parameters);
+  const myModeDijkstra = new modeDijkstra(cy, parameters);
 
-  const edgeHandlesOptions = {
-    edgeParams: () => ({ data: { id: `E${idEdgeCount}` } }),
-  };
-  const cyEdgeHandles = cy.edgehandles(edgeHandlesOptions);
+  myModeNull.activateMode();
 
-  function addNode(position: Position) {
-    cy.add({
-      group: 'nodes',
-      data: { id: `N${idNodeCount}` },
-      position,
-    });
-    idNodeCount += 1;
-  }
+  var currentMode = myModeNull;
+  currentMode.activateMode();
 
-  function handleTap(event: EventObject) {
-    // add a new node to the graph
-    addNode(event.position);
-  }
+  $('#mode-null').on('click', function () {
+    currentMode.deactivateMode();
+    currentMode = myModeNull;
+    currentMode.activateMode();
+  });
 
-  function handleTabHoldOnNode(event: EventObjectNode) {
-    // initiate adding a new edge to the graph
+  $('#mode-nodes').on('click', function () {
+    currentMode.deactivateMode();
+    currentMode = myModeNode;
+    currentMode.activateMode();
+  });
 
-    // prevent dragging of the source node
-    const node = event.target;
-    node.ungrabify();
+  $('#mode-edges').on('click', function () {
+    currentMode.deactivateMode();
+    currentMode = myModeEdge;
+    currentMode.activateMode();
+  });
 
-    // start a new dangling edge at the node the user tap-holds on
-    // TODO: wait for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/60279 getting fixed
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cyEdgeHandles.start(event.target);
-  }
-
-  function handleEdgeHandlesStop(event: EventObject, sourceNode: NodeSingular) {
-    // allow dragging of the source node again
-    sourceNode.grabify();
-  }
-
-  function handleEdgeHandlesComplete() {
-    // a new edge has been added -> increment the edge id counter
-    idEdgeCount += 1;
-  }
-
-  cy.on('tap', handleTap);
-  cy.on('taphold', 'node', handleTabHoldOnNode);
-  cy.on('ehstop', handleEdgeHandlesStop);
-  cy.on('ehcomplete', handleEdgeHandlesComplete);
+  $('#mode-dijkstra').on('click', function () {
+    currentMode.deactivateMode();
+    currentMode = myModeDijkstra;
+    currentMode.activateMode();
+  });
 
   function showGraphExport() {
     const json = cy.json();

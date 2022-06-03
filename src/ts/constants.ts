@@ -4,7 +4,7 @@ const cyOptions = {
       selector: 'node',
       style: {
         'background-color': '#666',
-        'label': 'data(id)',
+        // 'label': 'data(id)',
       },
     },
 
@@ -21,6 +21,13 @@ const cyOptions = {
       style: {
         'target-arrow-color': '#ccc',
         'target-arrow-shape': 'circle',
+      },
+    },
+    {
+      selector: '.highlighted',
+      style: {
+        'background-color': 'yellow',
+        'line-color': 'yellow',
       },
     },
   ],
