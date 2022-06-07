@@ -9,6 +9,7 @@ parserOptions:
   sourceType: module
   ecmaFeatures: {}
   project: 'tsconfig.json'
+  tsconfigRootDir: src/ts
 plugins:
   - '@typescript-eslint/eslint-plugin'
 extends:
