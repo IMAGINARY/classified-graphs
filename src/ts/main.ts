@@ -6,7 +6,11 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import { cyOptions } from './constants';
 
-import { modeNull, modeNode, modeEdge, modeDijkstra } from './modes';
+import { Mode } from './modes';
+import ModeNull from './ModeNull';
+import ModeNode from './ModeNode';
+import ModeEdge from './ModeEdge';
+import ModeDijkstra from './ModeDijkstra';
 
 cytoscape.use(edgehandles);
 
@@ -17,38 +21,36 @@ function main() {
   });
 
   const parameters = { idNodeCount: 1, idEdgeCount: 1 };
-  const myModeNull = new modeNull(cy, parameters);
-  const myModeNode = new modeNode(cy, parameters);
-  const myModeEdge = new modeEdge(cy, parameters);
-  const myModeDijkstra = new modeDijkstra(cy, parameters);
+  const modeNull = new ModeNull(cy, parameters);
+  const modeNode = new ModeNode(cy, parameters);
+  const modeEdge = new ModeEdge(cy, parameters);
+  const modeDijkstra = new ModeDijkstra(cy, parameters);
 
-  myModeNull.activateMode();
+  modeNull.activateMode();
 
-  var currentMode = myModeNull;
+  let currentMode = modeNull;
   currentMode.activateMode();
 
-  $('#mode-null').on('click', function () {
+  function switchMode(newMode: Mode) {
     currentMode.deactivateMode();
-    currentMode = myModeNull;
+    currentMode = newMode;
     currentMode.activateMode();
+  }
+
+  $('#mode-null').on('click', () => {
+    switchMode(modeNull);
   });
 
-  $('#mode-nodes').on('click', function () {
-    currentMode.deactivateMode();
-    currentMode = myModeNode;
-    currentMode.activateMode();
+  $('#mode-nodes').on('click', () => {
+    switchMode(modeNode);
   });
 
-  $('#mode-edges').on('click', function () {
-    currentMode.deactivateMode();
-    currentMode = myModeEdge;
-    currentMode.activateMode();
+  $('#mode-edges').on('click', () => {
+    switchMode(modeEdge);
   });
 
-  $('#mode-dijkstra').on('click', function () {
-    currentMode.deactivateMode();
-    currentMode = myModeDijkstra;
-    currentMode.activateMode();
+  $('#mode-dijkstra').on('click', () => {
+    switchMode(modeDijkstra);
   });
 
   function showGraphExport() {
