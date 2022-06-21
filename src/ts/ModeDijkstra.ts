@@ -10,17 +10,20 @@ export default class ModeDijkstra implements Mode {
 
   target: NodeSingular;
 
-  dijkstraPath: Collection;
+  pathReady: boolean; // both source and target are set?
 
-  selecting: number;
+  selecting: number; // which node (source = 0 or target = 1) will be selected on next tap
+
+  dijkstraPath: Collection;
 
   constructor(cy: Core, parameters: Parameters) {
     this.cy = cy;
     this.parameters = parameters;
     this.source = {} as NodeSingular;
     this.target = {} as NodeSingular;
-    this.dijkstraPath = this.cy.collection();
+    this.pathReady = false;
     this.selecting = 0;
+    this.dijkstraPath = this.cy.collection();
   }
 
   activateMode() {
@@ -28,21 +31,20 @@ export default class ModeDijkstra implements Mode {
       if (this.selecting === 0) {
         this.source = event.target as NodeSingular;
         this.target = {} as NodeSingular;
-        this.dijkstraPath.removeClass('highlighted');
+        this.cy.elements().removeClass('highlighted');
         this.dijkstraPath = this.cy.collection();
         this.selecting = 1;
+        this.pathReady = false;
         this.source.addClass('highlighted');
         // console.log('Source: ', this.source.id());
       } else {
         this.target = event.target as NodeSingular;
         this.selecting = 0;
+        this.pathReady = true;
         // console.log('Target: ', this.target.id());
       }
 
-      if (
-        this.source !== ({} as NodeSingular) &&
-        this.target !== ({} as NodeSingular)
-      ) {
+      if (this.pathReady) {
         const dijkstra = this.cy.elements().dijkstra({ root: this.source });
         this.dijkstraPath = dijkstra.pathTo(this.target);
         this.dijkstraPath.addClass('highlighted');
@@ -56,7 +58,7 @@ export default class ModeDijkstra implements Mode {
   deactivateMode() {
     this.source = {} as NodeSingular;
     this.target = {} as NodeSingular;
-    this.dijkstraPath.removeClass('highlighted');
+    this.cy.elements().removeClass('highlighted');
     this.dijkstraPath = this.cy.collection();
     this.cy.removeListener('tap');
   }
