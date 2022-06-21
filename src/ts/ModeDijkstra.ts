@@ -35,19 +35,21 @@ export default class ModeDijkstra implements Mode {
         this.dijkstraPath = this.cy.collection();
         this.selecting = 1;
         this.pathReady = false;
+        this.parameters.outputContainer.textContent = '';
         this.source.addClass('highlighted');
-        // console.log('Source: ', this.source.id());
       } else {
         this.target = event.target as NodeSingular;
         this.selecting = 0;
         this.pathReady = true;
-        // console.log('Target: ', this.target.id());
       }
 
       if (this.pathReady) {
         const dijkstra = this.cy.elements().dijkstra({ root: this.source });
         this.dijkstraPath = dijkstra.pathTo(this.target);
         this.dijkstraPath.addClass('highlighted');
+        this.parameters.outputContainer.textContent = `Distance: ${dijkstra.distanceTo(
+          this.target,
+        )}`;
         // console.log('Distance: ', dijkstra.distanceTo(this.target));
       }
     };
@@ -60,6 +62,7 @@ export default class ModeDijkstra implements Mode {
     this.target = {} as NodeSingular;
     this.cy.elements().removeClass('highlighted');
     this.dijkstraPath = this.cy.collection();
+    this.parameters.outputContainer.textContent = '';
     this.cy.removeListener('tap');
   }
 }

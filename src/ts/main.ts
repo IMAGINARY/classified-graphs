@@ -20,7 +20,11 @@ function main() {
     ...{ container: document.getElementById('cy') },
   });
 
-  const parameters = { idNodeCount: 1, idEdgeCount: 1 };
+  const parameters = {
+    idNodeCount: 1,
+    idEdgeCount: 1,
+    outputContainer: document.getElementById('output') as HTMLElement,
+  };
   const modeNull = new ModeNull(cy, parameters);
   const modeNode = new ModeNode(cy, parameters);
   const modeEdge = new ModeEdge(cy, parameters);

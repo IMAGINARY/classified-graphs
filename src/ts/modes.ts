@@ -3,6 +3,7 @@ import { Core } from 'cytoscape';
 interface Parameters {
   idNodeCount: number;
   idEdgeCount: number;
+  outputContainer: HTMLElement;
 }
 
 interface Mode {
