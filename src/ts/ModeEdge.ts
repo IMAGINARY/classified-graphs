@@ -14,6 +14,8 @@ export default class ModeEdge implements Mode {
   activateMode() {
     const edgeHandlesOptions = {
       edgeParams: () => ({ data: { id: `E${this.parameters.idEdgeCount}` } }),
+
+      canConnect: () => true, // allow self-connecting loops
     };
 
     const cyEdgeHandles = this.cy.edgehandles(edgeHandlesOptions);
