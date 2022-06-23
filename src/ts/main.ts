@@ -23,7 +23,7 @@ function main() {
     ...cloneDeep(cyOptions),
     ...{ container: document.getElementById('cy') },
   });
-
+  window.cy = cy;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   // cy.girth();
 

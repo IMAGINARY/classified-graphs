@@ -14,6 +14,7 @@ const cyOptions = {
         'width': 3,
         'line-color': '#ccc',
         'curve-style': 'bezier',
+        // 'label': 'data(id)',
       },
     },
     {
@@ -30,6 +31,14 @@ const cyOptions = {
         'line-color': 'yellow',
       },
     },
+    // {
+    //   selector: '.spanTree',
+    //   style: {
+    //     'underlay-color': 'red',
+    //     'underlay-padding': '5',
+    //     'underlay-opacity': '0.5',
+    //   },
+    // },
   ],
   layout: {
     name: 'random',
