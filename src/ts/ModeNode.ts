@@ -6,34 +6,37 @@ export default class ModeNode implements Mode {
 
   parameters;
 
+  tapHandler;
+
   constructor(cy: Core, parameters: Parameters) {
     this.cy = cy;
     this.parameters = parameters;
+    this.tapHandler = this.handleTap.bind(this);
+  }
+
+  addNode(position: Position) {
+    this.cy.add({
+      group: 'nodes',
+      data: { id: `N${this.parameters.idNodeCount}` },
+      position,
+    });
+    this.parameters.idNodeCount += 1;
+  }
+
+  protected handleTap(event: EventObject) {
+    // click on background to add a node, click on node to remove it.
+    if (event.target === this.cy) {
+      this.addNode(event.position);
+    } else if ((event.target as Singular).isNode()) {
+      (event.target as Singular).remove();
+    }
   }
 
   activateMode() {
-    const addNode = (position: Position) => {
-      this.cy.add({
-        group: 'nodes',
-        data: { id: `N${this.parameters.idNodeCount}` },
-        position,
-      });
-      this.parameters.idNodeCount += 1;
-    };
-
-    const handleTap = (event: EventObject) => {
-      // click on background to add a node, click on node to remove it.
-      if (event.target === this.cy) {
-        addNode(event.position);
-      } else if ((event.target as Singular).isNode()) {
-        (event.target as Singular).remove();
-      }
-    };
-
-    this.cy.on('tap', handleTap);
+    this.cy.on('tap', this.tapHandler);
   }
 
   deactivateMode() {
-    this.cy.removeListener('tap');
+    this.cy.removeListener('tap', this.tapHandler);
   }
 }
