@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import { cyOptions } from './constants';
 
-import girth from './invariants/girth';
+import invariants from './invariants';
 
 import { Mode } from './modes';
 import ModeNull from './ModeNull';
@@ -16,7 +16,7 @@ import ModeDijkstra from './ModeDijkstra';
 import ModeGirth from './ModeGirth';
 
 cytoscape.use(edgehandles);
-cytoscape.use(girth);
+cytoscape.use(invariants);
 
 function main() {
   const cy = cytoscape({
