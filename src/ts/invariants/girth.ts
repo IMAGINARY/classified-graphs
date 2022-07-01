@@ -23,16 +23,21 @@ import cytoscape, {
 function girth(collection: Collection): CollectionReturnValue {
   const spanningTree = collection.kruskal(() => 1);
   const backEdges = spanningTree.absoluteComplement().edges();
-  const fWWeight = (e: EdgeCollection): number =>
-    backEdges.anySame(e) ? Number.POSITIVE_INFINITY : 1;
-  const fW = collection.floydWarshall({ weight: fWWeight });
 
-  const cycles = backEdges.map((e) => fW.path(e.source(), e.target()).union(e));
+  const cycles = backEdges.map((backEdge) => {
+    const fWWeight = (e: EdgeCollection): number =>
+      backEdge === e ? Number.POSITIVE_INFINITY : 1;
+
+    const fW = collection.floydWarshall({ weight: fWWeight });
+
+    return fW.path(backEdge.source(), backEdge.target()).union(backEdge);
+  });
 
   const noCycle = {
     cycle: cytoscape().collection(),
     length: Number.POSITIVE_INFINITY,
   };
+
   const minCycle = cycles
     .map((cycle) => ({ cycle, length: cycle.size() }))
     .reduce(
