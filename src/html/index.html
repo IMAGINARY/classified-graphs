@@ -9,26 +9,8 @@
 
   <body>
     <h1>Graph explorer</h1>
-
-    <nav>
-      <button id="mode-null">
-        <img src='../img/pointer.svg' height="30px" width="30px" /> 
-        <br>Pointer </button>
-      <button id="mode-nodes">
-        <img src='../img/node.svg' height="30px" width="30px" /> 
-        <br>Nodes </button>
-      <button id="mode-edges">
-        <img src='../img/edge.svg' height="30px" width="30px" /> 
-        <br>Edges</button>
-      <button id="mode-dijkstra">
-        <img src='../img/dijkstra.svg' height="30px" width="30px" /> 
-        <br>Dijkstra</button>
-      <button id="mode-girth">
-        <img src='../img/dijkstra.svg' height="30px" width="30px" /> 
-        <br>Girth</button>
-    </nav>
-    <div id="output" style="height: 20px;">
-    </div>
+    <nav id="toolbar"></nav>
+    <div id="output" style="height: 20px;"></div>
 
     <div id="cy"></div>
     <button id="showJSON">showJSON</button>

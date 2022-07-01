@@ -15,6 +15,15 @@ import ModeEdge from './ModeEdge';
 import ModeDijkstra from './ModeDijkstra';
 import ModeGirth from './ModeGirth';
 
+// All this is because Parcel must find the dependencies and add a hash to the name.
+// This is cumbersome and breaks the TS compiler.
+// isn't there a simpler way to reference an image????!!!!
+import iconPointer from '../img/pointer.svg';
+import iconNode from '../img/node.svg';
+import iconEdge from '../img/edge.svg';
+import iconDijkstra from '../img/dijkstra.svg';
+import iconGirth from '../img/dijkstra.svg';
+
 cytoscape.use(edgehandles);
 cytoscape.use(invariants);
 
@@ -23,24 +32,64 @@ function main() {
     ...cloneDeep(cyOptions),
     ...{ container: document.getElementById('cy') },
   });
-  window.cy = cy;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  // cy.girth();
+  // window.cy = cy; //useful for debug
 
   const parameters = {
     idNodeCount: 1,
     idEdgeCount: 1,
     outputContainer: document.getElementById('output') as HTMLElement,
   };
-  const modeNull = new ModeNull(cy, parameters);
-  const modeNode = new ModeNode(cy, parameters);
-  const modeEdge = new ModeEdge(cy, parameters);
-  const modeDijkstra = new ModeDijkstra(cy, parameters);
-  const modeGirth = new ModeGirth(cy, parameters);
 
-  modeNull.activateMode();
+  const modes = [
+    {
+      modeName: 'modeNull',
+      title: 'Pointer',
+      //icon: '../img/pointer.svg'
+      icon: iconPointer, //Why the hell can't I use the images normally??!!
+      modeObj: new ModeNull(cy, parameters),
+    },
+    {
+      modeName: 'modeNode',
+      title: 'Nodes',
+      icon: iconNode,
+      modeObj: new ModeNode(cy, parameters),
+    },
+    {
+      modeName: 'modeEdge',
+      title: 'Edges',
+      icon: iconEdge,
+      modeObj: new ModeEdge(cy, parameters),
+    },
+    {
+      modeName: 'modeDijkstra',
+      title: 'Shortest path',
+      icon: iconDijkstra,
+      modeObj: new ModeDijkstra(cy, parameters),
+    },
+    {
+      modeName: 'modeGirth',
+      title: 'Girth',
+      icon: iconGirth,
+      modeObj: new ModeGirth(cy, parameters),
+    },
+  ];
 
-  let currentMode = modeNull;
+  modes.forEach(function (mode) {
+    let button = document.createElement('button');
+    button.id = 'btn-' + mode.modeName;
+    let img = document.createElement('img');
+    img.setAttribute('src', mode.icon);
+    img.setAttribute('class', 'toolbar-button');
+    button.appendChild(img);
+    button.appendChild(document.createElement('br'));
+    button.append(mode.title);
+    button.onclick = () => {
+      switchMode(mode.modeObj);
+    };
+    document.getElementById('toolbar')?.appendChild(button);
+  });
+
+  let currentMode = modes[0].modeObj;
   currentMode.activateMode();
 
   function switchMode(newMode: Mode) {
@@ -48,26 +97,6 @@ function main() {
     currentMode = newMode;
     currentMode.activateMode();
   }
-
-  $('#mode-null').on('click', () => {
-    switchMode(modeNull);
-  });
-
-  $('#mode-nodes').on('click', () => {
-    switchMode(modeNode);
-  });
-
-  $('#mode-edges').on('click', () => {
-    switchMode(modeEdge);
-  });
-
-  $('#mode-dijkstra').on('click', () => {
-    switchMode(modeDijkstra);
-  });
-
-  $('#mode-girth').on('click', () => {
-    switchMode(modeGirth);
-  });
 
   function showGraphExport() {
     const json = cy.json();
