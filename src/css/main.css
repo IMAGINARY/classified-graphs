@@ -1,9 +1,19 @@
 #cy {
-  width: 100%;
+  width: 70%;
   height: 700px;
-  display: block;
+  display: inline-block;
   border: 2px solid black ;
 }
+
+#infobox{
+width: 29%;
+height: 300px;
+vertical-align: top;
+display: inline-block;
+border: 2px solid green ;
+
+}
+
 
 .toolbar-button {
   width: 60px;

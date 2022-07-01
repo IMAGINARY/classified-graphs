@@ -23,6 +23,7 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
     "@types/assert": "^1.5.6",
+    "@types/d3": "^7.4.0",
     "@types/events": "^3.0.0",
     "@types/lodash": "^4.14",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
@@ -48,6 +49,7 @@
     "@types/jquery": "^3.5.14",
     "cytoscape": "^3.21.1",
     "cytoscape-edgehandles": "^4.0.1",
+    "d3": "^7.5.0",
     "document-ready": "^2.0.2",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21"

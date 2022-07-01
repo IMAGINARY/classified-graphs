@@ -3,6 +3,7 @@ import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
+import * as d3 from 'd3';
 
 import { cyOptions } from './constants';
 
@@ -74,21 +75,6 @@ function main() {
     },
   ];
 
-  modes.forEach(function (mode) {
-    let button = document.createElement('button');
-    button.id = 'btn-' + mode.modeName;
-    let img = document.createElement('img');
-    img.setAttribute('src', mode.icon);
-    img.setAttribute('class', 'toolbar-button');
-    button.appendChild(img);
-    button.appendChild(document.createElement('br'));
-    button.append(mode.title);
-    button.onclick = () => {
-      switchMode(mode.modeObj);
-    };
-    document.getElementById('toolbar')?.appendChild(button);
-  });
-
   let currentMode = modes[0].modeObj;
   currentMode.activateMode();
 
@@ -98,6 +84,27 @@ function main() {
     currentMode.activateMode();
   }
 
+  //Make toolbar buttons
+  let buttons = d3
+    .select('#toolbar')
+    .selectAll('button')
+    .data(modes)
+    .enter()
+    .append('button')
+    .attr('id', (d) => 'btn-' + d.modeName);
+
+  buttons
+    .append('img')
+    .attr('src', (d) => d.icon)
+    .attr('class', 'toolbar-button');
+
+  buttons.append('div').text((d) => d.title);
+
+  buttons.on('click', (ev, d) => {
+    switchMode(d.modeObj);
+  });
+
+  //Other test functions
   function showGraphExport() {
     const json = cy.json();
     const jsonString = JSON.stringify(json, null, 4);
