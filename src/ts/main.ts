@@ -41,7 +41,7 @@ function main() {
     outputContainer: document.getElementById('output') as HTMLElement,
   };
 
-  const modes = [
+  const toolbarModes = [
     {
       modeName: 'modeNull',
       title: 'Pointer',
@@ -75,7 +75,22 @@ function main() {
     },
   ];
 
-  let currentMode = modes[0].modeObj;
+  const infoboxModes = [
+    {
+      modeName: 'modeGirth',
+      title: 'Girth',
+      icon: iconGirth,
+      modeObj: new ModeGirth(cy, parameters),
+    },
+    {
+      modeName: 'modeGirth',
+      title: 'Girth',
+      icon: iconGirth,
+      modeObj: new ModeGirth(cy, parameters),
+    },
+  ];
+
+  let currentMode = toolbarModes[0].modeObj;
   currentMode.activateMode();
 
   function switchMode(newMode: Mode) {
@@ -88,7 +103,7 @@ function main() {
   let buttons = d3
     .select('#toolbar')
     .selectAll('button')
-    .data(modes)
+    .data(toolbarModes)
     .enter()
     .append('button')
     .attr('id', (d) => 'btn-' + d.modeName);
@@ -103,6 +118,17 @@ function main() {
   buttons.on('click', (ev, d) => {
     switchMode(d.modeObj);
   });
+
+  //Make toolbar buttons
+  let infoboxItems = d3
+    .select('#infobox')
+    .selectAll('div')
+    .data(infoboxModes)
+    .enter()
+    .append('div')
+    .attr('id', (d) => 'infoItem-' + d.modeName)
+    .attr('class', 'infoItem active')
+    .text((d) => d.title);
 
   //Other test functions
   function showGraphExport() {
