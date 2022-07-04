@@ -15,6 +15,8 @@ import ModeNode from './ModeNode';
 import ModeEdge from './ModeEdge';
 import ModeDijkstra from './ModeDijkstra';
 import ModeGirth from './ModeGirth';
+import ModeNumNodes from './ModeNumNodes';
+import ModeNumEdges from './ModeNumEdges';
 
 // All this is because Parcel must find the dependencies and add a hash to the name.
 // This is cumbersome and breaks the TS compiler.
@@ -33,12 +35,14 @@ function main() {
     ...cloneDeep(cyOptions),
     ...{ container: document.getElementById('cy') },
   });
-  // window.cy = cy; //useful for debug
+  window.cy = cy; //useful for debug
+  window.d3 = d3;
 
   const parameters = {
     idNodeCount: 1,
     idEdgeCount: 1,
     outputContainer: document.getElementById('output') as HTMLElement,
+    callbackGraphUpdated: updateInfo,
   };
 
   const toolbarModes = [
@@ -67,20 +71,20 @@ function main() {
       icon: iconDijkstra,
       modeObj: new ModeDijkstra(cy, parameters),
     },
-    {
-      modeName: 'modeGirth',
-      title: 'Girth',
-      icon: iconGirth,
-      modeObj: new ModeGirth(cy, parameters),
-    },
   ];
 
   const infoboxModes = [
     {
-      modeName: 'modeGirth',
-      title: 'Girth',
+      modeName: 'modeNumNodes',
+      title: 'Order',
       icon: iconGirth,
-      modeObj: new ModeGirth(cy, parameters),
+      modeObj: new ModeNumNodes(cy, parameters),
+    },
+    {
+      modeName: 'modeNumEdges',
+      title: 'Size',
+      icon: iconGirth,
+      modeObj: new ModeNumEdges(cy, parameters),
     },
     {
       modeName: 'modeGirth',
@@ -90,13 +94,23 @@ function main() {
     },
   ];
 
-  let currentMode = toolbarModes[0].modeObj;
-  currentMode.activateMode();
+  const modeNull = toolbarModes[0].modeObj;
+  let primaryMode = modeNull;
+  let secondaryMode = infoboxModes[0].modeObj;
 
-  function switchMode(newMode: Mode) {
-    currentMode.deactivateMode();
-    currentMode = newMode;
-    currentMode.activateMode();
+  primaryMode.activate();
+  secondaryMode.activate();
+
+  function switchPrimaryMode(newMode: Mode) {
+    primaryMode.deactivate();
+    primaryMode = newMode;
+    primaryMode.activate();
+  }
+
+  function switchSecondaryMode(newMode: Mode) {
+    secondaryMode.deactivate();
+    secondaryMode = newMode;
+    secondaryMode.activate();
   }
 
   //Make toolbar buttons
@@ -111,33 +125,64 @@ function main() {
   buttons
     .append('img')
     .attr('src', (d) => d.icon)
-    .attr('class', 'toolbar-button');
+    .classed('toolbar-button', true);
 
   buttons.append('div').text((d) => d.title);
 
   buttons.on('click', (ev, d) => {
-    switchMode(d.modeObj);
+    switchPrimaryMode(d.modeObj);
   });
 
-  //Make toolbar buttons
-  let infoboxItems = d3
-    .select('#infobox')
-    .selectAll('div')
-    .data(infoboxModes)
-    .enter()
-    .append('div')
-    .attr('id', (d) => 'infoItem-' + d.modeName)
-    .attr('class', 'infoItem active')
-    .text((d) => d.title);
+  //Make infobox items
+  function updateInfo() {
+    let infoboxItems = d3
+      .select('#infobox')
+      .selectAll('div')
+      .data(infoboxModes);
 
-  //Other test functions
-  function showGraphExport() {
-    const json = cy.json();
-    const jsonString = JSON.stringify(json, null, 4);
-    $('#outputText').text(jsonString);
+    let newItems = infoboxItems
+      .enter()
+      .append('div')
+      .attr('id', (d) => 'infoItem-' + d.modeName)
+      .classed('infoItem', true);
+
+    newItems.append('pre'); //container for preformatted text
+
+    newItems.on('click', function (ev, d) {
+      if (d.modeObj === secondaryMode) {
+        switchSecondaryMode(modeNull);
+        d3.select(this).classed('infoItemActive', false);
+      } else {
+        switchSecondaryMode(d.modeObj);
+        d3.select('.infoItemActive').classed('infoItemActive', false);
+        d3.select(this).classed('infoItemActive', true);
+      }
+    });
+
+    // update selection
+    infoboxItems
+      .merge(newItems)
+      .select('pre')
+      .text((d) => d.modeObj.infobox());
+
+    // if (!d3.select('.infoItemActive').empty()) {
+    //   d3.select('.infoItemActive').datum().modeObj.render();
+    if (secondaryMode != modeNull) {
+      secondaryMode.render();
+    }
   }
 
-  $('#showJSON').on('click', showGraphExport);
+  updateInfo();
+  d3.select('.infoItem').classed('infoItemActive', true);
+
+  // //Other test functions
+  // function showGraphExport() {
+  //   const json = cy.json();
+  //   const jsonString = JSON.stringify(json, null, 4);
+  //   $('#outputText').text(jsonString);
+  // }
+
+  // $('#showJSON').on('click', showGraphExport);
 }
 
 ready(main);

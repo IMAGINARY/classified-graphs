@@ -1,7 +1,7 @@
 import { Core } from 'cytoscape';
 import { Mode, Parameters } from './modes';
 
-export default class ModeGirth implements Mode {
+export default class ModeNumEdges implements Mode {
   cy;
 
   parameters;
@@ -17,13 +17,11 @@ export default class ModeGirth implements Mode {
 
   render = () => {
     this.cy.elements().removeClass('highlighted');
-    const girth = this.cy.elements().invariants().girth();
-    girth.addClass('highlighted');
+    this.cy.elements().edges().addClass('highlighted');
   };
 
   infobox = () => {
-    const girth = this.cy.elements().invariants().girth();
-    return `Girth: ${girth.edges().length}`;
+    return `Size: ${this.cy.elements().edges().size()}`;
   };
 
   deactivate = () => {
