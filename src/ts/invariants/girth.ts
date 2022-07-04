@@ -25,12 +25,16 @@ function girth(collection: Collection): CollectionReturnValue {
   const backEdges = spanningTree.absoluteComplement().edges();
 
   const cycles = backEdges.map((backEdge) => {
-    const fWWeight = (e: EdgeCollection): number =>
+    const edgeWeights = (e: EdgeCollection): number =>
       backEdge === e ? Number.POSITIVE_INFINITY : 1;
 
-    const fW = collection.floydWarshall({ weight: fWWeight });
+    const aS = collection.aStar({
+      root: backEdge.source(),
+      goal: backEdge.target(),
+      weight: edgeWeights,
+    });
 
-    return fW.path(backEdge.source(), backEdge.target()).union(backEdge);
+    return aS.path.union(backEdge);
   });
 
   const noCycle = {
