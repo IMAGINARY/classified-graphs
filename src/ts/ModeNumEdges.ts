@@ -11,20 +11,20 @@ export default class ModeNumEdges implements Mode {
     this.parameters = parameters;
   }
 
-  activate = () => {
+  activate() {
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     this.cy.elements().removeClass('highlighted');
     this.cy.elements().edges().addClass('highlighted');
-  };
+  }
 
-  infobox = () => {
+  infobox() {
     return `Size: ${this.cy.elements().edges().size()}`;
-  };
+  }
 
-  deactivate = () => {
+  deactivate() {
     this.cy.elements().removeClass('highlighted');
-  };
+  }
 }

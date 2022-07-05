@@ -11,20 +11,20 @@ export default class ModeNumNodes implements Mode {
     this.parameters = parameters;
   }
 
-  activate = () => {
+  activate() {
     this.render();
-  };
+  }
 
-  render = () => {
+  render() {
     this.cy.elements().removeClass('highlighted');
     this.cy.elements().nodes().addClass('highlighted');
-  };
+  }
 
-  infobox = () => {
+  infobox() {
     return `Order: ${this.cy.elements().nodes().size()}`;
-  };
+  }
 
-  deactivate = () => {
+  deactivate() {
     this.cy.elements().removeClass('highlighted');
-  };
+  }
 }

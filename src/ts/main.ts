@@ -1,9 +1,13 @@
-import $ from 'jquery';
 import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
-import * as d3 from 'd3';
+
+/**
+ * d3 is huge. Do you really need the full library?
+ * Consider using the much smaller sub-libraries, such as d3/selection.
+ */
+import d3 from 'd3-selection';
 
 import { cyOptions } from './constants';
 
@@ -16,16 +20,36 @@ import ModeEdge from './ModeEdge';
 import ModeDijkstra from './ModeDijkstra';
 import ModeGirth from './ModeGirth';
 import ModeNumNodes from './ModeNumNodes';
-import ModeNumEdges from './ModeNumEdges';
+import ModeNumEdges from './ModeNumEdges'; // ModeNumEdges -> ES Module
 
-// All this is because Parcel must find the dependencies and add a hash to the name.
-// This is cumbersome and breaks the TS compiler.
-// isn't there a simpler way to reference an image????!!!!
-import iconPointer from '../img/pointer.svg';
-import iconNode from '../img/node.svg';
-import iconEdge from '../img/edge.svg';
-import iconDijkstra from '../img/dijkstra.svg';
-import iconGirth from '../img/dijkstra.svg';
+import * as assets from './assets';
+
+/**
+ * Specify types of global variables that are not yet defined on 'window'.
+ * Technically, this declaration is not correct, because the variables are
+ * only defined in main, but not before it is executed. The correct way would be
+ * ```
+ * declare global {
+ *   interface Window {
+ *     cy: cytoscape.Core | undefined;
+ *     d3: typeof d3 | undefined;
+ *   }
+ * }
+ * ```
+ * But then you would need to check for 'undefined' everywhere in your code
+ * where the global variables are used, which is quite cumbersome for debugging.
+ *
+ * A cleaner way would to do it would be to define a method on window that returns
+ * a promise that resolves with cy after main is executed.
+ * Similar to navigator.requestMIDIAccess().
+ */
+declare global {
+  interface Window {
+    cy: cytoscape.Core;
+    d3: typeof d3;
+  }
+}
+window.d3 = d3;
 
 cytoscape.use(edgehandles);
 cytoscape.use(invariants);
@@ -35,68 +59,82 @@ function main() {
     ...cloneDeep(cyOptions),
     ...{ container: document.getElementById('cy') },
   });
-  window.cy = cy; //useful for debug
-  window.d3 = d3;
+
+  // After this, window.cy is shadowing the function-local cy.
+  // This is because the globalThis pointer refers to 'window' in the browser environment.
+  // Both have no type assigned on the window object.
+  // Same for the global vs. local d3 object.
+  window.cy = cy;
 
   const parameters = {
     idNodeCount: 1,
     idEdgeCount: 1,
     outputContainer: document.getElementById('output') as HTMLElement,
     callbackGraphUpdated: updateInfo,
+    /**
+     *  Argh!!! updateInfo is used before it is defined!
+     *  Better approach: use events and register callbacks on the mode after updateInfo is defined.
+     */
   };
 
-  const toolbarModes = [
+  type ModeConfig = {
+    modeName: string;
+    title: string;
+    icon: string;
+    modeObj: Mode;
+  };
+
+  const toolbarModes: ModeConfig[] = [
     {
       modeName: 'modeNull',
       title: 'Pointer',
-      //icon: '../img/pointer.svg'
-      icon: iconPointer, //Why the hell can't I use the images normally??!!
+      icon: assets.iconPointer,
       modeObj: new ModeNull(cy, parameters),
     },
     {
       modeName: 'modeNode',
       title: 'Nodes',
-      icon: iconNode,
+      icon: assets.iconNode,
       modeObj: new ModeNode(cy, parameters),
     },
     {
       modeName: 'modeEdge',
       title: 'Edges',
-      icon: iconEdge,
+      icon: assets.iconEdge,
       modeObj: new ModeEdge(cy, parameters),
     },
     {
       modeName: 'modeDijkstra',
       title: 'Shortest path',
-      icon: iconDijkstra,
+      icon: assets.iconDijkstra,
       modeObj: new ModeDijkstra(cy, parameters),
     },
   ];
 
-  const infoboxModes = [
+  const infoboxModes: ModeConfig[] = [
     {
       modeName: 'modeNumNodes',
       title: 'Order',
-      icon: iconGirth,
+      icon: assets.iconGirth,
       modeObj: new ModeNumNodes(cy, parameters),
     },
     {
       modeName: 'modeNumEdges',
       title: 'Size',
-      icon: iconGirth,
+      icon: assets.iconGirth,
       modeObj: new ModeNumEdges(cy, parameters),
     },
     {
       modeName: 'modeGirth',
       title: 'Girth',
-      icon: iconGirth,
+      icon: assets.iconGirth,
       modeObj: new ModeGirth(cy, parameters),
     },
   ];
 
   const modeNull = toolbarModes[0].modeObj;
-  let primaryMode = modeNull;
-  let secondaryMode = infoboxModes[0].modeObj;
+  let primaryMode: Mode = modeNull;
+  let secondaryMode: Mode = infoboxModes[0].modeObj;
 
   primaryMode.activate();
   secondaryMode.activate();
@@ -113,14 +151,14 @@ function main() {
     secondaryMode.activate();
   }
 
-  //Make toolbar buttons
-  let buttons = d3
+  // Make toolbar buttons
+  const buttons = d3
     .select('#toolbar')
     .selectAll('button')
     .data(toolbarModes)
     .enter()
     .append('button')
-    .attr('id', (d) => 'btn-' + d.modeName);
+    .attr('id', (d) => `btn-${d.modeName}`);
 
   buttons
     .append('img')
@@ -133,29 +171,32 @@ function main() {
     switchPrimaryMode(d.modeObj);
   });
 
-  //Make infobox items
+  // Make infobox items
   function updateInfo() {
-    let infoboxItems = d3
+    const infoboxItems = d3
       .select('#infobox')
-      .selectAll('div')
+      .selectAll<HTMLDivElement, unknown>('div')
       .data(infoboxModes);
 
-    let newItems = infoboxItems
+    const newItems = infoboxItems
       .enter()
       .append('div')
-      .attr('id', (d) => 'infoItem-' + d.modeName)
+      .attr('id', (d) => `infoItem-${d.modeName}`)
       .classed('infoItem', true);
 
-    newItems.append('pre'); //container for preformatted text
+    newItems.append('pre'); // container for preformatted text
 
-    newItems.on('click', function (ev, d) {
-      if (d.modeObj === secondaryMode) {
-        switchSecondaryMode(modeNull);
-        d3.select(this).classed('infoItemActive', false);
-      } else {
-        switchSecondaryMode(d.modeObj);
-        d3.select('.infoItemActive').classed('infoItemActive', false);
-        d3.select(this).classed('infoItemActive', true);
+    newItems.on('click', (ev: MouseEvent, d) => {
+      const target = ev.currentTarget;
+      if (target instanceof Element) {
+        if (d.modeObj === secondaryMode) {
+          switchSecondaryMode(modeNull);
+          d3.select(target).classed('infoItemActive', false);
+        } else {
+          switchSecondaryMode(d.modeObj);
+          d3.select('.infoItemActive').classed('infoItemActive', false);
+          d3.select(target).classed('infoItemActive', true);
+        }
       }
     });
 
@@ -167,7 +208,7 @@ function main() {
 
     // if (!d3.select('.infoItemActive').empty()) {
     //   d3.select('.infoItemActive').datum().modeObj.render();
-    if (secondaryMode != modeNull) {
+    if (secondaryMode !== modeNull) {
       secondaryMode.render();
     }
   }
