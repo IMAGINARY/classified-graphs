@@ -12,7 +12,6 @@ import { Mode } from './modes';
 import ModeNull from './ModeNull';
 import ModeNode from './ModeNode';
 import ModeEdge from './ModeEdge';
-import ModeDijkstra from './ModeDijkstra';
 import ModeGirth from './ModeGirth';
 import ModeNumNodes from './ModeNumNodes';
 import ModeNumEdges from './ModeNumEdges'; // ModeNumEdges -> ES Module
@@ -92,12 +91,6 @@ function main() {
       title: 'Edges',
       icon: assets.iconEdge,
       modeObj: new ModeEdge(cy, parameters),
-    },
-    {
-      modeName: 'modeDijkstra',
-      title: 'Shortest path',
-      icon: assets.iconDijkstra,
-      modeObj: new ModeDijkstra(cy, parameters),
     },
   ];
 
