@@ -2,11 +2,6 @@ import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
-
-/**
- * d3 is huge. Do you really need the full library?
- * Consider using the much smaller sub-libraries, such as d3/selection.
- */
 import * as d3 from 'd3-selection';
 
 import { cyOptions } from './constants';
@@ -70,11 +65,6 @@ function main() {
     idNodeCount: 1,
     idEdgeCount: 1,
     outputContainer: document.getElementById('output') as HTMLElement,
-    callbackGraphUpdated: updateInfo,
-    /**
-     *  Argh!!! updateInfo is used before it is defined!
-     *  Better approach: use events and register callbacks on the mode after updateInfo is defined.
-     */
   };
 
   type ModeConfig = {
@@ -212,6 +202,8 @@ function main() {
       secondaryMode.render();
     }
   }
+
+  cy.on('cm-graph-updated', updateInfo);
 
   updateInfo();
   d3.select('.infoItem').classed('infoItemActive', true);

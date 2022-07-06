@@ -38,8 +38,8 @@ export default class ModeEdge implements Mode {
     ) => {
       // allow dragging of the source node again
       sourceNode.grabify();
-      //it is safe to update the invariants (ghost nodes/edges are removed)
-      this.parameters.callbackGraphUpdated();
+      // it is safe to update the invariants (ghost nodes/edges are removed)
+      this.cy.emit('cm-graph-updated');
     };
 
     const handleEdgeHandlesComplete = () => {
@@ -49,7 +49,7 @@ export default class ModeEdge implements Mode {
 
     const handleTapOnEdge = (event: EventObject) => {
       (event.target as NodeSingular).remove();
-      this.parameters.callbackGraphUpdated();
+      this.cy.emit('cm-graph-updated');
     };
 
     this.cy.on('tapstart', 'node', handleTapStartOnNode);
@@ -58,8 +58,10 @@ export default class ModeEdge implements Mode {
     this.cy.on('tap', 'edge', handleTapOnEdge);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   render() {}
 
+  // eslint-disable-next-line class-methods-use-this
   infobox(): string {
     return '';
   }

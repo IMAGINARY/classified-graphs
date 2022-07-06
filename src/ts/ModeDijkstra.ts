@@ -57,8 +57,10 @@ export default class ModeDijkstra implements Mode {
     this.cy.on('tap', 'node', handleTapOnNode);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   render() {}
 
+  // eslint-disable-next-line class-methods-use-this
   infobox(): string {
     return '';
   }

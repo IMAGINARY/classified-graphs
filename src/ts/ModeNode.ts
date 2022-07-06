@@ -25,18 +25,20 @@ export default class ModeNode implements Mode {
       // click on background to add a node, click on node to remove it.
       if (event.target === this.cy) {
         addNode(event.position);
-        this.parameters.callbackGraphUpdated();
+        this.cy.emit('cm-graph-updated');
       } else if ((event.target as Singular).isNode()) {
         (event.target as Singular).remove();
-        this.parameters.callbackGraphUpdated();
+        this.cy.emit('cm-graph-updated');
       }
     };
 
     this.cy.on('tap', handleTap);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   render() {}
 
+  // eslint-disable-next-line class-methods-use-this
   infobox(): string {
     return '';
   }

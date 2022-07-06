@@ -4,7 +4,6 @@ interface Parameters {
   idNodeCount: number;
   idEdgeCount: number;
   outputContainer: HTMLElement;
-  callbackGraphUpdated: () => unknown;
 }
 
 // A "Mode" is anything that interacts with the graph.
