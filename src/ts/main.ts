@@ -1,3 +1,4 @@
+import assert from 'assert';
 import cytoscape from 'cytoscape';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
@@ -243,3 +244,73 @@ function main() {
 }
 
 ready(main);
+
+// TODO: port this over to the real info box and connect the graph invariants.
+function accordionTest() {
+  const accordionElem = document.getElementById('accordionExample');
+  assert(accordionElem !== null);
+
+  const itemsIds = [0, 1, 2, 3];
+  const accordionItemTemplate = document.querySelector<HTMLTemplateElement>(
+    '#info-box-item-template',
+  );
+  assert(accordionItemTemplate !== null);
+  const accordionItemElems = itemsIds.map((i) => {
+    const itemElemTemplate =
+      accordionItemTemplate.content.querySelector<HTMLDivElement>(
+        '.accordion-item',
+      );
+    assert(itemElemTemplate !== null);
+    const itemElem = itemElemTemplate.cloneNode(
+      true,
+    ) as typeof itemElemTemplate;
+    itemElem.id = `info-box-item-${i}`;
+
+    const itemHeaderElem = itemElem.querySelector('.accordion-header');
+    assert(itemHeaderElem !== null);
+    itemHeaderElem.id = `${itemElem.id}-header`;
+
+    const itemButtonElem = itemElem.querySelector('.accordion-button');
+    assert(itemButtonElem !== null);
+    itemButtonElem.id = `${itemElem.id}-button`;
+
+    const itemCollapseElem = itemElem.querySelector('.accordion-collapse');
+    assert(itemCollapseElem !== null);
+    itemCollapseElem.id = `${itemElem.id}-collapse`;
+
+    // These attributes are needed for the bootstrap Accordion to function properly
+    itemButtonElem.setAttribute('data-bs-target', `#${itemCollapseElem.id}`);
+    itemCollapseElem.setAttribute('data-bs-parent', `#${accordionElem.id}`);
+
+    // These attributes aid site accessibility
+    itemButtonElem.setAttribute('aria-controls', itemCollapseElem.id);
+    itemCollapseElem.setAttribute('aria-labelledby', itemHeaderElem.id);
+
+    /**
+     * Useful event handlers. Remove if not needed.
+     * Check out the other events at https://getbootstrap.com/docs/5.1/components/collapse/#events
+     * Note that the show event of the activated element is fired before the hide event of the deactivated element.
+     * When changing CSS properties of the graph upon activation/deactivation, the properties should be changed
+     * through prefixed CSS classes such that it is possible to add the new classes before removing the old.
+     * This "wrong order" will not be visible to the user, since both events will be fired in the same animation frame.
+     */
+    itemCollapseElem.addEventListener('hide.bs.collapse', () =>
+      // eslint-disable-next-line no-console
+      console.log(`Deactivating ${itemElem.id}`),
+    );
+    itemCollapseElem.addEventListener('show.bs.collapse', () =>
+      // eslint-disable-next-line no-console
+      console.log(`Activating ${itemElem.id}`),
+    );
+
+    return itemElem;
+  });
+
+  accordionElem.append(...accordionItemElems);
+}
+
+function bootstrapTest() {
+  accordionTest();
+}
+
+ready(bootstrapTest);
