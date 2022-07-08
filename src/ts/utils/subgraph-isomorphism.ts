@@ -55,7 +55,7 @@ function hasNodesOfSameDegree(host: Collection, guest: Collection): boolean {
   return degreeInconsistency === 0;
 }
 
-function failEarlyNoSubgraph(host: Collection, guest: Collection): boolean {
+function failEarly(host: Collection, guest: Collection): boolean {
   return (
     !numNodesEqual(host, guest) ||
     !numEdgesEqual(host, guest) ||
@@ -82,7 +82,7 @@ export default function isomorphisms(
     ...options,
   };
 
-  if (!subgraph && failEarlyNoSubgraph(host, guest)) return [];
+  if (!subgraph && failEarly(host, guest)) return [];
 
   const adjacencyMatrixHost = adjacencyMatrix(
     host,
