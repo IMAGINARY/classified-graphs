@@ -12,8 +12,16 @@ export default class ModeNull implements Mode {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  activateMode = () => {};
+  activate = () => {};
 
   // eslint-disable-next-line class-methods-use-this
-  deactivateMode = () => {};
+  render() {}
+
+  // eslint-disable-next-line class-methods-use-this
+  infobox(): string {
+    return '';
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  deactivate = () => {};
 }

@@ -44,10 +44,12 @@
   "dependencies": {
     "@types/cytoscape": "^3.19.4",
     "@types/cytoscape-edgehandles": "^4.0.0",
+    "@types/d3-selection": "^3.0.2",
     "@types/document-ready": "^2.0.0",
     "@types/jquery": "^3.5.14",
     "cytoscape": "^3.21.1",
     "cytoscape-edgehandles": "^4.0.1",
+    "d3-selection": "^3.0.0",
     "document-ready": "^2.0.2",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21"

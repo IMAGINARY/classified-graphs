@@ -11,16 +11,22 @@ export default class ModeGirth implements Mode {
     this.parameters = parameters;
   }
 
-  activateMode = () => {
-    const girth = this.cy.elements().invariants().girth();
-    girth.addClass('highlighted');
-    this.parameters.outputContainer.textContent = `Girth: ${
-      girth.edges().length
-    }`;
+  activate = () => {
+    this.render();
   };
 
-  deactivateMode = () => {
-    this.parameters.outputContainer.textContent = '';
+  render = () => {
+    this.cy.elements().removeClass('highlighted');
+    const girth = this.cy.elements().invariants().girth();
+    girth.addClass('highlighted');
+  };
+
+  infobox = () => {
+    const girth = this.cy.elements().invariants().girth();
+    return `Girth: ${girth.edges().length}`;
+  };
+
+  deactivate = () => {
     this.cy.elements().removeClass('highlighted');
   };
 }

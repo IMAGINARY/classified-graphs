@@ -11,7 +11,7 @@ export default class ModeEdge implements Mode {
     this.parameters = parameters;
   }
 
-  activateMode() {
+  activate() {
     const edgeHandlesOptions = {
       edgeParams: () => ({ data: { id: `E${this.parameters.idEdgeCount}` } }),
 
@@ -38,14 +38,18 @@ export default class ModeEdge implements Mode {
     ) => {
       // allow dragging of the source node again
       sourceNode.grabify();
+      // it is safe to update the invariants (ghost nodes/edges are removed)
+      this.cy.emit('cm-graph-updated');
     };
 
     const handleEdgeHandlesComplete = () => {
       // a new edge has been added -> increment the edge id counter
       this.parameters.idEdgeCount += 1;
     };
+
     const handleTapOnEdge = (event: EventObject) => {
       (event.target as NodeSingular).remove();
+      this.cy.emit('cm-graph-updated');
     };
 
     this.cy.on('tapstart', 'node', handleTapStartOnNode);
@@ -54,7 +58,15 @@ export default class ModeEdge implements Mode {
     this.cy.on('tap', 'edge', handleTapOnEdge);
   }
 
-  deactivateMode() {
+  // eslint-disable-next-line class-methods-use-this
+  render() {}
+
+  // eslint-disable-next-line class-methods-use-this
+  infobox(): string {
+    return '';
+  }
+
+  deactivate() {
     this.cy.removeListener('tapstart');
     this.cy.removeListener('ehstop');
     this.cy.removeListener('ehcomplete');

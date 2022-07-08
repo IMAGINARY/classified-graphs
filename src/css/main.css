@@ -1,6 +1,30 @@
 #cy {
-  width: 100%;
+  width: 70%;
   height: 700px;
+  display: inline-block;
+  border: 2px solid black;
+}
+
+#infobox {
+  width: 29%;
+  height: 300px;
+  vertical-align: top;
+  display: inline-block;
+  border: 2px solid green;
+}
+
+.infoItem {
   display: block;
-  border: 2px solid black ;
+  padding: 3px;
+  margin: 2px;
+  border: 1px solid blue;
+}
+
+.infoItemActive {
+  background-color: aquamarine;
+}
+
+.toolbar-button {
+  width: 60px;
+  height: 30px;
 }

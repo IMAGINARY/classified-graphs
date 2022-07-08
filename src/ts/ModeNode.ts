@@ -11,7 +11,7 @@ export default class ModeNode implements Mode {
     this.parameters = parameters;
   }
 
-  activateMode() {
+  activate() {
     const addNode = (position: Position) => {
       this.cy.add({
         group: 'nodes',
@@ -25,15 +25,25 @@ export default class ModeNode implements Mode {
       // click on background to add a node, click on node to remove it.
       if (event.target === this.cy) {
         addNode(event.position);
+        this.cy.emit('cm-graph-updated');
       } else if ((event.target as Singular).isNode()) {
         (event.target as Singular).remove();
+        this.cy.emit('cm-graph-updated');
       }
     };
 
     this.cy.on('tap', handleTap);
   }
 
-  deactivateMode() {
+  // eslint-disable-next-line class-methods-use-this
+  render() {}
+
+  // eslint-disable-next-line class-methods-use-this
+  infobox(): string {
+    return '';
+  }
+
+  deactivate() {
     this.cy.removeListener('tap');
   }
 }

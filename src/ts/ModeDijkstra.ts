@@ -26,7 +26,7 @@ export default class ModeDijkstra implements Mode {
     this.dijkstraPath = this.cy.collection();
   }
 
-  activateMode() {
+  activate() {
     const handleTapOnNode = (event: EventObject) => {
       if (this.selecting === 0) {
         this.source = event.target as NodeSingular;
@@ -57,7 +57,15 @@ export default class ModeDijkstra implements Mode {
     this.cy.on('tap', 'node', handleTapOnNode);
   }
 
-  deactivateMode() {
+  // eslint-disable-next-line class-methods-use-this
+  render() {}
+
+  // eslint-disable-next-line class-methods-use-this
+  infobox(): string {
+    return '';
+  }
+
+  deactivate() {
     this.source = {} as NodeSingular;
     this.target = {} as NodeSingular;
     this.cy.elements().removeClass('highlighted');
