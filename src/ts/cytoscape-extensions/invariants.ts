@@ -1,9 +1,9 @@
 /* eslint @typescript-eslint/no-namespace: ['error', { allowDeclarations: true }] */
 import cytoscape, { Collection } from 'cytoscape';
 
-import girth from './invariants/girth';
-import circuitRank from './invariants/circuitRank';
-import diameter from './invariants/diameter';
+import girth from '../invariants/girth';
+import circuitRank from '../invariants/circuitRank';
+import diameter from '../invariants/diameter';
 
 class Invariants {
   protected collection: Collection;

@@ -8,3 +8,11 @@
  * Hence, we import such modules as a whole here such that we don't need to care
  * about it anywhere else in the code.
  */
+
+import cytoscape from 'cytoscape';
+import edgehandles from 'cytoscape-edgehandles';
+
+import invariants from './cytoscape-extensions/invariants';
+
+cytoscape.use(edgehandles);
+cytoscape.use(invariants);

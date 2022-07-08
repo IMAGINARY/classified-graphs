@@ -1,5 +1,4 @@
 import cytoscape from 'cytoscape';
-import edgehandles from 'cytoscape-edgehandles';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
 import * as d3 from 'd3-selection';
@@ -7,8 +6,6 @@ import * as d3 from 'd3-selection';
 import './side-effects';
 
 import { cyOptions } from './constants';
-
-import invariants from './invariants';
 
 import { Mode } from './modes';
 import ModeNull from './ModeNull';
@@ -51,9 +48,6 @@ declare global {
   }
 }
 window.d3 = d3;
-
-cytoscape.use(edgehandles);
-cytoscape.use(invariants);
 
 function main() {
   const cy = cytoscape({
