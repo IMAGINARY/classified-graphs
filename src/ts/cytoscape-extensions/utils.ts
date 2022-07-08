@@ -1,11 +1,19 @@
 /* eslint @typescript-eslint/no-namespace: ['error', { allowDeclarations: true }] */
 import cytoscape, { Collection } from 'cytoscape';
 
+import { adjacencyMatrix } from '../util';
+
 class Utils {
   protected collection: Collection;
 
   constructor(collection: Collection) {
     this.collection = collection;
+  }
+
+  adjacencyMatrix(
+    indexOf: Parameters<typeof adjacencyMatrix>[1],
+  ): ReturnType<typeof adjacencyMatrix> {
+    return adjacencyMatrix(this.collection, indexOf);
   }
 }
 
