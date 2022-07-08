@@ -1,11 +1,16 @@
 import { NodeSingular, Collection } from 'cytoscape';
 
-type NodeIndexMapper = (n: NodeSingular) => number;
+export type NodeIndexMapper = (n: NodeSingular) => number;
 
 function createNodeIndexDefault(collection: Collection): NodeIndexMapper {
   const nodes = collection.nodes();
-  const map = new Map<NodeSingular, number>(nodes.map((n, i) => [n, i]));
-  return (n) => map.get(n) ?? -1;
+  const map = new Map<string, number>(nodes.map((n, i) => [n.id(), i]));
+  return (n) => {
+    const idx = map.get(n.id());
+    if (typeof idx === 'undefined')
+      throw new RangeError(`Unknown node: ${n.json()}`);
+    return idx;
+  };
 }
 
 function adjacencyMatrix(
@@ -23,10 +28,15 @@ function adjacencyMatrix(
     .map(() => new Array<boolean>(numNodes).fill(false));
 
   collection.edges().forEach((e) => {
-    const i = indexOfNode(e.source());
-    const j = indexOfNode(e.target());
-    m[i][j] = true;
-    m[j][i] = true;
+    const source = e.source();
+    const target = e.target();
+
+    if (source.isNode() && target.isNode()) {
+      const i = indexOfNode(e.source());
+      const j = indexOfNode(e.target());
+      m[i][j] = true;
+      m[j][i] = true;
+    }
   });
 
   return m;
