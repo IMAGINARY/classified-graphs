@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { NodeSingular, Collection } from 'cytoscape';
 
 type NodeIndexMapper = (n: NodeSingular) => number;
@@ -33,4 +32,4 @@ function adjacencyMatrix(
   return m;
 }
 
-export { adjacencyMatrix };
+export default adjacencyMatrix;
