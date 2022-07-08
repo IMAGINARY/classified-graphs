@@ -1,7 +1,7 @@
 /* eslint @typescript-eslint/no-namespace: ['error', { allowDeclarations: true }] */
 import cytoscape, { Collection } from 'cytoscape';
 
-import { adjacencyMatrix } from '../util';
+import adjacencyMatrix from '../utils/adjacency-matrix';
 
 class Utils {
   protected collection: Collection;
