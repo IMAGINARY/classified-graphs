@@ -16,6 +16,7 @@ import ModeDijkstra from './ModeDijkstra';
 import ModeGirth from './ModeGirth';
 import ModeNumNodes from './ModeNumNodes';
 import ModeNumEdges from './ModeNumEdges'; // ModeNumEdges -> ES Module
+import ModeDegSequence from './ModeDegSequence';
 
 import * as assets from './assets';
 
@@ -119,6 +120,12 @@ function main() {
       title: 'Girth',
       icon: assets.iconGirth,
       modeObj: new ModeGirth(cy, parameters),
+    },
+    {
+      modeName: 'modeDegSequence',
+      title: 'Degree sequence:',
+      icon: assets.iconGirth,
+      modeObj: new ModeDegSequence(cy, parameters),
     },
   ];
 
