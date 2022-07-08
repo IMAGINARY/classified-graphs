@@ -27,6 +27,7 @@
     "@types/lodash": "^4.14",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
+    "assert": "^2.0.0",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-typescript": "^16.1.2",
     "eslint-config-prettier": "^8.5.0",
@@ -52,7 +53,8 @@
     "d3-selection": "^3.0.0",
     "document-ready": "^2.0.2",
     "jquery": "^3.6.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "subgraph-isomorphism": "^1.0.0"
   },
   "scripts": {
     "serve": "parcel serve --dist-dir dist-dev ./src/html/index.html",

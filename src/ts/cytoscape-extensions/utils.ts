@@ -1,7 +1,10 @@
 /* eslint @typescript-eslint/no-namespace: ['error', { allowDeclarations: true }] */
 import cytoscape, { Collection } from 'cytoscape';
 
-import adjacencyMatrix from '../utils/adjacency-matrix';
+import adjacencyMatrix, { NodeIndexMapper } from '../utils/adjacency-matrix';
+import isomorphisms from '../utils/subgraph-isomorphism';
+
+const isomorphismsDefaultOptions = { maxNum: 1, subgraph: false };
 
 class Utils {
   protected collection: Collection;
@@ -14,6 +17,34 @@ class Utils {
     indexOf: Parameters<typeof adjacencyMatrix>[1],
   ): ReturnType<typeof adjacencyMatrix> {
     return adjacencyMatrix(this.collection, indexOf);
+  }
+
+  isomorphisms(
+    other: Collection,
+    options: {
+      indexOfNode?: NodeIndexMapper;
+      indexOfNodeOther?: NodeIndexMapper;
+      maxNum?: number;
+      subgraph?: boolean;
+    } = isomorphismsDefaultOptions,
+  ): ReturnType<typeof isomorphisms> {
+    const host = this.collection;
+    const guest = other;
+
+    const {
+      indexOfNode: indexOfHost,
+      indexOfNodeOther: indexOfGuest,
+      maxNum,
+      subgraph,
+    } = { ...isomorphismsDefaultOptions, ...options };
+
+    const isomorphismsOptions = {
+      ...(typeof maxNum !== 'undefined' ? { maxNum } : {}),
+      ...(typeof subgraph !== 'undefined' ? { subgraph } : {}),
+      ...(typeof indexOfHost !== 'undefined' ? { indexOfHost } : {}),
+      ...(typeof indexOfGuest !== 'undefined' ? { indexOfGuest } : {}),
+    };
+    return isomorphisms(host, guest, isomorphismsOptions);
   }
 }
 
