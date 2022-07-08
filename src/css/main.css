@@ -7,7 +7,7 @@
 
 #infobox {
   width: 29%;
-  height: 300px;
+  /* height: 300px; */
   vertical-align: top;
   display: inline-block;
   border: 2px solid green;

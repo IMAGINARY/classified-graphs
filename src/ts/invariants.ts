@@ -2,6 +2,7 @@
 import cytoscape, { Collection } from 'cytoscape';
 
 import girth from './invariants/girth';
+import circuitRank from './invariants/circuitRank';
 
 class Invariants {
   protected collection: Collection;
@@ -12,6 +13,10 @@ class Invariants {
 
   girth(): ReturnType<typeof girth> {
     return girth(this.collection);
+  }
+
+  circuitRank(): ReturnType<typeof circuitRank> {
+    return circuitRank(this.collection);
   }
 }
 

@@ -18,6 +18,7 @@ import ModeNumNodes from './ModeNumNodes';
 import ModeNumEdges from './ModeNumEdges'; // ModeNumEdges -> ES Module
 import ModeDegSequence from './ModeDegSequence';
 import ModeComponents from './ModeComponents';
+import ModeCircuitRank from './ModeCircuitRank';
 
 import * as assets from './assets';
 
@@ -130,9 +131,15 @@ function main() {
     },
     {
       modeName: 'modeCompponents',
-      title: 'Connected Components:',
+      title: 'Connected components:',
       icon: assets.iconGirth,
       modeObj: new ModeComponents(cy, parameters),
+    },
+    {
+      modeName: 'modeCircuitRank',
+      title: 'Circuit rank:',
+      icon: assets.iconGirth,
+      modeObj: new ModeCircuitRank(cy, parameters),
     },
   ];
 
