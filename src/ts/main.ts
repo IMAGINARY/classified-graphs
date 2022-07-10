@@ -19,6 +19,7 @@ import ModeNumEdges from './ModeNumEdges'; // ModeNumEdges -> ES Module
 import ModeDegSequence from './ModeDegSequence';
 import ModeComponents from './ModeComponents';
 import ModeCircuitRank from './ModeCircuitRank';
+import ModeDiameter from './ModeDiameter';
 
 import * as assets from './assets';
 
@@ -140,6 +141,12 @@ function main() {
       title: 'Circuit rank:',
       icon: assets.iconGirth,
       modeObj: new ModeCircuitRank(cy, parameters),
+    },
+    {
+      modeName: 'modeDiameter',
+      title: 'Diameter:',
+      icon: assets.iconGirth,
+      modeObj: new ModeDiameter(cy, parameters),
     },
   ];
 

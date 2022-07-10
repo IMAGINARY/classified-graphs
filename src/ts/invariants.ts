@@ -3,6 +3,7 @@ import cytoscape, { Collection } from 'cytoscape';
 
 import girth from './invariants/girth';
 import circuitRank from './invariants/circuitRank';
+import diameter from './invariants/diameter';
 
 class Invariants {
   protected collection: Collection;
@@ -17,6 +18,10 @@ class Invariants {
 
   circuitRank(): ReturnType<typeof circuitRank> {
     return circuitRank(this.collection);
+  }
+
+  diameter(): ReturnType<typeof diameter> {
+    return diameter(this.collection);
   }
 }
 
