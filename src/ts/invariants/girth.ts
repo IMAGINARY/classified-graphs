@@ -4,10 +4,11 @@ import cytoscape, {
   CollectionReturnValue,
 } from 'cytoscape';
 
-// Grith of a graph
+// Girth of a graph
 //
 // Definition:
 // The girth of an undirected graph is the length of a shortest cycle contained in the graph.
+// If there are no cycles in the graph, the girth is defined to be infinity by convention.
 //
 // Algorithm:
 // 1. Compute a spanning tree (use kruskal() method).
@@ -20,7 +21,12 @@ import cytoscape, {
 // 4. The cycle length is this distance + 1
 // 5. Find the min cycle length
 
-function girth(collection: Collection): CollectionReturnValue {
+type GirthReturnValue = {
+  path: CollectionReturnValue;
+  value: number;
+};
+
+function girth(collection: Collection): GirthReturnValue {
   const spanningTree = collection.kruskal(() => 1);
   const backEdges = spanningTree.absoluteComplement().edges();
 
@@ -43,13 +49,10 @@ function girth(collection: Collection): CollectionReturnValue {
   };
 
   const minCycle = cycles
-    .map((cycle) => ({ cycle, length: cycle.size() }))
-    .reduce(
-      (acc, cycle) => (acc.length < cycle.length ? acc : cycle),
-      noCycle,
-    ).cycle;
+    .map((cycle) => ({ cycle, length: cycle.edges().size() }))
+    .reduce((acc, cycle) => (acc.length < cycle.length ? acc : cycle), noCycle);
 
-  return minCycle;
+  return { path: minCycle.cycle, value: minCycle.length };
 }
 
 export default girth;

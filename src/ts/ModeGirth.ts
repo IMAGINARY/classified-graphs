@@ -18,12 +18,12 @@ export default class ModeGirth implements Mode {
   render = () => {
     this.cy.elements().removeClass('highlighted');
     const girth = this.cy.elements().invariants().girth();
-    girth.addClass('highlighted');
+    girth.path.addClass('highlighted');
   };
 
   infobox = () => {
     const girth = this.cy.elements().invariants().girth();
-    return `Girth: ${girth.edges().length}`;
+    return `Girth: ${girth.value}`;
   };
 
   deactivate = () => {
