@@ -4,6 +4,8 @@ import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
 import * as d3 from 'd3-selection';
 
+import './side-effects';
+
 import { cyOptions } from './constants';
 
 import invariants from './invariants';
