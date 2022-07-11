@@ -9,6 +9,8 @@
  * about it anywhere else in the code.
  */
 
+import 'bootstrap';
+
 import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
 
