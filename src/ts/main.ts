@@ -190,7 +190,7 @@ function main() {
   function updateInfo() {
     const infoboxItems = d3
       .select('#infobox')
-      .selectAll<HTMLDivElement, unknown>('div')
+      .selectAll<HTMLDivElement, unknown>('div.infoItem')
       .data(infoboxModes);
 
     const newItems = infoboxItems
@@ -199,7 +199,24 @@ function main() {
       .attr('id', (d) => `infoItem-${d.modeName}`)
       .classed('infoItem', true);
 
+    newItems
+      .append('img')
+      .attr('src', assets.iconInfo)
+      .attr('data-bs-toggle', 'collapse')
+      .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
+      .on('click', (ev: Event) => {
+        ev.stopPropagation();
+      });
+
     newItems.append('pre'); // container for preformatted text
+
+    newItems
+      .append('div')
+      .attr('id', (d) => `infoItem-text-${d.modeName}`)
+      .attr('data-bs-parent', '#infobox')
+      .attr('data-bs-toggle', 'collapse')
+      .classed('collapse', true)
+      .text('Tip text');
 
     newItems.on('click', (ev: MouseEvent, d) => {
       const target = ev.currentTarget;
@@ -227,6 +244,8 @@ function main() {
       secondaryMode.render();
     }
   }
+
+  // window.infoboxModes = infoboxModes;
 
   cy.on('cm-graph-updated', updateInfo);
 
