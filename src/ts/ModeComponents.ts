@@ -35,7 +35,7 @@ export default class ModeComponents implements Mode {
   infobox = () => {
     const comps = this.cy.elements().components();
 
-    return `Connected components: ${comps.length}`;
+    return comps.length.toString();
   };
 
   deactivate = () => {

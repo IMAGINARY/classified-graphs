@@ -23,7 +23,7 @@ export default class ModeDiameter implements Mode {
 
   infobox = () => {
     const diameter = this.cy.elements().invariants().diameter();
-    return `Diameter: ${diameter.value}`;
+    return diameter.value.toString();
   };
 
   deactivate = () => {

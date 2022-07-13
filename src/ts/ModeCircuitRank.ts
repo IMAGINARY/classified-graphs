@@ -34,7 +34,7 @@ export default class ModeCircuitRank implements Mode {
 
   infobox = () => {
     const cycles = this.cy.elements().invariants().circuitRank();
-    return `Circuit rank: ${cycles.length}`;
+    return cycles.length.toString();
   };
 
   deactivate = () => {

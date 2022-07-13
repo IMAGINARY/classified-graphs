@@ -54,6 +54,7 @@
     "cytoscape-edgehandles": "^4.0.1",
     "d3-selection": "^3.0.0",
     "document-ready": "^2.0.2",
+    "i18next": "^21.8.13",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21"
   },

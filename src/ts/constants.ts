@@ -46,5 +46,45 @@ const cyOptions = {
   },
 };
 
+const i18nextOptions = {
+  lng: 'en', // if you're using a language detector, do not define the lng option
+  fallbackLng: 'en',
+  debug: true,
+  resources: {
+    en: {
+      translation: {
+        hello: 'Hello world',
+        Pointer: 'Pointer',
+        Nodes: 'Nodes',
+        Edges: 'Edges',
+        Shortest_path: 'Shortest path',
+        Order: 'Order',
+        Size: 'Size',
+        Girth: 'Girth',
+        Degree_sequence: 'Degree sequence',
+        Connected_components: 'Connected components',
+        Circuit_rank: 'Circuit rank',
+        Diameter: 'Diameter',
+      },
+    },
+    fr: {
+      translation: {
+        hello: 'Bonjour monde',
+        Pointer: 'Pointeur',
+        Nodes: 'Sommets',
+        Edges: 'Arêtes',
+        Shortest_path: 'Chemin le plus court',
+        Order: 'Ordre',
+        Size: 'Taille',
+        Girth: 'Maille',
+        Degree_sequence: 'Suite des degrés',
+        Connected_components: 'Composantes connexes',
+        Circuit_rank: 'Rang des cycles',
+        Diameter: 'Diamètre',
+      },
+    },
+  },
+};
+
 // eslint-disable-next-line import/prefer-default-export
-export { cyOptions };
+export { cyOptions, i18nextOptions };

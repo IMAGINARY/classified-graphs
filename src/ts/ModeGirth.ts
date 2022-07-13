@@ -23,7 +23,7 @@ export default class ModeGirth implements Mode {
 
   infobox = () => {
     const girth = this.cy.elements().invariants().girth();
-    return `Girth: ${girth.value}`;
+    return girth.value.toString();
   };
 
   deactivate = () => {

@@ -3,10 +3,11 @@ import cytoscape from 'cytoscape';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
 import * as d3 from 'd3-selection';
+import txt from 'i18next';
 
 import './side-effects';
 
-import { cyOptions } from './constants';
+import { cyOptions, i18nextOptions } from './constants';
 
 import { Mode } from './modes';
 import ModeNull from './ModeNull';
@@ -22,6 +23,9 @@ import ModeCircuitRank from './ModeCircuitRank';
 import ModeDiameter from './ModeDiameter';
 
 import * as assets from './assets';
+
+// eslint-disable-next-line no-void
+void txt.init(i18nextOptions);
 
 /**
  * Specify types of global variables that are not yet defined on 'window'.
@@ -62,6 +66,8 @@ function main() {
   // Same for the global vs. local d3 object.
   window.cy = cy;
 
+  // d3.select('#output').html(txt.t('Connected_components')); // test
+
   const parameters = {
     idNodeCount: 1,
     idEdgeCount: 1,
@@ -70,7 +76,7 @@ function main() {
 
   type ModeConfig = {
     modeName: string;
-    title: string;
+    textKey: string;
     icon: string;
     modeObj: Mode;
   };
@@ -78,25 +84,25 @@ function main() {
   const toolbarModes: ModeConfig[] = [
     {
       modeName: 'modeNull',
-      title: 'Pointer',
+      textKey: 'Pointer',
       icon: assets.iconPointer,
       modeObj: new ModeNull(cy, parameters),
     },
     {
       modeName: 'modeNode',
-      title: 'Nodes',
+      textKey: 'Nodes',
       icon: assets.iconNode,
       modeObj: new ModeNode(cy, parameters),
     },
     {
       modeName: 'modeEdge',
-      title: 'Edges',
+      textKey: 'Edges',
       icon: assets.iconEdge,
       modeObj: new ModeEdge(cy, parameters),
     },
     {
       modeName: 'modeDijkstra',
-      title: 'Shortest path',
+      textKey: 'Shortest_path',
       icon: assets.iconDijkstra,
       modeObj: new ModeDijkstra(cy, parameters),
     },
@@ -105,43 +111,43 @@ function main() {
   const infoboxModes: ModeConfig[] = [
     {
       modeName: 'modeNumNodes',
-      title: 'Order',
+      textKey: 'Order',
       icon: assets.iconGirth,
       modeObj: new ModeNumNodes(cy, parameters),
     },
     {
       modeName: 'modeNumEdges',
-      title: 'Size',
+      textKey: 'Size',
       icon: assets.iconGirth,
       modeObj: new ModeNumEdges(cy, parameters),
     },
     {
       modeName: 'modeGirth',
-      title: 'Girth',
+      textKey: 'Girth',
       icon: assets.iconGirth,
       modeObj: new ModeGirth(cy, parameters),
     },
     {
       modeName: 'modeDegSequence',
-      title: 'Degree sequence:',
+      textKey: 'Degree_sequence',
       icon: assets.iconGirth,
       modeObj: new ModeDegSequence(cy, parameters),
     },
     {
       modeName: 'modeCompponents',
-      title: 'Connected components:',
+      textKey: 'Connected_components',
       icon: assets.iconGirth,
       modeObj: new ModeComponents(cy, parameters),
     },
     {
       modeName: 'modeCircuitRank',
-      title: 'Circuit rank:',
+      textKey: 'Circuit_rank',
       icon: assets.iconGirth,
       modeObj: new ModeCircuitRank(cy, parameters),
     },
     {
       modeName: 'modeDiameter',
-      title: 'Diameter:',
+      textKey: 'Diameter',
       icon: assets.iconGirth,
       modeObj: new ModeDiameter(cy, parameters),
     },
@@ -180,7 +186,7 @@ function main() {
     .attr('src', (d) => d.icon)
     .classed('toolbar-button', true);
 
-  buttons.append('div').text((d) => d.title);
+  buttons.append('div').html((d) => txt.t(d.textKey));
 
   buttons.on('click', (ev, d) => {
     switchPrimaryMode(d.modeObj);
@@ -236,7 +242,7 @@ function main() {
     infoboxItems
       .merge(newItems)
       .select('pre')
-      .text((d) => d.modeObj.infobox());
+      .html((d) => `${txt.t(d.textKey)}: ${d.modeObj.infobox()}`);
 
     // if (!d3.select('.infoItemActive').empty()) {
     //   d3.select('.infoItemActive').datum().modeObj.render();
