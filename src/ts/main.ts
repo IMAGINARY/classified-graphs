@@ -222,7 +222,7 @@ function main() {
       .attr('data-bs-parent', '#infobox')
       .attr('data-bs-toggle', 'collapse')
       .classed('collapse', true)
-      .text('Tip text');
+      .html((d) => txt.t(`${d.textKey}_Tip`));
 
     newItems.on('click', (ev: MouseEvent, d) => {
       const target = ev.currentTarget;
