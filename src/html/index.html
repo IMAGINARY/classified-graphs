@@ -8,7 +8,19 @@
   </head>
 
   <body>
-    <h1>Graph explorer</h1>
+
+    <div class="dropdown" id="langSelector">
+      <button class="btn btn-secondary dropdown-toggle" type="button"  data-bs-toggle="dropdown">
+        <img src="../img/translate.svg" width="30px">
+      </button>
+      <ul class="dropdown-menu">
+        <!-- <li><a class="dropdown-item" href="#">English</a></li>
+        <li><a class="dropdown-item" href="#">Français</a></li>
+        <li><a class="dropdown-item" href="#">Deutsch</a></li> -->
+      </ul>
+    </div>
+
+    <h1 class="translate" data-i18n="title"></h1>
     <nav id="toolbar"></nav>
     <div id="output" style="height: 20px"></div>
 

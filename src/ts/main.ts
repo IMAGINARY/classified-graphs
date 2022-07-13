@@ -3,11 +3,12 @@ import cytoscape from 'cytoscape';
 import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
 import * as d3 from 'd3-selection';
-import txt from 'i18next';
+import i18next from 'i18next';
+import locI18next from 'loc-i18next';
 
 import './side-effects';
 
-import { cyOptions, i18nextOptions } from './constants';
+import { cyOptions, i18nextOptions, langList } from './constants';
 
 import { Mode } from './modes';
 import ModeNull from './ModeNull';
@@ -25,7 +26,8 @@ import ModeDiameter from './ModeDiameter';
 import * as assets from './assets';
 
 // eslint-disable-next-line no-void
-void txt.init(i18nextOptions);
+void i18next.init(i18nextOptions);
+const localize = locI18next.init(i18next);
 
 /**
  * Specify types of global variables that are not yet defined on 'window'.
@@ -66,7 +68,7 @@ function main() {
   // Same for the global vs. local d3 object.
   window.cy = cy;
 
-  // d3.select('#output').html(txt.t('Connected_components')); // test
+  // d3.select('#output').html(i18next.t('Connected_components')); // test
 
   const parameters = {
     idNodeCount: 1,
@@ -172,6 +174,23 @@ function main() {
     secondaryMode.activate();
   }
 
+  // Make Language Selector
+  d3.select('#langSelector')
+    .select('.dropdown-menu')
+    .selectAll('li')
+    .data(langList)
+    .enter()
+    .append('li')
+    .append('a')
+    .classed('dropdown-item', true)
+    .attr('href', '#')
+    .on('click', (ev, d) => {
+      i18next.changeLanguage(d.isoCode).then(() => {
+        localize('.translate');
+      });
+    })
+    .text((d) => d.endonym);
+
   // Make toolbar buttons
   const buttons = d3
     .select('#toolbar')
@@ -186,7 +205,11 @@ function main() {
     .attr('src', (d) => d.icon)
     .classed('toolbar-button', true);
 
-  buttons.append('div').html((d) => txt.t(d.textKey));
+  buttons
+    .append('div')
+    .classed('translate', true)
+    .attr('data-i18n', (d) => d.textKey);
+  // .html((d) => i18next.t(d.textKey));
 
   buttons.on('click', (ev, d) => {
     switchPrimaryMode(d.modeObj);
@@ -205,7 +228,7 @@ function main() {
       .attr('id', (d) => `infoItem-${d.modeName}`)
       .classed('infoItem', true);
 
-    newItems
+    newItems // Info icon
       .append('img')
       .attr('src', assets.iconInfo)
       .attr('data-bs-toggle', 'collapse')
@@ -214,15 +237,18 @@ function main() {
         ev.stopPropagation();
       });
 
-    newItems.append('pre'); // container for preformatted text
+    newItems.append('div').classed('outputText', true); // container for text
 
-    newItems
+    newItems // Tip text
       .append('div')
       .attr('id', (d) => `infoItem-text-${d.modeName}`)
       .attr('data-bs-parent', '#infobox')
       .attr('data-bs-toggle', 'collapse')
+      .classed('tipText', true)
       .classed('collapse', true)
-      .html((d) => txt.t(`${d.textKey}_Tip`));
+      .classed('translate', true)
+      .attr('data-i18n', (d) => `${d.textKey}_Tip`);
+    // .html((d) => i18next.t(`${d.textKey}_Tip`));
 
     newItems.on('click', (ev: MouseEvent, d) => {
       const target = ev.currentTarget;
@@ -241,8 +267,14 @@ function main() {
     // update selection
     infoboxItems
       .merge(newItems)
-      .select('pre')
-      .html((d) => `${txt.t(d.textKey)}: ${d.modeObj.infobox()}`);
+      .select('.outputText')
+      .html(
+        (d) =>
+          `<span class="translate" data-i18n="${d.textKey}">
+          ${i18next.t(d.textKey)}
+          </span>: 
+          ${d.modeObj.infobox()}`,
+      );
 
     // if (!d3.select('.infoItemActive').empty()) {
     //   d3.select('.infoItemActive').datum().modeObj.render();
@@ -266,6 +298,7 @@ function main() {
   // }
 
   // $('#showJSON').on('click', showGraphExport);
+  localize('.translate');
 }
 
 ready(main);

@@ -46,6 +46,12 @@ const cyOptions = {
   },
 };
 
+const langList = [
+  { isoCode: 'en', endonym: 'English' },
+  { isoCode: 'fr', endonym: 'Français' },
+  { isoCode: 'de', endonym: 'Deutsch' },
+];
+
 const i18nextOptions = {
   lng: 'en', // if you're using a language detector, do not define the lng option
   fallbackLng: 'en',
@@ -53,6 +59,7 @@ const i18nextOptions = {
   resources: {
     en: {
       translation: {
+        title: 'Graph explorer',
         hello: 'Hello world',
         Pointer: 'Pointer',
         Nodes: 'Nodes',
@@ -80,6 +87,7 @@ const i18nextOptions = {
     },
     fr: {
       translation: {
+        title: 'Explorateur des graphes',
         hello: 'Bonjour monde',
         Pointer: 'Pointeur',
         Nodes: 'Sommets',
@@ -94,8 +102,15 @@ const i18nextOptions = {
         Diameter: 'Diamètre',
       },
     },
+    de: {
+      translation: {
+        title: 'Hallo Welt',
+        hello: 'Hallo Welt',
+        Pointer: 'Hallo Welt',
+      },
+    },
   },
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export { cyOptions, i18nextOptions };
+export { cyOptions, langList, i18nextOptions };
