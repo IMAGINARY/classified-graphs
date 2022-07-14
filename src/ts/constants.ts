@@ -51,7 +51,7 @@ const cyOptions = {
 const langList = locales.map(({ isoCode, endonym }) => ({ isoCode, endonym }));
 
 const i18nextOptions = {
-  lng: 'en', // if you're using a language detector, do not define the lng option
+  supportedLngs: locales.map(({ isoCode }) => isoCode),
   fallbackLng: 'en',
   debug: true,
   resources: locales.reduce(

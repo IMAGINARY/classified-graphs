@@ -4,6 +4,7 @@ import ready from 'document-ready';
 import cloneDeep from 'lodash/cloneDeep';
 import * as d3 from 'd3-selection';
 import i18next from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 import locI18next from 'loc-i18next';
 
 import './side-effects';
@@ -26,7 +27,7 @@ import ModeDiameter from './ModeDiameter';
 import * as assets from './assets';
 
 // eslint-disable-next-line no-void
-void i18next.init(i18nextOptions);
+void i18next.use(LanguageDetector).init(i18nextOptions);
 const localize = locI18next.init(i18next);
 
 /**
