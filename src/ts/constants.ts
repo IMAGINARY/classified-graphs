@@ -1,3 +1,5 @@
+import locales from './locales/locales';
+
 const cyOptions = {
   style: [
     {
@@ -46,70 +48,16 @@ const cyOptions = {
   },
 };
 
-const langList = [
-  { isoCode: 'en', endonym: 'English' },
-  { isoCode: 'fr', endonym: 'Français' },
-  { isoCode: 'de', endonym: 'Deutsch' },
-];
+const langList = locales.map(({ isoCode, endonym }) => ({ isoCode, endonym }));
 
 const i18nextOptions = {
   lng: 'en', // if you're using a language detector, do not define the lng option
   fallbackLng: 'en',
   debug: true,
-  resources: {
-    en: {
-      translation: {
-        title: 'Graph explorer',
-        hello: 'Hello world',
-        Pointer: 'Pointer',
-        Nodes: 'Nodes',
-        Edges: 'Edges',
-        Shortest_path: 'Shortest path',
-        Order: 'Order',
-        Order_Tip: 'The number of nodes in the graph.',
-        Size: 'Size',
-        Size_Tip: 'The number of edges in the graph.',
-        Girth: 'Girth',
-        Girth_Tip: 'The length of the shortest cycle.',
-        Degree_sequence: 'Degree sequence',
-        Degree_sequence_Tip: `List of the degrees of each node, in decreasing order. 
-        The degree of a node is the number of edges connected to it.`,
-        Connected_components: 'Connected components',
-        Connected_components_Tip:
-          'Each component is the set of nodes and edges connected together.',
-        Circuit_rank: 'Circuit rank',
-        Circuit_rank_Tip: `Number of independent cycles. A cycle (or path) is independent 
-        from another set of cycles (or paths) if it cannot be obtained from the others by 
-        concatenation and deformation (homotopy).`,
-        Diameter: 'Diameter',
-        Diameter_Tip: 'The longest distance between two nodes.',
-      },
-    },
-    fr: {
-      translation: {
-        title: 'Explorateur des graphes',
-        hello: 'Bonjour monde',
-        Pointer: 'Pointeur',
-        Nodes: 'Sommets',
-        Edges: 'Arêtes',
-        Shortest_path: 'Chemin le plus court',
-        Order: 'Ordre',
-        Size: 'Taille',
-        Girth: 'Maille',
-        Degree_sequence: 'Suite des degrés',
-        Connected_components: 'Composantes connexes',
-        Circuit_rank: 'Rang des cycles',
-        Diameter: 'Diamètre',
-      },
-    },
-    de: {
-      translation: {
-        title: 'Hallo Welt',
-        hello: 'Hallo Welt',
-        Pointer: 'Hallo Welt',
-      },
-    },
-  },
+  resources: locales.reduce(
+    (acc, { isoCode, resource }) => ({ ...acc, ...{ [isoCode]: resource } }),
+    {},
+  ),
 };
 
 // eslint-disable-next-line import/prefer-default-export
