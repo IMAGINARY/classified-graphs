@@ -185,9 +185,14 @@ function main() {
     .classed('dropdown-item', true)
     .attr('href', '#')
     .on('click', (ev, d) => {
-      i18next.changeLanguage(d.isoCode).then(() => {
-        localize('.translate');
-      });
+      i18next
+        .changeLanguage(d.isoCode)
+        .then(() => localize('.translate'))
+        .catch((reason) => {
+          // TODO: Handle the error properly instead of ignoring it.
+          // eslint-disable-next-line no-console
+          console.error(`Changing to language ${d.isoCode} failed.`, reason);
+        });
     })
     .text((d) => d.endonym);
 
