@@ -26,5 +26,17 @@ const iconDijkstra = new URL('../img/dijkstra.svg', import.meta.url).href;
 const iconGirth = iconDijkstra;
 
 const iconInfo = new URL('../img/info.svg', import.meta.url).href;
+const iconImport = new URL('../img/box-arrow-in-down.svg', import.meta.url)
+  .href;
+const iconExport = new URL('../img/box-arrow-down.svg', import.meta.url).href;
 
-export { iconPointer, iconNode, iconEdge, iconDijkstra, iconGirth, iconInfo };
+export {
+  iconPointer,
+  iconNode,
+  iconEdge,
+  iconDijkstra,
+  iconGirth,
+  iconInfo,
+  iconImport,
+  iconExport,
+};

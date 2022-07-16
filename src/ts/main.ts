@@ -23,6 +23,7 @@ import ModeDegSequence from './ModeDegSequence';
 import ModeComponents from './ModeComponents';
 import ModeCircuitRank from './ModeCircuitRank';
 import ModeDiameter from './ModeDiameter';
+import ModeExport from './ModeExport';
 
 import * as assets from './assets';
 
@@ -90,6 +91,12 @@ function main() {
       textKey: 'Pointer',
       icon: assets.iconPointer,
       modeObj: new ModeNull(cy, parameters),
+    },
+    {
+      modeName: 'modeExport',
+      textKey: 'Export',
+      icon: assets.iconExport,
+      modeObj: new ModeExport(cy, parameters),
     },
     {
       modeName: 'modeNode',
@@ -300,10 +307,10 @@ function main() {
   // function showGraphExport() {
   //   const json = cy.json();
   //   const jsonString = JSON.stringify(json, null, 4);
-  //   $('#outputText').text(jsonString);
+  //   d3.select('#outputText').text(jsonString);
   // }
+  // d3.select('#showJSON').on('click', showGraphExport);
 
-  // $('#showJSON').on('click', showGraphExport);
   localize('.translate');
 }
 

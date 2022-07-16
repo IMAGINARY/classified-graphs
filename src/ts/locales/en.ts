@@ -8,6 +8,7 @@ const en: Locale = {
       title: 'Graph explorer',
       hello: 'Hello world',
       Pointer: 'Pointer',
+      Export: 'Export',
       Nodes: 'Nodes',
       Edges: 'Edges',
       Shortest_path: 'Shortest path',

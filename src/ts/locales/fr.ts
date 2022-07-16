@@ -8,6 +8,7 @@ const fr: Locale = {
       title: 'Explorateur des graphes',
       hello: 'Bonjour monde',
       Pointer: 'Pointeur',
+      // Export: 'Export',
       Nodes: 'Sommets',
       Edges: 'Arêtes',
       Shortest_path: 'Chemin le plus court',

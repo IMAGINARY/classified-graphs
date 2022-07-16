@@ -8,6 +8,7 @@ const de: Locale = {
       title: 'Graph-Erkunder',
       hello: 'Hallo Welt',
       Pointer: 'Zeiger',
+      // Export: 'Export',
       Nodes: 'Knoten',
       Edges: 'Kanten',
       Shortest_path: 'Kürzester Weg',
