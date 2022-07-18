@@ -24,6 +24,7 @@ import ModeComponents from './ModeComponents';
 import ModeCircuitRank from './ModeCircuitRank';
 import ModeDiameter from './ModeDiameter';
 import ModeExport from './ModeExport';
+import ModeImport from './ModeImport';
 
 import * as assets from './assets';
 
@@ -97,6 +98,12 @@ function main() {
       textKey: 'Export',
       icon: assets.iconExport,
       modeObj: new ModeExport(cy, parameters),
+    },
+    {
+      modeName: 'modeImport',
+      textKey: 'Import',
+      icon: assets.iconImport,
+      modeObj: new ModeImport(cy, parameters),
     },
     {
       modeName: 'modeNode',

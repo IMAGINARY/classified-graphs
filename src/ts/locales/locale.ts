@@ -7,6 +7,7 @@ type Locale = {
       hello: string;
       Pointer: string;
       Export: string;
+      Import: string;
       Nodes: string;
       Edges: string;
       Shortest_path: string;

@@ -9,6 +9,7 @@ const en: Locale = {
       hello: 'Hello world',
       Pointer: 'Pointer',
       Export: 'Export',
+      Import: 'Import',
       Nodes: 'Nodes',
       Edges: 'Edges',
       Shortest_path: 'Shortest path',

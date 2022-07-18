@@ -13,7 +13,8 @@ export default class ModeEdge implements Mode {
 
   activate() {
     const edgeHandlesOptions = {
-      edgeParams: () => ({ data: { id: `E${this.parameters.idEdgeCount}` } }),
+      // edgeParams: () => ({ data: { id: `E${this.parameters.idEdgeCount}` } }),
+      edgeParams: () => ({ data: {} }),
 
       canConnect: () => true, // allow self-connecting loops
     };

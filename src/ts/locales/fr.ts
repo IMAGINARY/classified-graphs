@@ -9,6 +9,7 @@ const fr: Locale = {
       hello: 'Bonjour monde',
       Pointer: 'Pointeur',
       // Export: 'Export',
+      // Import: 'Import',
       Nodes: 'Sommets',
       Edges: 'Arêtes',
       Shortest_path: 'Chemin le plus court',

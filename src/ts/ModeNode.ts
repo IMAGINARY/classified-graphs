@@ -15,7 +15,7 @@ export default class ModeNode implements Mode {
     const addNode = (position: Position) => {
       this.cy.add({
         group: 'nodes',
-        data: { id: `N${this.parameters.idNodeCount}` },
+        data: {}, // { id: `N${this.parameters.idNodeCount}` },
         position,
       });
       this.parameters.idNodeCount += 1;
