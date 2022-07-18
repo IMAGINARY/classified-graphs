@@ -6,33 +6,23 @@ export default class ModeImport implements Mode {
 
   parameters;
 
+  inputFile: HTMLInputElement;
+
+  handleFile: (ev: Event) => void;
+
   constructor(cy: Core, parameters: Parameters) {
     this.cy = cy;
     this.parameters = parameters;
-  }
 
-  // eslint-disable-next-line class-methods-use-this
-  activate = () => {
-    const inputFile = document.getElementById('inputFile') as HTMLInputElement;
+    this.inputFile = document.getElementById('inputFile') as HTMLInputElement;
 
-    const handleFile = (ev: Event): void => {
-      ev.stopImmediatePropagation(); // why the event fires multiple times?
-
-      if (inputFile.files?.length) {
-        const file = inputFile.files[0];
+    this.handleFile = () => {
+      if (this.inputFile.files?.length) {
+        const file = this.inputFile.files[0];
 
         file
           .text()
           .then((fileText: string) => {
-            // console.log(JSON.parse(fileText));
-
-            // // TO DO: destroy and create new instance?
-            // this.cy.destroy();
-            // this.cy = cytoscape(JSON.parse(fileText));
-            // this.cy = cytoscape({
-            //   ...cloneDeep(cyOptions),
-            //   ...{ container: document.getElementById('cy') },
-            // });
             this.cy.json(JSON.parse(fileText) as object);
             this.cy.emit('cm-graph-updated');
           })
@@ -41,14 +31,13 @@ export default class ModeImport implements Mode {
             // eslint-disable-next-line no-console
             console.error('Error loading file', reason);
           });
-
-        // console.log(file.name);
       }
     };
+  }
 
-    inputFile.addEventListener('change', handleFile);
-
-    inputFile.click();
+  activate = () => {
+    this.inputFile.addEventListener('change', this.handleFile);
+    this.inputFile.click();
   };
 
   // eslint-disable-next-line class-methods-use-this
@@ -59,6 +48,7 @@ export default class ModeImport implements Mode {
     return '';
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  deactivate = () => {};
+  deactivate = () => {
+    this.inputFile.removeEventListener('change', this.handleFile);
+  };
 }
