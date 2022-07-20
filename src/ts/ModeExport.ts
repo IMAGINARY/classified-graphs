@@ -6,9 +6,22 @@ export default class ModeExport implements Mode {
 
   parameters;
 
+  downloadGraph: (filename: string) => void;
+
   constructor(cy: Core, parameters: Parameters) {
     this.cy = cy;
     this.parameters = parameters;
+
+    this.downloadGraph = (filename) => {
+      const json = this.cy.json();
+      const jsonString = JSON.stringify(json, null, 4);
+      const link = document.createElement('a');
+      link.download = `${filename}.json`;
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      link.href = window.URL.createObjectURL(blob);
+      link.click();
+      // TO-DO: Clean the data of the graph object that the user needs to download.
+    };
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -25,19 +38,8 @@ export default class ModeExport implements Mode {
         date.getSeconds().toString().padStart(2, '0'),
       ].join('');
 
-    const downloadGraph = (timestamp: string) => {
-      const json = this.cy.json();
-      const jsonString = JSON.stringify(json, null, 4);
-      const link = document.createElement('a');
-      link.download = `graph-explorer-${timestamp}.json`;
-      const blob = new Blob([jsonString], { type: 'application/json' });
-      link.href = window.URL.createObjectURL(blob);
-      link.click();
-      // TO-DO: Clean the data of the graph object that the user needs to download.
-    };
-
     const now = new Date();
-    downloadGraph(formatDate(now));
+    this.downloadGraph(`graph-explorer-${formatDate(now)}`);
   };
 
   // eslint-disable-next-line class-methods-use-this
