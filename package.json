@@ -20,6 +20,20 @@
     "> 0.2%",
     "not dead"
   ],
+  "targets": {
+    "": {
+      "source": "src/html/index.html",
+      "context": "browser",
+      "isLibrary": false,
+      "publicUrl": "."
+    },
+    "graph-generator": {
+      "source": "src/ts/graph-gallery-scripts/generate-graphs.ts",
+      "context": "node",
+      "outputFormat": "commonjs",
+      "distDir": "dist"
+    }
+  },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
     "@types/assert": "^1.5.6",
@@ -67,8 +81,14 @@
     ]
   },
   "scripts": {
-    "serve": "parcel serve --dist-dir dist-dev ./src/html/index.html",
-    "build": "rm -r dist; parcel build --public-url . ./src/html/index.html",
+    "serve": "parcel serve --dist-dir dist-dev --target ''",
+    "watch": "parcel watch --target '' --target graph-generator",
+    "watch:frontend": "parcel watch --target ''",
+    "watch:graph-generator": "parcel watch --target graph-generator",
+    "build": "rm -r dist; npm run build:graph-generator && npm run build:graphs && npm run build:frontend",
+    "build:graph-generator": "parcel build --target graph-generator",
+    "build:graphs": "node dist/generate-graphs.js",
+    "build:frontend": "parcel build --target ''",
     "format": "prettier --write '{src/**/*,*}.{htm,html,js,ts,jsx,tsx,md,json,yaml,yml,css,scss}'",
     "doc": "typedoc",
     "lint": "cd src/ts && eslint '{**/*,*}.{js,ts,jsx,tsx}'",
