@@ -43,7 +43,7 @@ const cyOptions = {
     // },
   ],
   layout: {
-    name: 'random',
+    name: 'circle',
     rows: 1,
   },
 };

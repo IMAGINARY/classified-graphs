@@ -31,6 +31,7 @@
     "@types/events": "^3.0.0",
     "@types/jquery": "^3.5.14",
     "@types/lodash": "^4.14",
+    "@types/node": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "eslint": "^8.11.0",

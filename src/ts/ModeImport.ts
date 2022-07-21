@@ -24,6 +24,7 @@ export default class ModeImport implements Mode {
           .text()
           .then((fileText: string) => {
             this.cy.json(JSON.parse(fileText) as object);
+            // cy.resize();
             this.cy.emit('cm-graph-updated');
           })
           .catch((reason) => {
