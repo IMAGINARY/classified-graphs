@@ -84,7 +84,7 @@
     "serve": "parcel serve --dist-dir dist-dev --target ''",
     "watch": "parcel watch --target '' --target graph-generator",
     "watch:frontend": "parcel watch --target ''",
-    "watch:graph-generator": "parcel watch --target graph-generator",
+    "watch:graph-generator": "parcel watch --target graph-generator --no-hmr",
     "build": "rm -r dist; npm run build:graph-generator && npm run build:graphs && npm run build:frontend",
     "build:graph-generator": "parcel build --target graph-generator",
     "build:graphs": "node dist/generate-graphs.js",
