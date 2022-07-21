@@ -2,19 +2,18 @@
 // Run this file from the command line to generate the graph json files
 // $ node make-complete-graphs.ts
 
+import cytoscape, { Core } from 'cytoscape';
+import * as fs from 'fs';
+
 console.log('Creating files for Complete graphs');
 console.log('==================================');
 
-const cytoscape = require('cytoscape');
-const fs = require('fs');
-
-function makeGraph(N) {
-  const cy = cytoscape({
-    preferredLayout: { name: 'circle' },
-  });
+function makeGraph(N: number) {
+  // TODO: check preferredLayout option; I can't find it anywhere in the documentation
+  const cy = cytoscape({ preferredLayout: { name: 'circle' } });
 
   for (let i = 0; i < N; i += 1) {
-    cy.add('node');
+    cy.add({ group: 'nodes', data: {} });
     for (let j = 0; j < i; j += 1) {
       cy.add({
         group: 'edges',
@@ -29,11 +28,11 @@ function makeGraph(N) {
   return cy;
 }
 
-function makeFile(cy, filename) {
+function makeFile(cy: Core, filename: string) {
   const json = cy.json();
   const jsonString = JSON.stringify(json, null, 4);
 
-  fs.writeFile(filename, jsonString, function (err) {
+  fs.writeFile(filename, jsonString, {}, (err) => {
     if (err) throw err;
     console.log(`Saved file ${filename}`);
   });

@@ -1,1 +1,1 @@
-require('./make-complete-graphs');
+import './make-complete-graphs';

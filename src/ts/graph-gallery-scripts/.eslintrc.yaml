@@ -1,0 +1,5 @@
+---
+root: false
+env:
+  browser: false
+  node: true
