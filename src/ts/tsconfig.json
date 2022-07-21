@@ -8,7 +8,7 @@
     "esModuleInterop": true,
     "module": "es2022",
     "moduleResolution": "node",
-    "typeRoots": ["types"],
+    "typeRoots": ["types","../../node_modules/@types"],
     "lib": ["ES2021", "dom", "dom.iterable"]
   }
 }
