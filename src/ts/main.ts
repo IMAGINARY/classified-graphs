@@ -25,6 +25,7 @@ import ModeCircuitRank from './ModeCircuitRank';
 import ModeDiameter from './ModeDiameter';
 import ModeExport from './ModeExport';
 import ModeImport from './ModeImport';
+import ModeLayout from './ModeLayout';
 
 import * as assets from './assets';
 
@@ -116,6 +117,12 @@ function main() {
       textKey: 'Edges',
       icon: assets.iconEdge,
       modeObj: new ModeEdge(cy, parameters),
+    },
+    {
+      modeName: 'modeLayout',
+      textKey: 'Layout',
+      icon: assets.iconEdge,
+      modeObj: new ModeLayout(cy, parameters),
     },
     {
       modeName: 'modeDijkstra',
@@ -224,6 +231,21 @@ function main() {
     .append('img')
     .attr('src', (d) => d.icon)
     .classed('toolbar-button', true);
+
+  d3.select('#btn-modeLayout')
+    .append('select')
+    .attr('id', 'selectLayout')
+    .selectAll('option')
+    .data([
+      { value: 'circle', textKey: 'Circle' },
+      { value: 'random', textKey: 'Random' },
+    ])
+    .enter()
+    .append('option')
+    .attr('value', (d) => d.value)
+    // .classed('translate', true)
+    // .attr('data-i18n', (d) => d.textKey);
+    .html((d) => d.textKey);
 
   buttons
     .append('div')

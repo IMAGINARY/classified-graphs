@@ -10,6 +10,7 @@ type Locale = {
       Import: string;
       Nodes: string;
       Edges: string;
+      Layout: string;
       Shortest_path: string;
       Order: string;
       Order_Tip: string;

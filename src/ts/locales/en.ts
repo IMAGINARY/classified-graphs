@@ -12,6 +12,7 @@ const en: Locale = {
       Import: 'Import',
       Nodes: 'Nodes',
       Edges: 'Edges',
+      Layout: 'Layout',
       Shortest_path: 'Shortest path',
       Order: 'Order',
       Order_Tip: 'The number of nodes in the graph.',
