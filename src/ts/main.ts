@@ -264,6 +264,7 @@ function main() {
     switchPrimaryMode(d.modeObj);
   });
 
+  // Make Load modal
   d3.select('#btn-modeLoad')
     .attr('data-bs-toggle', 'modal')
     .attr('data-bs-target', '#exampleModal');

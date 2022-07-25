@@ -42,8 +42,11 @@ function makeFile(cy: Core, filename: string) {
 }
 
 for (let i = 2; i < 9; i += 1) {
-  makeFile(makeGraph(i), `./src/graph-gallery/complete_${i}.json`);
+  makeFile(makeGraph(i), `./src/graph-gallery/complete${i}.data`);
 }
+// NOTE
+// The extension ".data" is to avoid problems with Parcel bundler. If the extension is .json,
+// then parcel does not import the dependency correctly.
 
 // const NN = 4;
 // makeFile(makeGraph(NN), `./src/graph-gallery/complete_${NN}.json`);

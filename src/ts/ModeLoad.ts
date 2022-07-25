@@ -1,61 +1,61 @@
+/* eslint-disable class-methods-use-this */
+import * as d3 from 'd3-selection';
 import { Core } from 'cytoscape';
 import { Mode, Parameters } from './modes';
+import { graphGalleryList } from './constants';
+import * as agr from './assets_graphs';
 
 export default class ModeLoad implements Mode {
   cy;
 
   parameters;
 
-  // inputFile: HTMLInputElement;
-
-  // handleFile: (ev: Event) => void;
+  loadFile: (filename: string) => void;
 
   constructor(cy: Core, parameters: Parameters) {
     this.cy = cy;
     this.parameters = parameters;
 
-    // this.inputFile = document.getElementById('inputFile') as HTMLInputElement;
+    // //  button is not yet created when the mode is instantiated.
+    // d3.select('#btn-modeLoad')
+    //   .attr('data-bs-toggle', 'modal')
+    //   .attr('data-bs-target', '#exampleModal');
 
-    // this.handleFile = () => {
-    //   if (this.inputFile.files?.length) {
-    //     const file = this.inputFile.files[0];
+    d3.select('#graphList')
+      .selectAll('span')
+      .data(graphGalleryList)
+      .enter()
+      .append('span')
+      .classed('graphGalleryItem', true)
+      .attr('data-bs-dismiss', 'modal')
+      .text((d) => d.name)
+      .on('click', (ev, d) => {
+        this.loadFile(d.file);
+      });
 
-    //     file
-    //       .text()
-    //       .then((fileText: string) => {
-    //         this.cy.json(JSON.parse(fileText) as object);
+    this.loadFile = (grId) => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      fetch(agr[grId as keyof typeof agr])
+        .then((response) => response.json())
+        .then((data) => {
+          this.cy.json(data as object);
 
-    //         this.cy.fit(undefined, 30); // zoom and pan to fill the viewport
-    //         cy.nodes().positions((n) => n.renderedPosition()); // fix the rendered positions as model positions
-    //         this.cy.fit(undefined, 30); // pan to center again (zoom should be ~1)
+          this.cy.fit(undefined, 30); // zoom and pan to fill the viewport
+          cy.nodes().positions((n) => n.renderedPosition()); // fix the rendered positions as model positions
+          this.cy.fit(undefined, 30); // pan to center again (zoom should be ~1)
 
-    //         this.cy.emit('cm-graph-updated');
-    //       })
-    //       .catch((reason) => {
-    //         // TODO: Handle the error properly instead of ignoring it.
-    //         // eslint-disable-next-line no-console
-    //         console.error('Error loading file', reason);
-    //       });
-    //   }
-    // };
+          this.cy.emit('cm-graph-updated');
+        });
+    };
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  activate = () => {
-    // this.inputFile.addEventListener('change', this.handleFile);
-    // this.inputFile.click();
-  };
+  activate = () => {};
 
-  // eslint-disable-next-line class-methods-use-this
   render() {}
 
-  // eslint-disable-next-line class-methods-use-this
   infobox() {
     return '';
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  deactivate = () => {
-    // this.inputFile.removeEventListener('change', this.handleFile);
-  };
+  deactivate = () => {};
 }
