@@ -27,6 +27,7 @@ import ModeExport from './ModeExport';
 import ModeImport from './ModeImport';
 import ModeLoad from './ModeLoad';
 import ModeLayout from './ModeLayout';
+import ModeClear from './ModeClear';
 
 import * as assets from './assets';
 
@@ -90,10 +91,10 @@ function main() {
 
   const toolbarModes: ModeConfig[] = [
     {
-      modeName: 'modeNull',
-      textKey: 'Pointer',
-      icon: assets.iconPointer,
-      modeObj: new ModeNull(cy, parameters),
+      modeName: 'modeClear',
+      textKey: 'Clear',
+      icon: assets.iconClear,
+      modeObj: new ModeClear(cy, parameters),
     },
     {
       modeName: 'modeExport',
@@ -112,6 +113,12 @@ function main() {
       textKey: 'Load',
       icon: assets.iconLoad,
       modeObj: new ModeLoad(cy, parameters),
+    },
+    {
+      modeName: 'modeNull',
+      textKey: 'Pointer',
+      icon: assets.iconPointer,
+      modeObj: new ModeNull(cy, parameters),
     },
     {
       modeName: 'modeNode',

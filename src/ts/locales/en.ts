@@ -7,6 +7,7 @@ const en: Locale = {
     translation: {
       title: 'Graph explorer',
       hello: 'Hello world',
+      Clear: 'Clear',
       Pointer: 'Pointer',
       Export: 'Export',
       Import: 'Import',

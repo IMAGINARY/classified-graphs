@@ -5,6 +5,7 @@ type Locale = {
     translation: Partial<{
       title: string;
       hello: string;
+      Clear: string;
       Pointer: string;
       Export: string;
       Import: string;
