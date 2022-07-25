@@ -12,14 +12,14 @@ function makeGraph(N: number) {
   const cy = cytoscape();
 
   for (let i = 0; i < N; i += 1) {
-    cy.add({ group: 'nodes', data: { id: `N${i}` } });
+    cy.add({ group: 'nodes', data: { id: `N-${i}` } });
     for (let j = 0; j < i; j += 1) {
       cy.add({
         group: 'edges',
         data: {
           source: cy.nodes()[j].id(),
           target: cy.nodes()[i].id(),
-          id: `N${j}-${i}`,
+          id: `E-${j}-${i}`,
         },
       });
     }

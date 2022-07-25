@@ -3,7 +3,7 @@
         "nodes": [
             {
                 "data": {
-                    "id": "N0"
+                    "id": "N-0"
                 },
                 "position": {
                     "x": 0.49999999999996325,
@@ -20,7 +20,7 @@
             },
             {
                 "data": {
-                    "id": "N1"
+                    "id": "N-1"
                 },
                 "position": {
                     "x": 190.7113032590307,
@@ -37,7 +37,7 @@
             },
             {
                 "data": {
-                    "id": "N2"
+                    "id": "N-2"
                 },
                 "position": {
                     "x": 118.05705045849467,
@@ -54,7 +54,7 @@
             },
             {
                 "data": {
-                    "id": "N3"
+                    "id": "N-3"
                 },
                 "position": {
                     "x": -117.05705045849459,
@@ -71,7 +71,7 @@
             },
             {
                 "data": {
-                    "id": "N4"
+                    "id": "N-4"
                 },
                 "position": {
                     "x": -189.71130325903073,
@@ -90,9 +90,9 @@
         "edges": [
             {
                 "data": {
-                    "source": "N0",
-                    "target": "N1",
-                    "id": "N0-1"
+                    "source": "N-0",
+                    "target": "N-1",
+                    "id": "E-0-1"
                 },
                 "position": {
                     "x": 0,
@@ -109,9 +109,9 @@
             },
             {
                 "data": {
-                    "source": "N0",
-                    "target": "N2",
-                    "id": "N0-2"
+                    "source": "N-0",
+                    "target": "N-2",
+                    "id": "E-0-2"
                 },
                 "position": {
                     "x": 0,
@@ -128,9 +128,9 @@
             },
             {
                 "data": {
-                    "source": "N1",
-                    "target": "N2",
-                    "id": "N1-2"
+                    "source": "N-1",
+                    "target": "N-2",
+                    "id": "E-1-2"
                 },
                 "position": {
                     "x": 0,
@@ -147,9 +147,9 @@
             },
             {
                 "data": {
-                    "source": "N0",
-                    "target": "N3",
-                    "id": "N0-3"
+                    "source": "N-0",
+                    "target": "N-3",
+                    "id": "E-0-3"
                 },
                 "position": {
                     "x": 0,
@@ -166,9 +166,9 @@
             },
             {
                 "data": {
-                    "source": "N1",
-                    "target": "N3",
-                    "id": "N1-3"
+                    "source": "N-1",
+                    "target": "N-3",
+                    "id": "E-1-3"
                 },
                 "position": {
                     "x": 0,
@@ -185,9 +185,9 @@
             },
             {
                 "data": {
-                    "source": "N2",
-                    "target": "N3",
-                    "id": "N2-3"
+                    "source": "N-2",
+                    "target": "N-3",
+                    "id": "E-2-3"
                 },
                 "position": {
                     "x": 0,
@@ -204,9 +204,9 @@
             },
             {
                 "data": {
-                    "source": "N0",
-                    "target": "N4",
-                    "id": "N0-4"
+                    "source": "N-0",
+                    "target": "N-4",
+                    "id": "E-0-4"
                 },
                 "position": {
                     "x": 0,
@@ -223,9 +223,9 @@
             },
             {
                 "data": {
-                    "source": "N1",
-                    "target": "N4",
-                    "id": "N1-4"
+                    "source": "N-1",
+                    "target": "N-4",
+                    "id": "E-1-4"
                 },
                 "position": {
                     "x": 0,
@@ -242,9 +242,9 @@
             },
             {
                 "data": {
-                    "source": "N2",
-                    "target": "N4",
-                    "id": "N2-4"
+                    "source": "N-2",
+                    "target": "N-4",
+                    "id": "E-2-4"
                 },
                 "position": {
                     "x": 0,
@@ -261,9 +261,9 @@
             },
             {
                 "data": {
-                    "source": "N3",
-                    "target": "N4",
-                    "id": "N3-4"
+                    "source": "N-3",
+                    "target": "N-4",
+                    "id": "E-3-4"
                 },
                 "position": {
                     "x": 0,
