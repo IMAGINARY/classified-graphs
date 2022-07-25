@@ -8,6 +8,7 @@ type Locale = {
       Pointer: string;
       Export: string;
       Import: string;
+      Load: string;
       Nodes: string;
       Edges: string;
       Layout: string;

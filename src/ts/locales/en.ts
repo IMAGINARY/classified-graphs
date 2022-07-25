@@ -10,6 +10,7 @@ const en: Locale = {
       Pointer: 'Pointer',
       Export: 'Export',
       Import: 'Import',
+      Load: 'Load',
       Nodes: 'Nodes',
       Edges: 'Edges',
       Layout: 'Layout',

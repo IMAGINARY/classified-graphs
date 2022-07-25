@@ -25,6 +25,7 @@ import ModeCircuitRank from './ModeCircuitRank';
 import ModeDiameter from './ModeDiameter';
 import ModeExport from './ModeExport';
 import ModeImport from './ModeImport';
+import ModeLoad from './ModeLoad';
 import ModeLayout from './ModeLayout';
 
 import * as assets from './assets';
@@ -105,6 +106,12 @@ function main() {
       textKey: 'Import',
       icon: assets.iconImport,
       modeObj: new ModeImport(cy, parameters),
+    },
+    {
+      modeName: 'modeLoad',
+      textKey: 'Load',
+      icon: assets.iconLoad,
+      modeObj: new ModeLoad(cy, parameters),
     },
     {
       modeName: 'modeNode',
@@ -256,6 +263,10 @@ function main() {
   buttons.on('click', (ev, d) => {
     switchPrimaryMode(d.modeObj);
   });
+
+  d3.select('#btn-modeLoad')
+    .attr('data-bs-toggle', 'modal')
+    .attr('data-bs-target', '#exampleModal');
 
   // Make infobox items
   function updateInfo() {

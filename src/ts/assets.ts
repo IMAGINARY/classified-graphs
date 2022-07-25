@@ -29,6 +29,7 @@ const iconInfo = new URL('../img/info.svg', import.meta.url).href;
 const iconImport = new URL('../img/box-arrow-in-down.svg', import.meta.url)
   .href;
 const iconExport = new URL('../img/box-arrow-down.svg', import.meta.url).href;
+const iconLoad = new URL('../img/folder2-open.svg', import.meta.url).href;
 
 export {
   iconPointer,
@@ -39,4 +40,5 @@ export {
   iconInfo,
   iconImport,
   iconExport,
+  iconLoad,
 };
