@@ -23,8 +23,8 @@
                     "id": "N1"
                 },
                 "position": {
-                    "x": 200.5,
-                    "y": 0.49999999999995104
+                    "x": 190.7113032590307,
+                    "y": -61.303398874989526
                 },
                 "group": "nodes",
                 "removed": false,
@@ -40,8 +40,8 @@
                     "id": "N2"
                 },
                 "position": {
-                    "x": 0.5000000000000613,
-                    "y": 200.5
+                    "x": 118.05705045849467,
+                    "y": 162.30339887498945
                 },
                 "group": "nodes",
                 "removed": false,
@@ -57,8 +57,25 @@
                     "id": "N3"
                 },
                 "position": {
-                    "x": -199.5,
-                    "y": 0.5000000000000735
+                    "x": -117.05705045849459,
+                    "y": 162.3033988749895
+                },
+                "group": "nodes",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "pannable": false,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "id": "N4"
+                },
+                "position": {
+                    "x": -189.71130325903073,
+                    "y": -61.30339887498941
                 },
                 "group": "nodes",
                 "removed": false,
@@ -171,6 +188,82 @@
                     "source": "N2",
                     "target": "N3",
                     "id": "N2-3"
+                },
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "pannable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "source": "N0",
+                    "target": "N4",
+                    "id": "N0-4"
+                },
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "pannable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "source": "N1",
+                    "target": "N4",
+                    "id": "N1-4"
+                },
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "pannable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "source": "N2",
+                    "target": "N4",
+                    "id": "N2-4"
+                },
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "group": "edges",
+                "removed": false,
+                "selected": false,
+                "selectable": true,
+                "locked": false,
+                "grabbable": true,
+                "pannable": true,
+                "classes": ""
+            },
+            {
+                "data": {
+                    "source": "N3",
+                    "target": "N4",
+                    "id": "N3-4"
                 },
                 "position": {
                     "x": 0,

@@ -24,7 +24,11 @@ export default class ModeImport implements Mode {
           .text()
           .then((fileText: string) => {
             this.cy.json(JSON.parse(fileText) as object);
-            // cy.resize();
+
+            this.cy.fit(undefined, 30); // zoom and pan to fill the viewport
+            cy.nodes().positions((n) => n.renderedPosition()); // fix the rendered positions as model positions
+            this.cy.fit(undefined, 30); // pan to center again (zoom should be ~1)
+
             this.cy.emit('cm-graph-updated');
           })
           .catch((reason) => {
