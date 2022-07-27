@@ -1,7 +1,6 @@
 // import assert from 'assert';
 import cytoscape from 'cytoscape';
 import ready from 'document-ready';
-import cloneDeep from 'lodash/cloneDeep';
 import * as d3 from 'd3-selection';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -9,25 +8,11 @@ import locI18next from 'loc-i18next';
 
 import './side-effects';
 
-import { cyOptions, i18nextOptions, langList } from './constants';
+import { i18nextOptions, langList } from './constants';
 
-import { Mode } from './modes';
-import ModeNull from './ModeNull';
-import ModeNode from './ModeNode';
-import ModeEdge from './ModeEdge';
-import ModeDijkstra from './ModeDijkstra';
-import ModeGirth from './ModeGirth';
-import ModeNumNodes from './ModeNumNodes';
-import ModeNumEdges from './ModeNumEdges'; // ModeNumEdges -> ES Module
-import ModeDegSequence from './ModeDegSequence';
-import ModeComponents from './ModeComponents';
-import ModeCircuitRank from './ModeCircuitRank';
-import ModeDiameter from './ModeDiameter';
-import ModeExport from './ModeExport';
-import ModeImport from './ModeImport';
-import ModeLoad from './ModeLoad';
-import ModeLayout from './ModeLayout';
-import ModeClear from './ModeClear';
+import { cy, parameters, toolbarModes, infoboxModes } from './modesList';
+import ModeNull from './modes/ModeNull';
+import { Mode } from './modes/modes';
 
 import * as assets from './assets';
 
@@ -63,11 +48,6 @@ declare global {
 window.d3 = d3;
 
 function main() {
-  const cy = cytoscape({
-    ...cloneDeep(cyOptions),
-    ...{ container: document.getElementById('cy') },
-  });
-
   // After this, window.cy is shadowing the function-local cy.
   // This is because the globalThis pointer refers to 'window' in the browser environment.
   // Both have no type assigned on the window object.
@@ -75,121 +55,6 @@ function main() {
   window.cy = cy;
 
   // d3.select('#output').html(i18next.t('Connected_components')); // test
-
-  const parameters = {
-    idNodeCount: 1,
-    idEdgeCount: 1,
-    outputContainer: document.getElementById('output') as HTMLElement,
-  };
-
-  type ModeConfig = {
-    modeName: string;
-    textKey: string;
-    icon: string;
-    modeObj: Mode;
-  };
-
-  const toolbarModes: ModeConfig[] = [
-    {
-      modeName: 'modeClear',
-      textKey: 'Clear',
-      icon: assets.iconClear,
-      modeObj: new ModeClear(cy, parameters),
-    },
-    {
-      modeName: 'modeExport',
-      textKey: 'Export',
-      icon: assets.iconExport,
-      modeObj: new ModeExport(cy, parameters),
-    },
-    {
-      modeName: 'modeImport',
-      textKey: 'Import',
-      icon: assets.iconImport,
-      modeObj: new ModeImport(cy, parameters),
-    },
-    {
-      modeName: 'modeLoad',
-      textKey: 'Load',
-      icon: assets.iconLoad,
-      modeObj: new ModeLoad(cy, parameters),
-    },
-    {
-      modeName: 'modeNull',
-      textKey: 'Pointer',
-      icon: assets.iconPointer,
-      modeObj: new ModeNull(cy, parameters),
-    },
-    {
-      modeName: 'modeNode',
-      textKey: 'Nodes',
-      icon: assets.iconNode,
-      modeObj: new ModeNode(cy, parameters),
-    },
-    {
-      modeName: 'modeEdge',
-      textKey: 'Edges',
-      icon: assets.iconEdge,
-      modeObj: new ModeEdge(cy, parameters),
-    },
-    {
-      modeName: 'modeLayout',
-      textKey: 'Layout',
-      icon: assets.iconEdge,
-      modeObj: new ModeLayout(cy, parameters),
-    },
-    {
-      modeName: 'modeDijkstra',
-      textKey: 'Shortest_path',
-      icon: assets.iconDijkstra,
-      modeObj: new ModeDijkstra(cy, parameters),
-    },
-  ];
-
-  const infoboxModes: ModeConfig[] = [
-    {
-      modeName: 'modeNumNodes',
-      textKey: 'Order',
-      icon: assets.iconGirth,
-      modeObj: new ModeNumNodes(cy, parameters),
-    },
-    {
-      modeName: 'modeNumEdges',
-      textKey: 'Size',
-      icon: assets.iconGirth,
-      modeObj: new ModeNumEdges(cy, parameters),
-    },
-    {
-      modeName: 'modeGirth',
-      textKey: 'Girth',
-      icon: assets.iconGirth,
-      modeObj: new ModeGirth(cy, parameters),
-    },
-    {
-      modeName: 'modeDegSequence',
-      textKey: 'Degree_sequence',
-      icon: assets.iconGirth,
-      modeObj: new ModeDegSequence(cy, parameters),
-    },
-    {
-      modeName: 'modeCompponents',
-      textKey: 'Connected_components',
-      icon: assets.iconGirth,
-      modeObj: new ModeComponents(cy, parameters),
-    },
-    {
-      modeName: 'modeCircuitRank',
-      textKey: 'Circuit_rank',
-      icon: assets.iconGirth,
-      modeObj: new ModeCircuitRank(cy, parameters),
-    },
-    {
-      modeName: 'modeDiameter',
-      textKey: 'Diameter',
-      icon: assets.iconGirth,
-      modeObj: new ModeDiameter(cy, parameters),
-    },
-  ];
 
   const modeNull = new ModeNull(cy, parameters);
   let primaryMode: Mode = modeNull;

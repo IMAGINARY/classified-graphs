@@ -2,8 +2,8 @@
 import * as d3 from 'd3-selection';
 import { Core } from 'cytoscape';
 import { Mode, Parameters } from './modes';
-import graphGalleryList from './graph-gallery-scripts/graphs-list.json';
-import * as agr from './assets_graphs';
+import graphGalleryList from '../graph-gallery-scripts/graphs-list.json';
+import * as agr from '../assets_graphs';
 
 export default class ModeLoad implements Mode {
   cy;
