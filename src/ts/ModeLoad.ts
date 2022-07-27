@@ -2,7 +2,7 @@
 import * as d3 from 'd3-selection';
 import { Core } from 'cytoscape';
 import { Mode, Parameters } from './modes';
-import { graphGalleryList } from './constants';
+import graphGalleryList from './graph-gallery-scripts/graphs-list.json';
 import * as agr from './assets_graphs';
 
 export default class ModeLoad implements Mode {
@@ -21,17 +21,25 @@ export default class ModeLoad implements Mode {
     //   .attr('data-bs-toggle', 'modal')
     //   .attr('data-bs-target', '#exampleModal');
 
-    d3.select('#graphList')
-      .selectAll('span')
+    const graphItems = d3
+      .select('#graphList')
+      .selectAll('div')
       .data(graphGalleryList)
       .enter()
-      .append('span')
+      .append('div')
       .classed('graphGalleryItem', true)
       .attr('data-bs-dismiss', 'modal')
-      .text((d) => d.name)
       .on('click', (ev, d) => {
         this.loadFile(d.file);
       });
+
+    graphItems
+      .append('div')
+      .append('img')
+      .attr('src', (d) => agr[`${d.file}Icon` as keyof typeof agr])
+      .attr('height', '80px');
+
+    graphItems.append('div').text((d) => d.name);
 
     this.loadFile = (grId) => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises

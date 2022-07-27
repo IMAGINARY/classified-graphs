@@ -3,3 +3,7 @@ root: false
 env:
   browser: false
   node: true
+
+parserOptions:
+  sourceType: 'module'
+  ecmaVersion: 2015

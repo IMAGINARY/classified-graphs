@@ -8,10 +8,13 @@
   </head>
 
   <body>
-
     <div class="dropdown" id="langSelector">
-      <button class="btn btn-secondary dropdown-toggle" type="button"  data-bs-toggle="dropdown">
-        <img src="../img/translate.svg" width="30px">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+      >
+        <img src="../img/translate.svg" width="30px" />
       </button>
       <ul class="dropdown-menu">
         <!-- <li><a class="dropdown-item" href="#">English</a></li>
@@ -20,27 +23,30 @@
       </ul>
     </div>
 
-
-<!-- modal -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <!-- modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Launch demo modal
 </button> -->
-    
-<div class="modal" id="exampleModal">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Select a graph</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body" id = "graphList"> </div>
-      <!-- <div class="modal-footer">
+
+    <div class="modal" id="exampleModal">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Select a graph</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" id="graphList"></div>
+          <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
         <button type="button" class="btn btn-primary">Save changes</button>
       </div> -->
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
     <h1 class="translate" data-i18n="title"></h1>
     <nav id="toolbar"></nav>
@@ -54,7 +60,12 @@
     <pre id="outputText"></pre>
     -->
 
-    <input type="file" id="inputFile" accept="application/json" style="display: none;">
+    <input
+      type="file"
+      id="inputFile"
+      accept="application/json"
+      style="display: none"
+    />
 
     <script src="../ts/main.ts" type="module"></script>
   </body>

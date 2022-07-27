@@ -21,6 +21,21 @@ const complete7 = new URL('../graph-gallery/complete7.data', import.meta.url)
 const complete8 = new URL('../graph-gallery/complete8.data', import.meta.url)
   .href;
 
+const complete2Icon = new URL('../graph-gallery/complete2.png', import.meta.url)
+  .href;
+const complete3Icon = new URL('../graph-gallery/complete3.png', import.meta.url)
+  .href;
+const complete4Icon = new URL('../graph-gallery/complete4.png', import.meta.url)
+  .href;
+const complete5Icon = new URL('../graph-gallery/complete5.png', import.meta.url)
+  .href;
+const complete6Icon = new URL('../graph-gallery/complete6.png', import.meta.url)
+  .href;
+const complete7Icon = new URL('../graph-gallery/complete7.png', import.meta.url)
+  .href;
+const complete8Icon = new URL('../graph-gallery/complete8.png', import.meta.url)
+  .href;
+
 export {
   complete2,
   complete3,
@@ -29,4 +44,11 @@ export {
   complete6,
   complete7,
   complete8,
+  complete2Icon,
+  complete3Icon,
+  complete4Icon,
+  complete5Icon,
+  complete6Icon,
+  complete7Icon,
+  complete8Icon,
 };
