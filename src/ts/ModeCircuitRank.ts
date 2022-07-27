@@ -11,7 +11,7 @@ export default class ModeCircuitRank implements Mode {
   constructor(cy: Core, parameters: Parameters) {
     this.cy = cy;
     this.parameters = parameters;
-    this.viewInterval = 0;
+    this.viewInterval = 0 as unknown as ReturnType<typeof setInterval>;
   }
 
   activate = () => {
