@@ -191,7 +191,7 @@ function main() {
     },
   ];
 
-  const modeNull = toolbarModes[0].modeObj;
+  const modeNull = new ModeNull(cy, parameters);
   let primaryMode: Mode = modeNull;
   let secondaryMode: Mode = infoboxModes[0].modeObj;
 
