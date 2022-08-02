@@ -15,6 +15,7 @@ import ModeNull from './modes/ModeNull';
 import { Mode } from './modes/modes';
 
 import * as assets from './assets';
+import * as sgiso from './utils/subgraph-isomorphism';
 
 // eslint-disable-next-line no-void
 void i18next.use(LanguageDetector).init(i18nextOptions);
@@ -43,6 +44,7 @@ declare global {
   interface Window {
     cy: cytoscape.Core;
     d3: typeof d3;
+    sgiso: typeof sgiso;
   }
 }
 window.d3 = d3;
@@ -53,6 +55,13 @@ function main() {
   // Both have no type assigned on the window object.
   // Same for the global vs. local d3 object.
   window.cy = cy;
+
+  window.sgiso = sgiso;
+  /* Test in console after loading a graph, as follows:
+        A = cy.elements().utils().adjacencyMatrix()
+        sgiso.getIsomorphicSubgraphs(A,A,null,null)
+    It will list the automorphisms of the graph
+  */
 
   // d3.select('#output').html(i18next.t('Connected_components')); // test
 
