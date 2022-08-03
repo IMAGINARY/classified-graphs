@@ -56,14 +56,15 @@ function isIso(M: number[][], G: number[][], P: number[][]): boolean {
 
   for (let r1 = 0; r1 < rows; r1 += 1) {
     for (let r2 = 0; r2 < rows; r2 += 1) {
+      const d = P[r1][r2];
       // adjacent in P
-      if (P[r1][r2] === 1) {
+      if (d) {
         // find mapped nodes in G
         const c1 = morph(r1);
         const c2 = morph(r2);
 
         // are they adjacent in G?
-        if (G[c1][c2] !== 1) {
+        if (G[c1][c2] !== d) {
           // no - not isomorphism
           return false;
         }
