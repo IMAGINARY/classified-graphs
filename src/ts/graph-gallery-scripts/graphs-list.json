@@ -1,9 +1,11 @@
 [
-  { "name": "Complete of order 2", "file": "complete2" },
-  { "name": "Complete of order 3", "file": "complete3" },
-  { "name": "Complete of order 4", "file": "complete4" },
-  { "name": "Complete of order 5", "file": "complete5" },
-  { "name": "Complete of order 6", "file": "complete6" },
-  { "name": "Complete of order 7", "file": "complete7" },
-  { "name": "Complete of order 8", "file": "complete8" }
+  { "name": "Complete of order 2", "file": "complete-2" },
+  { "name": "Complete of order 3", "file": "complete-3" },
+  { "name": "Complete of order 4", "file": "complete-4" },
+  { "name": "Complete of order 5", "file": "complete-5" },
+  { "name": "Complete of order 6", "file": "complete-6" },
+  { "name": "Complete of order 7", "file": "complete-7" },
+  { "name": "Complete of order 8", "file": "complete-8" },
+  { "name": "Trivalent of genus 2", "file": "trivalent-2-0" },
+  { "name": "Trivalent of genus 2", "file": "trivalent-2-1" }
 ]
