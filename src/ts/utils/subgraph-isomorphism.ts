@@ -281,6 +281,8 @@ function getIsomorphicSubgraphs(
 
   const results = [] as number[][][];
 
+  const startTime = performance.now();
+
   recurse(
     new Array(Gsize).fill(0) as number[], // math.zeros(1, G_size).toArray()[0],
     0,
@@ -290,6 +292,13 @@ function getIsomorphicSubgraphs(
     results,
     maxNum,
     false,
+  );
+
+  const endTime = performance.now();
+
+  // eslint-disable-next-line no-console
+  console.log(
+    `Elapsed time: ${((endTime - startTime) / 1000).toFixed(2)} seconds`,
   );
 
   return results;
