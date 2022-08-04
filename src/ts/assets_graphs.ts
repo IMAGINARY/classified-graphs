@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 /**
  * As with the images (see assets.ts), the Parcel bundler does not allow to
  * load a file by URL that has not been explicitly declared before runtime.
@@ -21,6 +23,15 @@ const complete7 = new URL('../graph-gallery/complete7.data', import.meta.url)
 const complete8 = new URL('../graph-gallery/complete8.data', import.meta.url)
   .href;
 
+const trivalent_2_0 = new URL(
+  '../graph-gallery/trivalent_2_0.data',
+  import.meta.url,
+).href;
+const trivalent_2_1 = new URL(
+  '../graph-gallery/trivalent_2_1.data',
+  import.meta.url,
+).href;
+
 const complete2Icon = new URL('../graph-gallery/complete2.png', import.meta.url)
   .href;
 const complete3Icon = new URL('../graph-gallery/complete3.png', import.meta.url)
@@ -36,6 +47,15 @@ const complete7Icon = new URL('../graph-gallery/complete7.png', import.meta.url)
 const complete8Icon = new URL('../graph-gallery/complete8.png', import.meta.url)
   .href;
 
+const trivalent_2_0Icon = new URL(
+  '../graph-gallery/trivalent_2_0.png',
+  import.meta.url,
+).href;
+const trivalent_2_1Icon = new URL(
+  '../graph-gallery/trivalent_2_1.png',
+  import.meta.url,
+).href;
+
 export {
   complete2,
   complete3,
@@ -44,6 +64,8 @@ export {
   complete6,
   complete7,
   complete8,
+  trivalent_2_0,
+  trivalent_2_1,
   complete2Icon,
   complete3Icon,
   complete4Icon,
@@ -51,4 +73,6 @@ export {
   complete6Icon,
   complete7Icon,
   complete8Icon,
+  trivalent_2_0Icon,
+  trivalent_2_1Icon,
 };

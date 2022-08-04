@@ -28,6 +28,7 @@ const makeThumb = (cyJson,filename) => {
           selector: 'edge',
           style: {
             'line-color': 'red',
+            'curve-style': 'bezier',
           },
         },
       ],
