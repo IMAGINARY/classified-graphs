@@ -107,7 +107,7 @@ console.log('Creating files for trivalent graphs');
 console.log('===================================');
 
 function graphFromUpperTriangular(M: string) {
-  const cy = cytoscape();
+  const cy = cytoscape({styleEnabled: true});
 
   const g = (Number(M.split("  ")[0]) + 2) / 2;
   const N = 2*g - 2;
@@ -135,6 +135,7 @@ function graphFromUpperTriangular(M: string) {
       k++;
     }
   }
+  cy.style().selector("edge").style("curve-style", "bezier").update();
   cy.layout({ name: 'circle', radius: 200 }).run();
   cy.zoom(1);
   cy.panBy({ x: 600, y: 500 });
