@@ -101,7 +101,7 @@ function recurse(
 
   if (cur_row === numRows(M)) {
     if (isIso(M, G, P)) {
-      out.push(array2DCopy(M));
+      //   out.push(array2DCopy(M));
     }
   } else {
     const Mp = array2DCopy(M);
@@ -253,8 +253,8 @@ function initMorphism(
 function getIsomorphicSubgraphs(
   G: number[][],
   P: number[][],
-  maxNum: number | null,
-  similarityCriteria: (
+  maxNum?: number | null,
+  similarityCriteria?: (
     P: number[][],
     G: number[][],
     p: number,

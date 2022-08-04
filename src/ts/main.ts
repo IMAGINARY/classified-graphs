@@ -15,7 +15,6 @@ import ModeNull from './modes/ModeNull';
 import { Mode } from './modes/modes';
 
 import * as assets from './assets';
-import * as sgiso from './utils/subgraph-isomorphism';
 
 // eslint-disable-next-line no-void
 void i18next.use(LanguageDetector).init(i18nextOptions);
@@ -44,7 +43,7 @@ declare global {
   interface Window {
     cy: cytoscape.Core;
     d3: typeof d3;
-    sgiso: typeof sgiso;
+    findIso: (a: void) => void;
   }
 }
 window.d3 = d3;
@@ -56,12 +55,25 @@ function main() {
   // Same for the global vs. local d3 object.
   window.cy = cy;
 
-  window.sgiso = sgiso;
-  /* Test in console after loading a graph, as follows:
-        A = cy.elements().utils().adjacencyMatrix()
-        sgiso.getIsomorphicSubgraphs(A,A,null,null)
-    It will list the automorphisms of the graph
-  */
+  const findIsomorphisms = () => {
+    if (window.Worker) {
+      const worker = new Worker(new URL('./sgiso_worker.ts', import.meta.url), {
+        type: 'module',
+      });
+      const A = cy.elements().utils().adjacencyMatrix();
+
+      worker.postMessage([A, A]);
+
+      worker.onmessage = () => {
+        // console.log(e.data);
+      };
+    } else {
+      // eslint-disable-next-line no-console
+      console.log("Your browser doesn't support web workers.");
+    }
+  };
+
+  window.findIso = findIsomorphisms;
 
   // d3.select('#output').html(i18next.t('Connected_components')); // test
 

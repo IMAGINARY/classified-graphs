@@ -11,7 +11,7 @@ class Utils {
   }
 
   adjacencyMatrix(
-    indexOf: Parameters<typeof adjacencyMatrix>[1],
+    indexOf?: Parameters<typeof adjacencyMatrix>[1],
   ): ReturnType<typeof adjacencyMatrix> {
     return adjacencyMatrix(this.collection, indexOf);
   }

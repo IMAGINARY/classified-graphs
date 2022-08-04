@@ -82,7 +82,7 @@
     ]
   },
   "scripts": {
-    "serve": "parcel serve --dist-dir dist-dev --target ''",
+    "serve": "parcel serve --no-hmr --dist-dir dist-dev --target ''",
     "build": "rm -r dist; npm run build:graphs && npm run build:frontend",
     "build:graphs": "rm -f dist/generate-graphs.js && parcel build --target graph-generator && node dist/generate-graphs.js",
     "build:thumbnails": "node src/ts/graph-gallery-scripts/make-thumbnails.mjs",
