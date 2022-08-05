@@ -142,7 +142,8 @@ function graphFromUpperTriangular(M: string) {
       k += 1;
     }
   }
-  cy.layout({ name: 'cose' }).run();
+  cy.layout({ name: 'circle', radius: 200 }).run();
+  // cy.layout({ name: 'cose' }).run(); //To do: use better layout for these graphs.
   cy.zoom(1);
   cy.panBy({ x: 600, y: 500 });
 
