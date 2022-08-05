@@ -118,17 +118,22 @@ function graphFromUpperTriangular(M: string) {
   // to index the upper triangular matrix easily
   let k = 0;
 
+  // first add all vertices
   for (let i = 0; i < 2 * g - 2; i += 1) {
     cy.add({ group: 'nodes', data: { id: `N-${i}` } });
-    for (let j = 0; j <= i; j += 1) {
+  }
+
+  // then the edges (otherwise certain edges don't exist yet
+  for (let i = 0; i < 2 * g - 2; i += 1) {
+    for (let j = i; j < 2 * g - 2; j += 1) {
       // add the correct amount of edges
       for (let l = 0; l < upper[k]; l += 1) {
         cy.add({
           group: 'edges',
           data: {
-            source: cy.nodes()[j].id(),
-            target: cy.nodes()[i].id(),
-            id: `E-${j}-${i}-${l}`,
+            source: cy.nodes()[i].id(),
+            target: cy.nodes()[j].id(),
+            id: `E-${i}-${j}-${l}`,
           },
         });
       }
@@ -137,7 +142,7 @@ function graphFromUpperTriangular(M: string) {
       k += 1;
     }
   }
-  cy.layout({ name: 'circle', radius: 200 }).run();
+  cy.layout({ name: 'cose' }).run();
   cy.zoom(1);
   cy.panBy({ x: 600, y: 500 });
 
