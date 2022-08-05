@@ -2,12 +2,13 @@
 // Run this file from the command line to generate the graph json files
 // $ node make-complete-graphs.ts
 
-import cytoscape, { Core } from 'cytoscape';
-import * as fs from 'fs';
+import cytoscape from 'cytoscape';
+import { GraphRegister, registerGraphs, makeFile } from './register-graphs';
 
 console.log('Creating files for Complete graphs');
 console.log('==================================');
 
+/* Define the function that creates a graph, for any given parameter(s) */
 function makeGraph(N: number) {
   const cy = cytoscape();
 
@@ -31,19 +32,25 @@ function makeGraph(N: number) {
   return cy;
 }
 
-function makeFile(cy: Core, filename: string) {
-  const json = cy.json();
-  const jsonString = JSON.stringify(json, null, 4);
+/* Create a list of graphs */
 
-  fs.writeFile(filename, jsonString, {}, (err) => {
-    if (err) throw err;
-    console.log(`Saved file ${filename}`);
+const register = [] as GraphRegister[];
+
+for (let i = 2; i < 9; i += 1) {
+  // make the graph and save to a file.
+  makeFile(makeGraph(i), `./src/graph-gallery/complete_${i}.data`);
+
+  // create the graph register
+  register.push({
+    family: 'Complete',
+    name: `Complete of order ${i}`,
+    file: `complete_${i}`,
   });
 }
 
-for (let i = 2; i < 9; i += 1) {
-  makeFile(makeGraph(i), `./src/graph-gallery/complete${i}.data`);
-}
+// register the graph registers
+registerGraphs(register);
+
 // NOTE
 // The extension ".data" is to avoid problems with Parcel bundler. If the extension is .json,
 // then parcel does not import the dependency correctly.

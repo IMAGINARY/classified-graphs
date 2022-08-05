@@ -4,8 +4,8 @@
 // Run this file from the command line to generate the graph json files
 // $ node make-trivalent-graphs.ts
 
-import cytoscape, { Core } from 'cytoscape';
-import * as fs from 'fs';
+import cytoscape from 'cytoscape';
+import { GraphRegister, registerGraphs, makeFile } from './register-graphs';
 
 const matrices = [
   '2  1 1 1',
@@ -144,16 +144,7 @@ function graphFromUpperTriangular(M: string) {
   return cy;
 }
 
-// TODO copy-paste from `make-complete-graphs.ts`: fix this
-function makeFile(cy: Core, filename: string) {
-  const json = cy.json();
-  const jsonString = JSON.stringify(json, null, 4);
-
-  fs.writeFile(filename, jsonString, {}, (err) => {
-    if (err) throw err;
-    console.log(`Saved file ${filename}`);
-  });
-}
+const register = [] as GraphRegister[];
 
 let i = 0;
 let previousGenus = 1;
@@ -167,6 +158,16 @@ for (const M of matrices) {
 
   makeFile(
     graphFromUpperTriangular(M),
-    `./src/graph-gallery/trivalent_${g}_${(i += 1)}.data`,
+    `./src/graph-gallery/trivalent_${g}_${i}.data`,
   );
+
+  register.push({
+    family: 'Trivalent',
+    name: `Trivalent ${g}<sub>${i}</sub>`,
+    file: `trivalent_${g}_${i}`,
+  });
+
+  i += 1;
 }
+
+registerGraphs(register);

@@ -83,14 +83,15 @@
   },
   "scripts": {
     "serve": "parcel serve --dist-dir dist-dev --target ''",
-    "build": "rm -r dist; npm run build:graphs && npm run build:frontend",
-    "build:graphs": "rm -f dist/generate-graphs.js && parcel build --target graph-generator && node dist/generate-graphs.js",
+    "build": "rm -r dist; npm run build:graphs && npm run build:thumbnails && npm run build:frontend",
+    "build:graphs": "rm -f dist/generate-graphs.js && parcel build --target graph-generator && node dist/generate-graphs.js && prettier --write src/graph-gallery/graphs* ",
     "build:thumbnails": "node src/ts/graph-gallery-scripts/make-thumbnails.mjs",
     "build:frontend": "parcel build --target ''",
     "format": "prettier --write '{src/**/*,*}.{htm,html,js,mjs,ts,jsx,tsx,md,json,yaml,yml,css,scss}'",
     "doc": "typedoc",
     "lint": "cd src/ts && eslint '{**/*,*}.{js,ts,jsx,tsx}'",
     "lint:fix": "cd src/ts && eslint --fix '{**/*,*}.{js,ts,jsx,tsx}'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -r dist dist-dev .parcel-cache src/graph-gallery/*"
   }
 }

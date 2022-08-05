@@ -2,8 +2,8 @@
 import * as d3 from 'd3-selection';
 import { Core } from 'cytoscape';
 import { Mode, Parameters } from './modes';
-import graphGalleryList from '../graph-gallery-scripts/graphs-list.json';
-import * as agr from '../assets_graphs';
+import graphGalleryList from '../../graph-gallery/graphs-list.json';
+import * as agr from '../../graph-gallery/graphs-assets';
 
 export default class ModeLoad implements Mode {
   cy;
@@ -36,10 +36,10 @@ export default class ModeLoad implements Mode {
     graphItems
       .append('div')
       .append('img')
-      .attr('src', (d) => agr[`${d.file}Icon` as keyof typeof agr])
+      .attr('src', (d) => agr[`${d.file}_Icon` as keyof typeof agr])
       .attr('height', '80px');
 
-    graphItems.append('div').text((d) => d.name);
+    graphItems.append('div').html((d) => d.name);
 
     this.loadFile = (grId) => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
