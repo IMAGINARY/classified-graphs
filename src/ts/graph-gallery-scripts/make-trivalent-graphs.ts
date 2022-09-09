@@ -5,6 +5,7 @@
 // $ node make-trivalent-graphs.ts
 
 import cytoscape from 'cytoscape';
+import { makeThumb, applyLayout } from './generating-tools';
 import { GraphRegister, registerGraphs, makeFile } from './register-graphs';
 
 const matrices = [
@@ -108,7 +109,7 @@ const matrices = [
 console.log('Creating files for trivalent graphs');
 console.log('===================================');
 
-function graphFromUpperTriangular(M: string) {
+function graphFromUpperTriangular(M: string): cytoscape.Core {
   const cy = cytoscape();
 
   const g = (Number(M.split('  ')[0]) + 2) / 2;
@@ -123,7 +124,7 @@ function graphFromUpperTriangular(M: string) {
     cy.add({ group: 'nodes', data: { id: `N-${i}` } });
   }
 
-  // then the edges (otherwise certain edges don't exist yet
+  // then the edges
   for (let i = 0; i < 2 * g - 2; i += 1) {
     for (let j = i; j < 2 * g - 2; j += 1) {
       // add the correct amount of edges
@@ -142,10 +143,6 @@ function graphFromUpperTriangular(M: string) {
       k += 1;
     }
   }
-  cy.layout({ name: 'circle', radius: 200 }).run();
-  // cy.layout({ name: 'cose' }).run(); //To do: use better layout for these graphs.
-  cy.zoom(1);
-  cy.panBy({ x: 600, y: 500 });
 
   return cy;
 }
@@ -162,18 +159,48 @@ for (const M of matrices) {
   if (g !== previousGenus) i = 0;
   previousGenus = g;
 
-  makeFile(
-    graphFromUpperTriangular(M),
-    `./src/graph-gallery/trivalent_${g}_${i}.data`,
-  );
+  const layoutOpts = {
+    name: 'cose',
+    boundingBox: { x1: 0, y1: 0, x2: 300, y2: 300 },
+  };
 
-  register.push({
+  const id = {
     family: 'Trivalent',
     name: `Trivalent ${g}<sub>${i}</sub>`,
     file: `trivalent_${g}_${i}`,
-  });
+  };
+
+  const cy = graphFromUpperTriangular(M); // sync
+
+  const layouted = applyLayout(cy, layoutOpts); // async, returns promise
+
+  layouted
+    .then(() => makeFile(cy, `./src/graph-gallery/${id.file}.data`))
+    .catch((err) => {
+      console.error(err);
+    });
+
+  layouted
+    .then(() => makeThumb(cy, `./src/graph-gallery/${id.file}.png`))
+    .catch((err) => {
+      console.error(err);
+    });
+
+  register.push(id);
 
   i += 1;
 }
 
 registerGraphs(register);
+
+// const promises = [] as ReturnType<typeof makeThumb>[];
+
+// Promise.allSettled(promises)
+//   .then(() => {
+//     console.log('');
+//     console.log('Trivalent graphs created.');
+//     process.exit();
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });

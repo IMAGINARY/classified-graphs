@@ -2,22 +2,25 @@
 
 // const cytosnap = require( 'cytosnap');
 
-import * as fs from 'fs';
+import * as fs from 'fs/promises';
 import cytosnap from 'cytosnap';
 
 // list of layout extensions to use
 // NB you must `npm install` these yourself for your project
 // cytosnap.use([ 'cytoscape-dagre', 'cytoscape-cose-bilkent' ]);
 
-const makeThumb = (cyJson, filename) => {
-  const snap = cytosnap();
+console.log('Creating thumbnails for all graphs');
+console.log('==================================');
 
-  snap
+
+const snap = cytosnap();
+
+const makeThumb = (cyJson, filename) => snap
     .start()
-    .then(() => {
-      return snap.shot({
+    .then(() =>
+      snap.shot({
         elements: cyJson.elements,
-        layout: { name: 'circle' },
+        layout: { name: 'cose' },
         style: [
           // http://js.cytoscape.org/#style
           {
@@ -39,37 +42,41 @@ const makeThumb = (cyJson, filename) => {
         width: 640,
         height: 480,
         background: 'transparent',
-      });
-    })
+      }))
     .then((img) => {
-      // console.log( img );
       // https://stackoverflow.com/questions/43487543/writing-binary-data-using-node-js-fs-writefile-to-create-an-image-file
-
-      var data = img.replace(/^data:image\/\w+;base64,/, '');
-      var buf = Buffer.from(data, 'base64');
-      fs.writeFile('src/graph-gallery/' + filename + '.png', buf, (err) => {
-        if (err) {
-          console.error(err);
-        }
+      const data = img.replace(/^data:image\/\w+;base64,/, '');
+      const buf = Buffer.from(data, 'base64');
+      fs.writeFile('src/graph-gallery/' + filename + '.png', buf)
+        .then(()=>{console.log('Saved thumbnail ' + filename + '.png')})
+        .catch((err)=>{console.error(err)})
       });
-      console.log('Saved thumbnail ' + filename +'.png');
+
+fs.readFile('src/graph-gallery/graphs-list.json')
+  .then((data) =>{
+    const graphGalleryList = JSON.parse(data.toString());
+    console.log(`Number of graphs to process: ${graphGalleryList.length}`);
+
+    const promises = [];
+
+    graphGalleryList.forEach((d) => {
+        promises.push(
+          fs.readFile('src/graph-gallery/' + d.file + '.data')
+            .then(filedata => JSON.parse(filedata.toString()))
+            .then(filejson => makeThumb(filejson, d.file))
+          )
+      })
+
+    Promise.allSettled(promises).then(()=> {
+      console.log('');
+      console.log('All thumbnails created.');
+      process.exit();
     });
-};
+    }
+  )
 
-const data = fs.readFileSync('src/graph-gallery/graphs-list.json');
-const graphGalleryList = JSON.parse(data.toString());
+  
 
-// console.log(graphGalleryList);
-
-graphGalleryList.forEach((d) => {
-  // console.log(d);
-  const filedata = fs.readFileSync('src/graph-gallery/' + d.file + '.data');
-  const filejson = JSON.parse(filedata.toString());
-  // console.log(filejson)
-  makeThumb(filejson, d.file);
-});
-
-console.log('All thumbnails created');
 
 /* Template */
 

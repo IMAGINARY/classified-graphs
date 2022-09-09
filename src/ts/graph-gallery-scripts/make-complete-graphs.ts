@@ -3,6 +3,7 @@
 // $ node make-complete-graphs.ts
 
 import cytoscape from 'cytoscape';
+import { makeThumb, applyLayout } from './generating-tools';
 import { GraphRegister, registerGraphs, makeFile } from './register-graphs';
 
 console.log('Creating files for Complete graphs');
@@ -25,27 +26,45 @@ function makeGraph(N: number) {
       });
     }
   }
-  cy.layout({ name: 'circle', radius: 200 }).run();
-  cy.zoom(1);
-  cy.panBy({ x: 600, y: 500 });
+  // cy.layout({ name: 'circle', radius: 200 }).run();
+  // cy.zoom(1);
+  // cy.panBy({ x: 600, y: 500 });
 
   return cy;
 }
 
-/* Create a list of graphs */
+const layoutOpts = {
+  name: 'cose',
+  boundingBox: { x1: 0, y1: 0, x2: 300, y2: 300 },
+};
 
 const register = [] as GraphRegister[];
 
+/* Create a list of graphs */
 for (let i = 2; i < 9; i += 1) {
-  // make the graph and save to a file.
-  makeFile(makeGraph(i), `./src/graph-gallery/complete_${i}.data`);
-
-  // create the graph register
-  register.push({
+  const id = {
     family: 'Complete',
     name: `Complete of order ${i}`,
     file: `complete_${i}`,
-  });
+  };
+
+  const cy = makeGraph(i);
+
+  const layouted = applyLayout(cy, layoutOpts); // async, returns promise
+
+  layouted
+    .then(() => makeFile(cy, `./src/graph-gallery/${id.file}.data`))
+    .catch((err) => {
+      console.error(err);
+    });
+
+  layouted
+    .then(() => makeThumb(cy, `./src/graph-gallery/${id.file}.png`))
+    .catch((err) => {
+      console.error(err);
+    });
+
+  register.push(id);
 }
 
 // register the graph registers
@@ -54,6 +73,3 @@ registerGraphs(register);
 // NOTE
 // The extension ".data" is to avoid problems with Parcel bundler. If the extension is .json,
 // then parcel does not import the dependency correctly.
-
-// const NN = 4;
-// makeFile(makeGraph(NN), `./src/graph-gallery/complete_${NN}.json`);
