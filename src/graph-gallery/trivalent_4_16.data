@@ -6,8 +6,8 @@
                     "id": "N-0"
                 },
                 "position": {
-                    "x": 0.49999999999996325,
-                    "y": -199.5
+                    "x": 44.07351432622124,
+                    "y": 117.68327614654648
                 },
                 "group": "nodes",
                 "removed": false,
@@ -23,8 +23,8 @@
                     "id": "N-1"
                 },
                 "position": {
-                    "x": 173.70508075688775,
-                    "y": -99.49999999999993
+                    "x": 144.71061026320058,
+                    "y": 175.16660372737937
                 },
                 "group": "nodes",
                 "removed": false,
@@ -40,8 +40,8 @@
                     "id": "N-2"
                 },
                 "position": {
-                    "x": 173.70508075688772,
-                    "y": 100.5
+                    "x": 158.9147300668279,
+                    "y": 300
                 },
                 "group": "nodes",
                 "removed": false,
@@ -57,8 +57,8 @@
                     "id": "N-3"
                 },
                 "position": {
-                    "x": 0.5000000000000613,
-                    "y": 200.5
+                    "x": 195.73278667115827,
+                    "y": 0
                 },
                 "group": "nodes",
                 "removed": false,
@@ -74,8 +74,8 @@
                     "id": "N-4"
                 },
                 "position": {
-                    "x": -172.70508075688775,
-                    "y": 100.49999999999996
+                    "x": 0,
+                    "y": 297.65372497474476
                 },
                 "group": "nodes",
                 "removed": false,
@@ -91,8 +91,8 @@
                     "id": "N-5"
                 },
                 "position": {
-                    "x": -172.70508075688764,
-                    "y": -99.50000000000013
+                    "x": 300,
+                    "y": 171.48422354042685
                 },
                 "group": "nodes",
                 "removed": false,
@@ -281,14 +281,14 @@
     "data": {},
     "zoomingEnabled": true,
     "userZoomingEnabled": true,
-    "zoom": 1,
+    "zoom": 1e-50,
     "minZoom": 1e-50,
     "maxZoom": 1e+50,
     "panningEnabled": true,
     "userPanningEnabled": true,
     "pan": {
-        "x": 600.5,
-        "y": 500.5
+        "x": 0.5,
+        "y": 0.5
     },
     "boxSelectionEnabled": true,
     "renderer": {
