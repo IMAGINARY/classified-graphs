@@ -74,7 +74,8 @@
     "i18next-browser-languagedetector": "^6.1.4",
     "jquery": "^3.6.0",
     "loc-i18next": "^0.1.4",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mathjs": "^11.1.0"
   },
   "sass": {
     "includePaths": [

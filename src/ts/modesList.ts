@@ -22,6 +22,7 @@ import ModeImport from './modes/ModeImport';
 import ModeLoad from './modes/ModeLoad';
 import ModeLayout from './modes/ModeLayout';
 import ModeClear from './modes/ModeClear';
+import ModeDetAdjacency from './modes/ModeDetAdjacency';
 
 const parameters: Parameters = {
   idNodeCount: 1,
@@ -140,6 +141,12 @@ const infoboxModes: ModeConfig[] = [
     textKey: 'Diameter',
     icon: assets.iconGirth,
     modeObj: new ModeDiameter(cy, parameters),
+  },
+  {
+    modeName: 'modeDetAdjacency',
+    textKey: 'Det_adjacency',
+    icon: assets.iconGirth,
+    modeObj: new ModeDetAdjacency(cy, parameters),
   },
 ];
 
