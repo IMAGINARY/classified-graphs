@@ -23,6 +23,7 @@ import ModeLoad from './modes/ModeLoad';
 import ModeLayout from './modes/ModeLayout';
 import ModeClear from './modes/ModeClear';
 import ModeDetAdjacency from './modes/ModeDetAdjacency';
+import ModeAdjacencyMatrix from './modes/ModeAdjacencyMatrix';
 
 const parameters: Parameters = {
   idNodeCount: 1,
@@ -147,6 +148,12 @@ const infoboxModes: ModeConfig[] = [
     textKey: 'Det_adjacency',
     icon: assets.iconGirth,
     modeObj: new ModeDetAdjacency(cy, parameters),
+  },
+  {
+    modeName: 'modeAdjacencyMatrix',
+    textKey: 'Adjacency_matrix',
+    icon: assets.iconGirth,
+    modeObj: new ModeAdjacencyMatrix(cy, parameters),
   },
 ];
 
