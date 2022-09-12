@@ -52,6 +52,7 @@ export default class ModeLoad implements Mode {
           cy.nodes().positions((n) => n.renderedPosition()); // fix the rendered positions as model positions
           this.cy.fit(undefined, 30); // pan to center again (zoom should be ~1)
 
+          this.parameters.nodeIndex = this.cy.nodes().map((e) => e.id());
           this.cy.emit('cm-graph-updated');
         });
     };

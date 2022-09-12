@@ -29,6 +29,7 @@ const parameters: Parameters = {
   idNodeCount: 1,
   idEdgeCount: 1,
   outputContainer: document.getElementById('output') as HTMLElement,
+  nodeIndex: [],
 };
 
 const cy = cytoscape({

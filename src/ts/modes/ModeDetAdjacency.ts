@@ -1,4 +1,4 @@
-import { Core } from 'cytoscape';
+import { Core, NodeSingular } from 'cytoscape';
 import { det } from 'mathjs';
 import { Mode, Parameters } from './modes';
 
@@ -22,7 +22,13 @@ export default class ModeDetAdjacency implements Mode {
 
   infobox = () => {
     if (this.cy.nodes().size() > 0) {
-      const A = this.cy.elements().utils().adjacencyMatrix();
+      const A = this.cy
+        .elements()
+        .utils()
+        .adjacencyMatrix({
+          indexing: (n: NodeSingular) =>
+            this.parameters.nodeIndex.indexOf(n.id()),
+        });
       const d = det(A);
       return d.toString();
     }

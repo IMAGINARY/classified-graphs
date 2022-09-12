@@ -47,6 +47,7 @@ declare global {
   }
 }
 window.d3 = d3;
+// window.parameters = parameters;
 
 function main() {
   // After this, window.cy is shadowing the function-local cy.

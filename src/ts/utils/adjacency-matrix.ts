@@ -4,7 +4,7 @@ import { NodeSingular, Collection } from 'cytoscape';
 
 export type NodeIndexer = (n: NodeSingular) => number;
 
-function defaultNodeIndexer(collection: Collection): NodeIndexer {
+export function defaultNodeIndexer(collection: Collection): NodeIndexer {
   const nodes = collection.nodes();
   const map = new Map<string, number>(nodes.map((n, i) => [n.id(), i]));
   return (n) => {
@@ -39,14 +39,14 @@ Weight of edges is not taken into account.
 function adjacencyMatrix(
   collection: Collection,
   options: {
-    indexOf?: NodeIndexer;
+    indexing?: NodeIndexer;
     directed?: boolean;
     subgraph?: boolean;
   } = {},
 ): number[][] {
-  const indexOf = options.indexOf ?? defaultNodeIndexer(collection);
+  const indexOf = options.indexing ?? defaultNodeIndexer(collection);
   const directed = options.directed ?? false;
-  const subgraph = options.directed ?? false;
+  const subgraph = options.subgraph ?? false;
 
   const nodes = collection.nodes();
   const parentCy = nodes[0].cy();

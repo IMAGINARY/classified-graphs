@@ -14,6 +14,7 @@ export default class ModeClear implements Mode {
 
   activate = () => {
     this.cy.elements().remove();
+    this.parameters.nodeIndex = [];
     this.cy.emit('cm-graph-updated');
   };
 

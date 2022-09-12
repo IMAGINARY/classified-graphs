@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable prefer-template */
 
-import { Core } from 'cytoscape';
+import { Core, NodeSingular } from 'cytoscape';
 import { Mode, Parameters } from './modes';
 
 function arrayToHTMLTable(array: number[][]) {
@@ -34,11 +34,25 @@ export default class ModeAdjacencyMatrix implements Mode {
 
   render = () => {
     this.cy.elements().removeClass('highlighted');
+    this.cy
+      .elements()
+      .nodes()
+      .style(
+        'label',
+        (n: NodeSingular) => this.parameters.nodeIndex.indexOf(n.id()) + 1,
+      );
   };
 
   infobox = () => {
     if (this.cy.nodes().size() > 0) {
-      const A = this.cy.elements().utils().adjacencyMatrix();
+      const A = this.cy
+        .elements()
+        .utils()
+        .adjacencyMatrix({
+          indexing: (n: NodeSingular) =>
+            this.parameters.nodeIndex.indexOf(n.id()),
+        });
+
       const d = arrayToHTMLTable(A);
       return d.toString();
     }
@@ -46,6 +60,6 @@ export default class ModeAdjacencyMatrix implements Mode {
   };
 
   deactivate = () => {
-    this.cy.elements().removeClass('highlighted');
+    this.cy.elements().nodes().style('label', '');
   };
 }
