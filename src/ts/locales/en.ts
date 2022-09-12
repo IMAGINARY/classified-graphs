@@ -34,6 +34,11 @@ const en: Locale = {
         concatenation and deformation (homotopy).`,
       Diameter: 'Diameter',
       Diameter_Tip: 'The longest distance between two nodes.',
+      Adjacency_matrix: 'Adjacency matrix',
+      Adjacency_matrix_Tip:
+        'The entry a<sub>ij</sub> is the number of edges from node i to node j.',
+      Adjacency_det: 'Adjacency determinant',
+      Adjacency_det_Tip: 'The determinant of the adjacency matrix.',
     },
   },
 };

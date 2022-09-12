@@ -195,7 +195,7 @@ function main() {
       .classed('tipText', true)
       .classed('collapse', true)
       .classed('translate', true)
-      .attr('data-i18n', (d) => `${d.textKey}_Tip`);
+      .attr('data-i18n', (d) => `[html]${d.textKey}_Tip`);
     // .html((d) => i18next.t(`${d.textKey}_Tip`));
 
     newItems.on('click', (ev: MouseEvent, d) => {
@@ -218,7 +218,7 @@ function main() {
       .select('.outputText')
       .html(
         (d) =>
-          `<span class="translate" data-i18n="${d.textKey}">
+          `<span class="translate" data-i18n="[html]${d.textKey}">
           ${i18next.t(d.textKey)}
           </span>: 
           ${d.modeObj.infobox()}`,

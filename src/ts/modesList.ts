@@ -146,7 +146,7 @@ const infoboxModes: ModeConfig[] = [
   },
   {
     modeName: 'modeDetAdjacency',
-    textKey: 'Det_adjacency',
+    textKey: 'Adjacency_det',
     icon: assets.iconGirth,
     modeObj: new ModeDetAdjacency(cy, parameters),
   },

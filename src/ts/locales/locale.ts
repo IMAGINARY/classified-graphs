@@ -28,6 +28,10 @@ type Locale = {
       Circuit_rank_Tip: string;
       Diameter: string;
       Diameter_Tip: string;
+      Adjacency_matrix: string;
+      Adjacency_matrix_Tip: string;
+      Adjacency_det: string;
+      Adjacency_det_Tip: string;
     }>;
   };
 };
