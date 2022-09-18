@@ -9,7 +9,7 @@ import * as assets from './assets';
 import ModeNull from './modes/ModeNull';
 import ModeNode from './modes/ModeNode';
 import ModeEdge from './modes/ModeEdge';
-import ModeDijkstra from './modes/ModeDijkstra';
+// import ModeDijkstra from './modes/ModeDijkstra';
 import ModeGirth from './modes/ModeGirth';
 import ModeNumNodes from './modes/ModeNumNodes';
 import ModeNumEdges from './modes/ModeNumEdges'; // ModeNumEdges -> ES Module
@@ -20,7 +20,7 @@ import ModeDiameter from './modes/ModeDiameter';
 import ModeExport from './modes/ModeExport';
 import ModeImport from './modes/ModeImport';
 import ModeLoad from './modes/ModeLoad';
-import ModeLayout from './modes/ModeLayout';
+// import ModeLayout from './modes/ModeLayout';
 import ModeClear from './modes/ModeClear';
 import ModeDetAdjacency from './modes/ModeDetAdjacency';
 import ModeAdjacencyMatrix from './modes/ModeAdjacencyMatrix';
@@ -87,18 +87,18 @@ const toolbarModes: ModeConfig[] = [
     icon: assets.iconEdge,
     modeObj: new ModeEdge(cy, parameters),
   },
-  {
-    modeName: 'modeLayout',
-    textKey: 'Layout',
-    icon: assets.iconEdge,
-    modeObj: new ModeLayout(cy, parameters),
-  },
-  {
-    modeName: 'modeDijkstra',
-    textKey: 'Shortest_path',
-    icon: assets.iconDijkstra,
-    modeObj: new ModeDijkstra(cy, parameters),
-  },
+  // {
+  //   modeName: 'modeLayout',
+  //   textKey: 'Layout',
+  //   icon: assets.iconEdge,
+  //   modeObj: new ModeLayout(cy, parameters),
+  // },
+  // {
+  //   modeName: 'modeDijkstra',
+  //   textKey: 'Shortest_path',
+  //   icon: assets.iconDijkstra,
+  //   modeObj: new ModeDijkstra(cy, parameters),
+  // },
 ];
 
 const infoboxModes: ModeConfig[] = [
