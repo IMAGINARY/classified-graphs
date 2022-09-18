@@ -74,7 +74,8 @@
     "i18next-browser-languagedetector": "^6.1.4",
     "jquery": "^3.6.0",
     "loc-i18next": "^0.1.4",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mathjs": "^11.1.0"
   },
   "sass": {
     "includePaths": [
@@ -82,7 +83,7 @@
     ]
   },
   "scripts": {
-    "serve": "parcel serve --dist-dir dist-dev --target ''",
+    "serve": "parcel serve --no-hmr --dist-dir dist-dev --target ''",
     "build": "rm -r dist; npm run build:graphs && npm run build:frontend",
     "build:graphs": "rm -f dist/generate-graphs.js && parcel build --target graph-generator && node dist/generate-graphs.js && prettier --write src/graph-gallery/graphs* ",
     "build:frontend": "parcel build --target ''",

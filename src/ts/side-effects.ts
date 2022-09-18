@@ -15,6 +15,8 @@ import cytoscape from 'cytoscape';
 import edgehandles from 'cytoscape-edgehandles';
 
 import invariants from './cytoscape-extensions/invariants';
+import utils from './cytoscape-extensions/utils';
 
 cytoscape.use(edgehandles);
 cytoscape.use(invariants);
+cytoscape.use(utils);

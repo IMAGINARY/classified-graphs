@@ -4,6 +4,7 @@ interface Parameters {
   idNodeCount: number;
   idEdgeCount: number;
   outputContainer: HTMLElement;
+  nodeIndex: string[]; // array of the ids of the nodes. The cy.nodes() array should not be mutated.
 }
 
 // A "Mode" is anything that interacts with the graph.

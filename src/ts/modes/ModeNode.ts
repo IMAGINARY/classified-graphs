@@ -13,12 +13,15 @@ export default class ModeNode implements Mode {
 
   activate() {
     const addNode = (position: Position) => {
-      this.cy.add({
-        group: 'nodes',
-        data: {}, // { id: `N${this.parameters.idNodeCount}` },
-        position,
-      });
-      this.parameters.idNodeCount += 1;
+      const idNode = this.cy
+        .add({
+          group: 'nodes',
+          data: {}, // { id: idNode },
+          position,
+        })
+        .id();
+      this.parameters.nodeIndex.push(idNode);
+      // this.parameters.idNodeCount += 1;
     };
 
     const handleTap = (event: EventObject) => {
@@ -28,6 +31,10 @@ export default class ModeNode implements Mode {
         this.cy.emit('cm-graph-updated');
       } else if ((event.target as Singular).isNode()) {
         (event.target as Singular).remove();
+        const idx = this.parameters.nodeIndex.indexOf(
+          (event.target as Singular).id(),
+        );
+        this.parameters.nodeIndex.splice(idx, 1);
         this.cy.emit('cm-graph-updated');
       }
     };

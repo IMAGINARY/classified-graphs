@@ -22,11 +22,14 @@ import ModeImport from './modes/ModeImport';
 import ModeLoad from './modes/ModeLoad';
 import ModeLayout from './modes/ModeLayout';
 import ModeClear from './modes/ModeClear';
+import ModeDetAdjacency from './modes/ModeDetAdjacency';
+import ModeAdjacencyMatrix from './modes/ModeAdjacencyMatrix';
 
 const parameters: Parameters = {
   idNodeCount: 1,
   idEdgeCount: 1,
   outputContainer: document.getElementById('output') as HTMLElement,
+  nodeIndex: [],
 };
 
 const cy = cytoscape({
@@ -140,6 +143,18 @@ const infoboxModes: ModeConfig[] = [
     textKey: 'Diameter',
     icon: assets.iconGirth,
     modeObj: new ModeDiameter(cy, parameters),
+  },
+  {
+    modeName: 'modeDetAdjacency',
+    textKey: 'Adjacency_det',
+    icon: assets.iconGirth,
+    modeObj: new ModeDetAdjacency(cy, parameters),
+  },
+  {
+    modeName: 'modeAdjacencyMatrix',
+    textKey: 'Adjacency_matrix',
+    icon: assets.iconGirth,
+    modeObj: new ModeAdjacencyMatrix(cy, parameters),
   },
 ];
 

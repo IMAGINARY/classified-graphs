@@ -43,9 +43,11 @@ declare global {
   interface Window {
     cy: cytoscape.Core;
     d3: typeof d3;
+    findIso: (a: void) => void;
   }
 }
 window.d3 = d3;
+// window.parameters = parameters;
 
 function main() {
   // After this, window.cy is shadowing the function-local cy.
@@ -53,6 +55,26 @@ function main() {
   // Both have no type assigned on the window object.
   // Same for the global vs. local d3 object.
   window.cy = cy;
+
+  const findIsomorphisms = () => {
+    if (window.Worker) {
+      const worker = new Worker(new URL('./sgiso_worker.ts', import.meta.url), {
+        type: 'module',
+      });
+      const A = cy.elements().utils().adjacencyMatrix();
+
+      worker.postMessage([A, A]);
+
+      worker.onmessage = () => {
+        // console.log(e.data);
+      };
+    } else {
+      // eslint-disable-next-line no-console
+      console.log("Your browser doesn't support web workers.");
+    }
+  };
+
+  window.findIso = findIsomorphisms;
 
   // d3.select('#output').html(i18next.t('Connected_components')); // test
 
@@ -173,7 +195,7 @@ function main() {
       .classed('tipText', true)
       .classed('collapse', true)
       .classed('translate', true)
-      .attr('data-i18n', (d) => `${d.textKey}_Tip`);
+      .attr('data-i18n', (d) => `[html]${d.textKey}_Tip`);
     // .html((d) => i18next.t(`${d.textKey}_Tip`));
 
     newItems.on('click', (ev: MouseEvent, d) => {
@@ -196,7 +218,7 @@ function main() {
       .select('.outputText')
       .html(
         (d) =>
-          `<span class="translate" data-i18n="${d.textKey}">
+          `<span class="translate" data-i18n="[html]${d.textKey}">
           ${i18next.t(d.textKey)}
           </span>: 
           ${d.modeObj.infobox()}`,
