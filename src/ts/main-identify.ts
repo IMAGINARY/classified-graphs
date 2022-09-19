@@ -312,12 +312,12 @@ function main() {
     .data(toolbarModes)
     .enter()
     .append('button')
+    .classed('toolbar-button', true)
     .attr('id', (d) => `btn-${d.modeName}`);
 
   buttons
     .append('img')
-    .attr('src', (d) => (d.icon ? d.icon : assets.iconDijkstra))
-    .classed('toolbar-button', true);
+    .attr('src', (d) => (d.icon ? d.icon : assets.iconDijkstra));
 
   d3.select('#btn-modeLayout')
     .append('select')

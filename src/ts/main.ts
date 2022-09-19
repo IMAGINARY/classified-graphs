@@ -129,27 +129,25 @@ function main() {
     .data(toolbarModes)
     .enter()
     .append('button')
+    .classed('toolbar-button', true)
     .attr('id', (d) => `btn-${d.modeName}`);
 
-  buttons
-    .append('img')
-    .attr('src', (d) => d.icon)
-    .classed('toolbar-button', true);
+  buttons.append('img').attr('src', (d) => d.icon);
 
-  d3.select('#btn-modeLayout')
-    .append('select')
-    .attr('id', 'selectLayout')
-    .selectAll('option')
-    .data([
-      { value: 'circle', textKey: 'Circle' },
-      { value: 'random', textKey: 'Random' },
-    ])
-    .enter()
-    .append('option')
-    .attr('value', (d) => d.value)
-    // .classed('translate', true)
-    // .attr('data-i18n', (d) => d.textKey);
-    .html((d) => d.textKey);
+  // d3.select('#btn-modeLayout')
+  //   .append('select')
+  //   .attr('id', 'selectLayout')
+  //   .selectAll('option')
+  //   .data([
+  //     { value: 'circle', textKey: 'Circle' },
+  //     { value: 'random', textKey: 'Random' },
+  //   ])
+  //   .enter()
+  //   .append('option')
+  //   .attr('value', (d) => d.value)
+  //   // .classed('translate', true)
+  //   // .attr('data-i18n', (d) => d.textKey);
+  //   .html((d) => d.textKey);
 
   buttons
     .append('div')
