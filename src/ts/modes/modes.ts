@@ -5,6 +5,8 @@ interface Parameters {
   idEdgeCount: number;
   outputContainer: HTMLElement;
   nodeIndex: string[]; // array of the ids of the nodes. The cy.nodes() array should not be mutated.
+  isoTarget?: Core; // The graph against which we check isomorphy.
+  isoTargetParams?: Parameters;
 }
 
 // A "Mode" is anything that interacts with the graph.

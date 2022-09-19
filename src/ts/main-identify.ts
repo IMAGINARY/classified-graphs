@@ -35,19 +35,7 @@ import ModeClear from './modes/ModeClear';
 // import ModeAdjacencyMatrix from './modes/ModeAdjacencyMatrix';
 
 import * as assets from './assets';
-
-const parameters1: Parameters = {
-  idNodeCount: 1,
-  idEdgeCount: 1,
-  outputContainer: document.getElementById('output') as HTMLElement,
-  nodeIndex: [],
-};
-const parameters2: Parameters = {
-  idNodeCount: 1,
-  idEdgeCount: 1,
-  outputContainer: document.getElementById('output') as HTMLElement,
-  nodeIndex: [],
-};
+import ModeIsoCheck from './modes/ModeIsoCheck';
 
 const cy1 = cytoscape({
   ...cloneDeep(cyOptions),
@@ -58,6 +46,22 @@ const cy2 = cytoscape({
   ...cloneDeep(cyOptions),
   ...{ container: document.getElementById('cy2') },
 });
+
+const parameters2: Parameters = {
+  idNodeCount: 1,
+  idEdgeCount: 1,
+  outputContainer: document.getElementById('output') as HTMLElement,
+  nodeIndex: [],
+};
+
+const parameters1: Parameters = {
+  idNodeCount: 1,
+  idEdgeCount: 1,
+  outputContainer: document.getElementById('output') as HTMLElement,
+  nodeIndex: [],
+  isoTarget: cy2,
+  isoTargetParams: parameters2,
+};
 
 type ModeConfig = {
   modeName: string;
@@ -114,6 +118,12 @@ const toolbarModes: ModeConfig[] = [
     textKey: 'Target',
     icon: assets.iconQuestion,
     modeObj: new ModeLoadRandom(cy2, parameters2),
+  },
+  {
+    modeName: 'modeIsoCheck',
+    textKey: 'Check',
+    icon: assets.iconCheck,
+    modeObj: new ModeIsoCheck(cy1, parameters1),
   },
   // {
   //   modeName: 'modeClear',
@@ -251,51 +261,6 @@ function main() {
   // Same for the global vs. local d3 object.
   window.cy1 = cy1;
   window.cy2 = cy2;
-
-  const findIsomorphisms = () => {
-    if (window.Worker) {
-      const worker = new Worker(new URL('./sgiso_worker.ts', import.meta.url), {
-        type: 'module',
-      });
-      const A = cy1.elements().utils().adjacencyMatrix();
-      const B = cy2.elements().utils().adjacencyMatrix();
-
-      worker.postMessage([B, A]);
-
-      worker.onmessage = (e) => {
-        // eslint-disable-next-line no-console
-        console.log(e.data);
-
-        if ((e.data as number[][][]).length > 0) {
-          const morphism = (e.data as number[][][])[0];
-          cy1
-            .layout({
-              name: 'preset',
-              animate: true,
-              animationDuration: 2000,
-              positions: (cy1node: string) => {
-                const cy1nodeId = (
-                  cy1node as unknown as cytoscape.NodeSingular
-                ).id();
-                const idx1 = parameters1.nodeIndex.indexOf(cy1nodeId);
-                const idx2 = morphism[idx1].indexOf(1);
-                const cy2nodeId = parameters2.nodeIndex[idx2];
-                const finalpos = cy2.$(`#${cy2nodeId}`).position();
-                // eslint-disable-next-line no-console
-                console.log(cy1nodeId, idx1, idx2, cy2nodeId);
-                return finalpos;
-              },
-            })
-            .run();
-        }
-      };
-    } else {
-      // eslint-disable-next-line no-console
-      console.log("Your browser doesn't support web workers.");
-    }
-  };
-
-  window.findIso = findIsomorphisms;
 
   // d3.select('#output').html(i18next.t('Connected_components')); // test
 

@@ -33,6 +33,7 @@ const iconLoad = new URL('../img/folder2-open.svg', import.meta.url).href;
 const iconClear = new URL('../img/trash3.svg', import.meta.url).href;
 const iconQuestion = new URL('../img/question-square.svg', import.meta.url)
   .href;
+const iconCheck = new URL('../img/check-square.svg', import.meta.url).href;
 
 export {
   iconPointer,
@@ -46,4 +47,5 @@ export {
   iconLoad,
   iconClear,
   iconQuestion,
+  iconCheck,
 };

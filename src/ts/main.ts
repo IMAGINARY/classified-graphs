@@ -58,9 +58,12 @@ function main() {
 
   const findIsomorphisms = () => {
     if (window.Worker) {
-      const worker = new Worker(new URL('./sgiso_worker.ts', import.meta.url), {
-        type: 'module',
-      });
+      const worker = new Worker(
+        new URL('./modes/sgiso_worker.ts', import.meta.url),
+        {
+          type: 'module',
+        },
+      );
       const A = cy.elements().utils().adjacencyMatrix();
 
       worker.postMessage([A, A]);

@@ -33,6 +33,7 @@ type Locale = {
       Adjacency_det: string;
       Adjacency_det_Tip: string;
       Target: string;
+      Check: string;
     }>;
   };
 };

@@ -5,7 +5,7 @@ import { Mode, Parameters } from './modes';
 import graphGalleryList from '../../graph-gallery/graphs-list.json';
 import * as agr from '../../graph-gallery/graphs-assets';
 
-export default class ModeLoad implements Mode {
+export default class ModeLoadRandom implements Mode {
   cy;
 
   parameters;
