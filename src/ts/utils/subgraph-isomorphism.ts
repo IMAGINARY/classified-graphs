@@ -101,7 +101,9 @@ function recurse(
 
   if (cur_row === numRows(M)) {
     if (isIso(M, G, P)) {
-      //   out.push(array2DCopy(M));
+      out.push(array2DCopy(M));
+      // eslint-disable-next-line no-console
+      console.log('Found isomorphism!');
     }
   } else {
     const Mp = array2DCopy(M);
@@ -265,7 +267,8 @@ function getIsomorphicSubgraphs(
   const Psize = P.length;
 
   // No match possible if |P| > |G|, not an error.
-  if (Gsize < Psize) return [];
+  // if (Gsize < Psize) return [];
+  if (Gsize !== Psize) return [];
 
   // They don't want a match, not an error.
   if (maxNum !== null && maxNum !== undefined && maxNum <= 0) return [];

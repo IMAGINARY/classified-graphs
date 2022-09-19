@@ -32,6 +32,7 @@ type Locale = {
       Adjacency_matrix_Tip: string;
       Adjacency_det: string;
       Adjacency_det_Tip: string;
+      Target: string;
     }>;
   };
 };

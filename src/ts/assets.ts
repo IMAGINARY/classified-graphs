@@ -31,6 +31,8 @@ const iconImport = new URL('../img/box-arrow-in-down.svg', import.meta.url)
 const iconExport = new URL('../img/box-arrow-down.svg', import.meta.url).href;
 const iconLoad = new URL('../img/folder2-open.svg', import.meta.url).href;
 const iconClear = new URL('../img/trash3.svg', import.meta.url).href;
+const iconQuestion = new URL('../img/question-square.svg', import.meta.url)
+  .href;
 
 export {
   iconPointer,
@@ -43,4 +45,5 @@ export {
   iconExport,
   iconLoad,
   iconClear,
+  iconQuestion,
 };

@@ -39,6 +39,7 @@ const en: Locale = {
         'The entry a<sub>ij</sub> is the number of edges from node i to node j.',
       Adjacency_det: 'Adjacency determinant',
       Adjacency_det_Tip: 'The determinant of the adjacency matrix.',
+      Target: 'Target',
     },
   },
 };
