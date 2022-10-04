@@ -28,15 +28,14 @@ export default class ModeNode implements Mode {
       // click on background to add a node, click on node to remove it.
       if (event.target === this.cy) {
         addNode(event.position);
-        this.cy.emit('cm-graph-updated');
       } else if ((event.target as Singular).isNode()) {
         (event.target as Singular).remove();
         const idx = this.parameters.nodeIndex.indexOf(
           (event.target as Singular).id(),
         );
         this.parameters.nodeIndex.splice(idx, 1);
-        this.cy.emit('cm-graph-updated');
       }
+      this.cy.emit('cm-graph-updated');
     };
 
     this.cy.on('tap', handleTap);
