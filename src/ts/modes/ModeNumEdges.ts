@@ -21,7 +21,7 @@ export default class ModeNumEdges implements Mode {
   }
 
   infobox() {
-    return this.cy.elements().edges().size().toString();
+    return this.cy.elements().edges().size().toLocaleString();
   }
 
   deactivate() {

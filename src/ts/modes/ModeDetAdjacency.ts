@@ -30,7 +30,7 @@ export default class ModeDetAdjacency implements Mode {
             this.parameters.nodeIndex.indexOf(n.id()),
         });
       const d = det(A);
-      return d.toString();
+      return d.toLocaleString();
     }
     return '';
   };

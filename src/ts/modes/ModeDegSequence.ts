@@ -29,7 +29,10 @@ export default class ModeDegSequence implements Mode {
       .nodes()
       .map((n) => n.degree(true));
 
-    return seq.sort((a, b) => b - a).join();
+    return seq
+      .sort((a, b) => b - a)
+      .join()
+      .toLocaleString();
   };
 
   deactivate = () => {

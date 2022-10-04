@@ -21,7 +21,7 @@ export default class ModeNumNodes implements Mode {
   }
 
   infobox() {
-    return this.cy.elements().nodes().size().toString();
+    return this.cy.elements().nodes().size().toLocaleString();
   }
 
   deactivate() {
