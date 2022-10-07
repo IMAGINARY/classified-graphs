@@ -18,24 +18,27 @@ import ModeNull from './modes/ModeNull';
 import ModeNode from './modes/ModeNode';
 import ModeEdge from './modes/ModeEdge';
 // import ModeDijkstra from './modes/ModeDijkstra';
-// import ModeGirth from './modes/ModeGirth';
-// import ModeNumNodes from './modes/ModeNumNodes';
-// import ModeNumEdges from './modes/ModeNumEdges'; // ModeNumEdges -> ES Module
-// import ModeDegSequence from './modes/ModeDegSequence';
-// import ModeComponents from './modes/ModeComponents';
-// import ModeCircuitRank from './modes/ModeCircuitRank';
-// import ModeDiameter from './modes/ModeDiameter';
+import ModeGirth from './modes/ModeGirth';
+import ModeNumNodes from './modes/ModeNumNodes';
+import ModeNumEdges from './modes/ModeNumEdges'; // ModeNumEdges -> ES Module
+import ModeDegSequence from './modes/ModeDegSequence';
+import ModeComponents from './modes/ModeComponents';
+import ModeCircuitRank from './modes/ModeCircuitRank';
+import ModeDiameter from './modes/ModeDiameter';
 import ModeExport from './modes/ModeExport';
 import ModeImport from './modes/ModeImport';
-import ModeLoad from './modes/ModeLoad';
+// import ModeLoad from './modes/ModeLoad';
 import ModeLoadRandom from './modes/ModeLoadRandom';
 // import ModeLayout from './modes/ModeLayout';
 import ModeClear from './modes/ModeClear';
-// import ModeDetAdjacency from './modes/ModeDetAdjacency';
+import ModeDetAdjacency from './modes/ModeDetAdjacency';
 // import ModeAdjacencyMatrix from './modes/ModeAdjacencyMatrix';
 
 import * as assets from './assets';
 import ModeIsoCheck from './modes/ModeIsoCheck';
+
+import { makeGraphGallery } from './uiFunctions';
+import graphGalleryList from '../graph-gallery/graphs-list.json';
 
 const cy1 = cytoscape({
   ...cloneDeep(cyOptions),
@@ -67,7 +70,8 @@ type ModeConfig = {
   modeName: string;
   textKey: string;
   icon?: string;
-  modeObj: Mode;
+  modeObj1: Mode;
+  modeObj2?: Mode;
 };
 
 const toolbarModes: ModeConfig[] = [
@@ -75,55 +79,55 @@ const toolbarModes: ModeConfig[] = [
     modeName: 'modeClear',
     textKey: 'Clear',
     icon: assets.iconClear,
-    modeObj: new ModeClear(cy1, parameters1),
+    modeObj1: new ModeClear(cy1, parameters1),
   },
   {
     modeName: 'modeExport',
     textKey: 'Export',
     icon: assets.iconExport,
-    modeObj: new ModeExport(cy1, parameters1),
+    modeObj1: new ModeExport(cy1, parameters1),
   },
   {
     modeName: 'modeImport',
     textKey: 'Import',
     icon: assets.iconImport,
-    modeObj: new ModeImport(cy1, parameters1),
+    modeObj1: new ModeImport(cy1, parameters1),
   },
-  {
-    modeName: 'modeLoad',
-    textKey: 'Load',
-    icon: assets.iconLoad,
-    modeObj: new ModeLoad(cy1, parameters1),
-  },
+  // {
+  //   modeName: 'modeLoad',
+  //   textKey: 'Load',
+  //   icon: assets.iconLoad,
+  //   modeObj: new ModeLoad(cy1, parameters1),
+  // },
   {
     modeName: 'modeNull',
     textKey: 'Pointer',
     icon: assets.iconPointer,
-    modeObj: new ModeNull(cy1, parameters1),
+    modeObj1: new ModeNull(cy1, parameters1),
   },
   {
     modeName: 'modeNode',
     textKey: 'Nodes',
     icon: assets.iconNode,
-    modeObj: new ModeNode(cy1, parameters1),
+    modeObj1: new ModeNode(cy1, parameters1),
   },
   {
     modeName: 'modeEdge',
     textKey: 'Edges',
     icon: assets.iconEdge,
-    modeObj: new ModeEdge(cy1, parameters1),
+    modeObj1: new ModeEdge(cy1, parameters1),
   },
   {
     modeName: 'modeLoadRandom',
     textKey: 'Target',
     icon: assets.iconQuestion,
-    modeObj: new ModeLoadRandom(cy2, parameters2),
+    modeObj1: new ModeLoadRandom(cy2, parameters2),
   },
   {
     modeName: 'modeIsoCheck',
     textKey: 'Check',
     icon: assets.iconCheck,
-    modeObj: new ModeIsoCheck(cy1, parameters1),
+    modeObj1: new ModeIsoCheck(cy1, parameters1),
   },
   // {
   //   modeName: 'modeClear',
@@ -169,53 +173,61 @@ const toolbarModes: ModeConfig[] = [
   // },
 ];
 
-// const infoboxModes: ModeConfig[] = [
-//   {
-//     modeName: 'modeNumNodes',
-//     textKey: 'Order',
-//     modeObj: new ModeNumNodes(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeNumEdges',
-//     textKey: 'Size',
-//     modeObj: new ModeNumEdges(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeGirth',
-//     textKey: 'Girth',
-//     modeObj: new ModeGirth(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeDegSequence',
-//     textKey: 'Degree_sequence',
-//     modeObj: new ModeDegSequence(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeCompponents',
-//     textKey: 'Connected_components',
-//     modeObj: new ModeComponents(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeCircuitRank',
-//     textKey: 'Circuit_rank',
-//     modeObj: new ModeCircuitRank(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeDiameter',
-//     textKey: 'Diameter',
-//     modeObj: new ModeDiameter(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeDetAdjacency',
-//     textKey: 'Adjacency_det',
-//     modeObj: new ModeDetAdjacency(cy, parameters),
-//   },
-//   {
-//     modeName: 'modeAdjacencyMatrix',
-//     textKey: 'Adjacency_matrix',
-//     modeObj: new ModeAdjacencyMatrix(cy, parameters),
-//   },
-// ];
+const invariants: ModeConfig[] = [
+  {
+    modeName: 'modeNumNodes',
+    textKey: 'Order',
+    modeObj1: new ModeNumNodes(cy1, parameters1),
+    modeObj2: new ModeNumNodes(cy2, parameters2),
+  },
+  {
+    modeName: 'modeNumEdges',
+    textKey: 'Size',
+    modeObj1: new ModeNumEdges(cy1, parameters1),
+    modeObj2: new ModeNumEdges(cy2, parameters2),
+  },
+  {
+    modeName: 'modeGirth',
+    textKey: 'Girth',
+    modeObj1: new ModeGirth(cy1, parameters1),
+    modeObj2: new ModeGirth(cy2, parameters2),
+  },
+  {
+    modeName: 'modeDegSequence',
+    textKey: 'Degree_sequence',
+    modeObj1: new ModeDegSequence(cy1, parameters1),
+    modeObj2: new ModeDegSequence(cy2, parameters2),
+  },
+  {
+    modeName: 'modeCompponents',
+    textKey: 'Connected_components',
+    modeObj1: new ModeComponents(cy1, parameters1),
+    modeObj2: new ModeComponents(cy2, parameters2),
+  },
+  {
+    modeName: 'modeCircuitRank',
+    textKey: 'Circuit_rank',
+    modeObj1: new ModeCircuitRank(cy1, parameters1),
+    modeObj2: new ModeCircuitRank(cy2, parameters2),
+  },
+  {
+    modeName: 'modeDiameter',
+    textKey: 'Diameter',
+    modeObj1: new ModeDiameter(cy1, parameters1),
+    modeObj2: new ModeDiameter(cy2, parameters2),
+  },
+  {
+    modeName: 'modeDetAdjacency',
+    textKey: 'Adjacency_det',
+    modeObj1: new ModeDetAdjacency(cy1, parameters1),
+    modeObj2: new ModeDetAdjacency(cy2, parameters2),
+  },
+  // {
+  //   modeName: 'modeAdjacencyMatrix',
+  //   textKey: 'Adjacency_matrix',
+  //   modeObj: new ModeAdjacencyMatrix(cy1, parameters1),
+  // },
+];
 
 // eslint-disable-next-line no-void
 void i18next.use(LanguageDetector).init(i18nextOptions);
@@ -296,20 +308,20 @@ function main() {
     .append('img')
     .attr('src', (d) => (d.icon ? d.icon : assets.iconDijkstra));
 
-  d3.select('#btn-modeLayout')
-    .append('select')
-    .attr('id', 'selectLayout')
-    .selectAll('option')
-    .data([
-      { value: 'circle', textKey: 'Circle' },
-      { value: 'random', textKey: 'Random' },
-    ])
-    .enter()
-    .append('option')
-    .attr('value', (d) => d.value)
-    // .classed('translate', true)
-    // .attr('data-i18n', (d) => d.textKey);
-    .html((d) => d.textKey);
+  // d3.select('#btn-modeLayout')
+  //   .append('select')
+  //   .attr('id', 'selectLayout')
+  //   .selectAll('option')
+  //   .data([
+  //     { value: 'circle', textKey: 'Circle' },
+  //     { value: 'random', textKey: 'Random' },
+  //   ])
+  //   .enter()
+  //   .append('option')
+  //   .attr('value', (d) => d.value)
+  //   // .classed('translate', true)
+  //   // .attr('data-i18n', (d) => d.textKey);
+  //   .html((d) => d.textKey);
 
   buttons
     .append('div')
@@ -318,13 +330,64 @@ function main() {
   // .html((d) => i18next.t(d.textKey));
 
   buttons.on('click', (ev, d) => {
-    switchPrimaryMode1(d.modeObj);
+    switchPrimaryMode1(d.modeObj1);
   });
 
-  // Make Load modal
-  d3.select('#btn-modeLoad')
-    .attr('data-bs-toggle', 'modal')
-    .attr('data-bs-target', '#exampleModal');
+  // // Make Load modal
+  // d3.select('#btn-modeLoad')
+  //   .attr('data-bs-toggle', 'modal')
+  //   .attr('data-bs-target', '#exampleModal');
+
+  // Make Invariants table
+
+  const invTable = d3
+    .select('#invariants')
+    .append('table')
+    .classed('invTable', true)
+    .append('tr');
+  invTable.append('th').html('Invariant');
+  invTable.append('th').html('Filter');
+  invTable.append('th').html('Your graph');
+  invTable.append('th').html('Target graph');
+
+  function updateInvariantsTable() {
+    const invariantsItem = d3
+      .select('#invariants')
+      .select('table')
+      .selectAll<HTMLTableRowElement, unknown>('tr')
+      .data(invariants);
+
+    // enter
+    const newInvariant = invariantsItem.enter().append('tr');
+
+    newInvariant
+      .append('td')
+      .classed('translate', true)
+      .attr('data-i18n', (d) => `[html]${d.textKey}`);
+
+    newInvariant.append('td').append('input');
+
+    newInvariant.append('td').classed('invCy1', true); // container for text
+    newInvariant.append('td').classed('invCy2', true);
+
+    // exit
+    invariantsItem.exit().remove();
+
+    // update
+    invariantsItem
+      .merge(newInvariant)
+      .select('.invCy1')
+      .html((d) => d.modeObj1.infobox());
+
+    invariantsItem
+      .merge(newInvariant)
+      .select('.invCy2')
+      .html((d) => d.modeObj2.infobox());
+  }
+
+  updateInvariantsTable();
+  // Make Gallery
+  makeGraphGallery(graphGalleryList, cy1, parameters1);
 
   // Make infobox items
   // function updateInfo() {
@@ -396,8 +459,8 @@ function main() {
 
   // window.infoboxModes = infoboxModes;
 
-  // cy1.on('cm-graph-updated', updateInfo);
-  // cy2.on('cm-graph-updated', updateInfo);
+  cy1.on('cm-graph-updated', updateInvariantsTable);
+  cy2.on('cm-graph-updated', updateInvariantsTable);
 
   // updateInfo();
   // d3.select('.infoItem').classed('infoItemActive', true);
