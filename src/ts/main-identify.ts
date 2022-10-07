@@ -354,11 +354,14 @@ function main() {
     const invariantsItem = d3
       .select('#invariants')
       .select('table')
-      .selectAll<HTMLTableRowElement, unknown>('tr')
+      .selectAll<HTMLTableRowElement, unknown>('tr.invariantTR')
       .data(invariants);
 
     // enter
-    const newInvariant = invariantsItem.enter().append('tr');
+    const newInvariant = invariantsItem
+      .enter()
+      .append('tr')
+      .classed('invariantTR', true);
 
     newInvariant
       .append('td')

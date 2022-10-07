@@ -6,7 +6,12 @@
 
 import cytoscape from 'cytoscape';
 import { makeThumb, applyLayout } from './generating-tools';
-import { GraphRegister, registerGraphs, makeFile } from './register-graphs';
+import {
+  GraphRegister,
+  registerGraphs,
+  makeFile,
+  computeInvariants,
+} from './register-graphs';
 
 const matrices = [
   '2  1 1 1',
@@ -164,13 +169,14 @@ for (const M of matrices) {
     boundingBox: { x1: 0, y1: 0, x2: 300, y2: 300 },
   };
 
+  const cy = graphFromUpperTriangular(M); // sync
+
   const id = {
     family: 'Trivalent',
     name: `Trivalent ${g}<sub>${i}</sub>`,
     file: `trivalent_${g}_${i}`,
+    invariants: computeInvariants(cy),
   };
-
-  const cy = graphFromUpperTriangular(M); // sync
 
   const layouted = applyLayout(cy, layoutOpts); // async, returns promise
 

@@ -4,7 +4,12 @@
 
 import cytoscape from 'cytoscape';
 import { makeThumb, applyLayout } from './generating-tools';
-import { GraphRegister, registerGraphs, makeFile } from './register-graphs';
+import {
+  GraphRegister,
+  registerGraphs,
+  makeFile,
+  computeInvariants,
+} from './register-graphs';
 
 console.log('Creating files for Complete graphs');
 console.log('==================================');
@@ -42,13 +47,14 @@ const register = [] as GraphRegister[];
 
 /* Create a list of graphs */
 for (let i = 2; i < 9; i += 1) {
+  const cy = makeGraph(i);
+
   const id = {
     family: 'Complete',
     name: `Complete of order ${i}`,
     file: `complete_${i}`,
+    invariants: computeInvariants(cy),
   };
-
-  const cy = makeGraph(i);
 
   const layouted = applyLayout(cy, layoutOpts); // async, returns promise
 

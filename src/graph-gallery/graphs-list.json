@@ -1,484 +1,1532 @@
 [
-  { "family": "Complete", "name": "Complete of order 2", "file": "complete_2" },
-  { "family": "Complete", "name": "Complete of order 3", "file": "complete_3" },
-  { "family": "Complete", "name": "Complete of order 4", "file": "complete_4" },
-  { "family": "Complete", "name": "Complete of order 5", "file": "complete_5" },
-  { "family": "Complete", "name": "Complete of order 6", "file": "complete_6" },
-  { "family": "Complete", "name": "Complete of order 7", "file": "complete_7" },
-  { "family": "Complete", "name": "Complete of order 8", "file": "complete_8" },
+  {
+    "family": "Complete",
+    "name": "Complete of order 2",
+    "file": "complete_2",
+    "invariants": {
+      "numNodes": 2,
+      "numEdges": 1,
+      "girth": null,
+      "degSequence": [1, 1],
+      "components": 1,
+      "circuitRank": 0,
+      "diameter": 1,
+      "detAdjacency": -1
+    }
+  },
+  {
+    "family": "Complete",
+    "name": "Complete of order 3",
+    "file": "complete_3",
+    "invariants": {
+      "numNodes": 3,
+      "numEdges": 3,
+      "girth": 3,
+      "degSequence": [2, 2, 2],
+      "components": 1,
+      "circuitRank": 1,
+      "diameter": 1,
+      "detAdjacency": 2
+    }
+  },
+  {
+    "family": "Complete",
+    "name": "Complete of order 4",
+    "file": "complete_4",
+    "invariants": {
+      "numNodes": 4,
+      "numEdges": 6,
+      "girth": 3,
+      "degSequence": [3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 3,
+      "diameter": 1,
+      "detAdjacency": -3
+    }
+  },
+  {
+    "family": "Complete",
+    "name": "Complete of order 5",
+    "file": "complete_5",
+    "invariants": {
+      "numNodes": 5,
+      "numEdges": 10,
+      "girth": 3,
+      "degSequence": [4, 4, 4, 4, 4],
+      "components": 1,
+      "circuitRank": 6,
+      "diameter": 1,
+      "detAdjacency": 4
+    }
+  },
+  {
+    "family": "Complete",
+    "name": "Complete of order 6",
+    "file": "complete_6",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 15,
+      "girth": 3,
+      "degSequence": [5, 5, 5, 5, 5, 5],
+      "components": 1,
+      "circuitRank": 10,
+      "diameter": 1,
+      "detAdjacency": -5
+    }
+  },
+  {
+    "family": "Complete",
+    "name": "Complete of order 7",
+    "file": "complete_7",
+    "invariants": {
+      "numNodes": 7,
+      "numEdges": 21,
+      "girth": 3,
+      "degSequence": [6, 6, 6, 6, 6, 6, 6],
+      "components": 1,
+      "circuitRank": 15,
+      "diameter": 1,
+      "detAdjacency": 6
+    }
+  },
+  {
+    "family": "Complete",
+    "name": "Complete of order 8",
+    "file": "complete_8",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 28,
+      "girth": 3,
+      "degSequence": [7, 7, 7, 7, 7, 7, 7, 7],
+      "components": 1,
+      "circuitRank": 21,
+      "diameter": 1,
+      "detAdjacency": -7
+    }
+  },
   {
     "family": "Trivalent",
     "name": "Trivalent 2<sub>0</sub>",
-    "file": "trivalent_2_0"
+    "file": "trivalent_2_0",
+    "invariants": {
+      "numNodes": 2,
+      "numEdges": 3,
+      "girth": 1,
+      "degSequence": [3, 3],
+      "components": 1,
+      "circuitRank": 2,
+      "diameter": 1,
+      "detAdjacency": 3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 2<sub>1</sub>",
-    "file": "trivalent_2_1"
+    "file": "trivalent_2_1",
+    "invariants": {
+      "numNodes": 2,
+      "numEdges": 3,
+      "girth": 2,
+      "degSequence": [3, 3],
+      "components": 1,
+      "circuitRank": 2,
+      "diameter": 1,
+      "detAdjacency": -9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 3<sub>0</sub>",
-    "file": "trivalent_3_0"
+    "file": "trivalent_3_0",
+    "invariants": {
+      "numNodes": 4,
+      "numEdges": 6,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 3,
+      "diameter": 2,
+      "detAdjacency": -12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 3<sub>1</sub>",
-    "file": "trivalent_3_1"
+    "file": "trivalent_3_1",
+    "invariants": {
+      "numNodes": 4,
+      "numEdges": 6,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 3,
+      "diameter": 3,
+      "detAdjacency": -15
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 3<sub>2</sub>",
-    "file": "trivalent_3_2"
+    "file": "trivalent_3_2",
+    "invariants": {
+      "numNodes": 4,
+      "numEdges": 6,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 3,
+      "diameter": 2,
+      "detAdjacency": 12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 3<sub>3</sub>",
-    "file": "trivalent_3_3"
+    "file": "trivalent_3_3",
+    "invariants": {
+      "numNodes": 4,
+      "numEdges": 6,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 3,
+      "diameter": 2,
+      "detAdjacency": 9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 3<sub>4</sub>",
-    "file": "trivalent_3_4"
+    "file": "trivalent_3_4",
+    "invariants": {
+      "numNodes": 4,
+      "numEdges": 6,
+      "girth": 3,
+      "degSequence": [3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 3,
+      "diameter": 1,
+      "detAdjacency": -3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>0</sub>",
-    "file": "trivalent_4_0"
+    "file": "trivalent_4_0",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 4,
+      "detAdjacency": 36
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>1</sub>",
-    "file": "trivalent_4_1"
+    "file": "trivalent_4_1",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>2</sub>",
-    "file": "trivalent_4_2"
+    "file": "trivalent_4_2",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>3</sub>",
-    "file": "trivalent_4_3"
+    "file": "trivalent_4_3",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>4</sub>",
-    "file": "trivalent_4_4"
+    "file": "trivalent_4_4",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 27
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>5</sub>",
-    "file": "trivalent_4_5"
+    "file": "trivalent_4_5",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 5,
+      "detAdjacency": 63
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>6</sub>",
-    "file": "trivalent_4_6"
+    "file": "trivalent_4_6",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 4,
+      "detAdjacency": -36
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>7</sub>",
-    "file": "trivalent_4_7"
+    "file": "trivalent_4_7",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>8</sub>",
-    "file": "trivalent_4_8"
+    "file": "trivalent_4_8",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": -81
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>9</sub>",
-    "file": "trivalent_4_9"
+    "file": "trivalent_4_9",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>10</sub>",
-    "file": "trivalent_4_10"
+    "file": "trivalent_4_10",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": -9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>11</sub>",
-    "file": "trivalent_4_11"
+    "file": "trivalent_4_11",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 4,
+      "detAdjacency": -9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>12</sub>",
-    "file": "trivalent_4_12"
+    "file": "trivalent_4_12",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>13</sub>",
-    "file": "trivalent_4_13"
+    "file": "trivalent_4_13",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 4,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 2,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>14</sub>",
-    "file": "trivalent_4_14"
+    "file": "trivalent_4_14",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>15</sub>",
-    "file": "trivalent_4_15"
+    "file": "trivalent_4_15",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 2,
+      "detAdjacency": -9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 4<sub>16</sub>",
-    "file": "trivalent_4_16"
+    "file": "trivalent_4_16",
+    "invariants": {
+      "numNodes": 6,
+      "numEdges": 9,
+      "girth": 3,
+      "degSequence": [3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 4,
+      "diameter": 2,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>0</sub>",
-    "file": "trivalent_5_0"
+    "file": "trivalent_5_0",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>1</sub>",
-    "file": "trivalent_5_1"
+    "file": "trivalent_5_1",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 6,
+      "detAdjacency": -132
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>2</sub>",
-    "file": "trivalent_5_2"
+    "file": "trivalent_5_2",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 6,
+      "detAdjacency": -96
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>3</sub>",
-    "file": "trivalent_5_3"
+    "file": "trivalent_5_3",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": 24
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>4</sub>",
-    "file": "trivalent_5_4"
+    "file": "trivalent_5_4",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>5</sub>",
-    "file": "trivalent_5_5"
+    "file": "trivalent_5_5",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -15
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>6</sub>",
-    "file": "trivalent_5_6"
+    "file": "trivalent_5_6",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>7</sub>",
-    "file": "trivalent_5_7"
+    "file": "trivalent_5_7",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": 48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>8</sub>",
-    "file": "trivalent_5_8"
+    "file": "trivalent_5_8",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -84
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>9</sub>",
-    "file": "trivalent_5_9"
+    "file": "trivalent_5_9",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 96
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>10</sub>",
-    "file": "trivalent_5_10"
+    "file": "trivalent_5_10",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>11</sub>",
-    "file": "trivalent_5_11"
+    "file": "trivalent_5_11",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>12</sub>",
-    "file": "trivalent_5_12"
+    "file": "trivalent_5_12",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>13</sub>",
-    "file": "trivalent_5_13"
+    "file": "trivalent_5_13",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -99
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>14</sub>",
-    "file": "trivalent_5_14"
+    "file": "trivalent_5_14",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -24
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>15</sub>",
-    "file": "trivalent_5_15"
+    "file": "trivalent_5_15",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -96
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>16</sub>",
-    "file": "trivalent_5_16"
+    "file": "trivalent_5_16",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -36
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>17</sub>",
-    "file": "trivalent_5_17"
+    "file": "trivalent_5_17",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 7,
+      "detAdjacency": -255
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>18</sub>",
-    "file": "trivalent_5_18"
+    "file": "trivalent_5_18",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 6,
+      "detAdjacency": 132
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>19</sub>",
-    "file": "trivalent_5_19"
+    "file": "trivalent_5_19",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -24
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>20</sub>",
-    "file": "trivalent_5_20"
+    "file": "trivalent_5_20",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>21</sub>",
-    "file": "trivalent_5_21"
+    "file": "trivalent_5_21",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>22</sub>",
-    "file": "trivalent_5_22"
+    "file": "trivalent_5_22",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>23</sub>",
-    "file": "trivalent_5_23"
+    "file": "trivalent_5_23",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>24</sub>",
-    "file": "trivalent_5_24"
+    "file": "trivalent_5_24",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>25</sub>",
-    "file": "trivalent_5_25"
+    "file": "trivalent_5_25",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>26</sub>",
-    "file": "trivalent_5_26"
+    "file": "trivalent_5_26",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": -48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>27</sub>",
-    "file": "trivalent_5_27"
+    "file": "trivalent_5_27",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 225
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>28</sub>",
-    "file": "trivalent_5_28"
+    "file": "trivalent_5_28",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 36
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>29</sub>",
-    "file": "trivalent_5_29"
+    "file": "trivalent_5_29",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": 33
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>30</sub>",
-    "file": "trivalent_5_30"
+    "file": "trivalent_5_30",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 105
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>31</sub>",
-    "file": "trivalent_5_31"
+    "file": "trivalent_5_31",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>32</sub>",
-    "file": "trivalent_5_32"
+    "file": "trivalent_5_32",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 6,
+      "detAdjacency": 21
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>33</sub>",
-    "file": "trivalent_5_33"
+    "file": "trivalent_5_33",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -24
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>34</sub>",
-    "file": "trivalent_5_34"
+    "file": "trivalent_5_34",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>35</sub>",
-    "file": "trivalent_5_35"
+    "file": "trivalent_5_35",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>36</sub>",
-    "file": "trivalent_5_36"
+    "file": "trivalent_5_36",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>37</sub>",
-    "file": "trivalent_5_37"
+    "file": "trivalent_5_37",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>38</sub>",
-    "file": "trivalent_5_38"
+    "file": "trivalent_5_38",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>39</sub>",
-    "file": "trivalent_5_39"
+    "file": "trivalent_5_39",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>40</sub>",
-    "file": "trivalent_5_40"
+    "file": "trivalent_5_40",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>41</sub>",
-    "file": "trivalent_5_41"
+    "file": "trivalent_5_41",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>42</sub>",
-    "file": "trivalent_5_42"
+    "file": "trivalent_5_42",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>43</sub>",
-    "file": "trivalent_5_43"
+    "file": "trivalent_5_43",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 4,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>44</sub>",
-    "file": "trivalent_5_44"
+    "file": "trivalent_5_44",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>45</sub>",
-    "file": "trivalent_5_45"
+    "file": "trivalent_5_45",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -15
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>46</sub>",
-    "file": "trivalent_5_46"
+    "file": "trivalent_5_46",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 144
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>47</sub>",
-    "file": "trivalent_5_47"
+    "file": "trivalent_5_47",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": -48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>48</sub>",
-    "file": "trivalent_5_48"
+    "file": "trivalent_5_48",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>49</sub>",
-    "file": "trivalent_5_49"
+    "file": "trivalent_5_49",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>50</sub>",
-    "file": "trivalent_5_50"
+    "file": "trivalent_5_50",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": -15
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>51</sub>",
-    "file": "trivalent_5_51"
+    "file": "trivalent_5_51",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": -12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>52</sub>",
-    "file": "trivalent_5_52"
+    "file": "trivalent_5_52",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 36
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>53</sub>",
-    "file": "trivalent_5_53"
+    "file": "trivalent_5_53",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 24
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>54</sub>",
-    "file": "trivalent_5_54"
+    "file": "trivalent_5_54",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 96
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>55</sub>",
-    "file": "trivalent_5_55"
+    "file": "trivalent_5_55",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 36
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>56</sub>",
-    "file": "trivalent_5_56"
+    "file": "trivalent_5_56",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>57</sub>",
-    "file": "trivalent_5_57"
+    "file": "trivalent_5_57",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 5,
+      "detAdjacency": 12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>58</sub>",
-    "file": "trivalent_5_58"
+    "file": "trivalent_5_58",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>59</sub>",
-    "file": "trivalent_5_59"
+    "file": "trivalent_5_59",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 1,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 21
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>60</sub>",
-    "file": "trivalent_5_60"
+    "file": "trivalent_5_60",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": -15
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>61</sub>",
-    "file": "trivalent_5_61"
+    "file": "trivalent_5_61",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 48
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>62</sub>",
-    "file": "trivalent_5_62"
+    "file": "trivalent_5_62",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>63</sub>",
-    "file": "trivalent_5_63"
+    "file": "trivalent_5_63",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>64</sub>",
-    "file": "trivalent_5_64"
+    "file": "trivalent_5_64",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 4,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 2,
+      "detAdjacency": -3
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>65</sub>",
-    "file": "trivalent_5_65"
+    "file": "trivalent_5_65",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 12
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>66</sub>",
-    "file": "trivalent_5_66"
+    "file": "trivalent_5_66",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>67</sub>",
-    "file": "trivalent_5_67"
+    "file": "trivalent_5_67",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 3,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": 9
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>68</sub>",
-    "file": "trivalent_5_68"
+    "file": "trivalent_5_68",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 3,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 3,
+      "detAdjacency": -15
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>69</sub>",
-    "file": "trivalent_5_69"
+    "file": "trivalent_5_69",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 3,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 2,
+      "detAdjacency": 0
+    }
   },
   {
     "family": "Trivalent",
     "name": "Trivalent 5<sub>70</sub>",
-    "file": "trivalent_5_70"
+    "file": "trivalent_5_70",
+    "invariants": {
+      "numNodes": 8,
+      "numEdges": 12,
+      "girth": 2,
+      "degSequence": [3, 3, 3, 3, 3, 3, 3, 3],
+      "components": 1,
+      "circuitRank": 5,
+      "diameter": 4,
+      "detAdjacency": -12
+    }
   }
 ]

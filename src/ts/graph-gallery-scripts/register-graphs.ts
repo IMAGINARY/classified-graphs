@@ -1,14 +1,61 @@
 /* eslint-disable no-console */
-import { Core } from 'cytoscape';
+import cytoscape from 'cytoscape';
 import * as fs from 'fs';
+import { det } from 'mathjs';
+
+/* Can't load extensions in headless mode (no window object) ?? */
+// import invariants from '../cytoscape-extensions/invariants';
+// import utils from '../cytoscape-extensions/utils';
+
+// cytoscape.use(invariants);
+// cytoscape.use(utils);
+import girth from '../invariants/girth';
+import circuitRank from '../invariants/circuitRank';
+import diameter from '../invariants/diameter';
+import adjacencyMatrix from '../utils/adjacency-matrix';
 
 type GraphRegister = {
   family: string;
   name: string;
   file: string;
+  invariants: {
+    numNodes: number;
+    numEdges: number;
+    girth: number;
+    degSequence: number[];
+    components: number;
+    circuitRank: number;
+    diameter: number;
+    detAdjacency: number | undefined;
+  };
 };
 
-function makeFile(cy: Core, filename: string) {
+function computeInvariants(cy: cytoscape.Core) {
+  const dSeq = cy
+    .elements()
+    .nodes()
+    .map((n) => n.degree(true))
+    .sort((a, b) => b - a);
+
+  let d;
+  if (cy.nodes().size() > 0) {
+    const A = adjacencyMatrix(cy.elements());
+    d = det(A);
+  }
+
+  return {
+    numNodes: cy.elements().nodes().size(),
+    numEdges: cy.elements().edges().size(),
+    girth: girth(cy.elements()).value,
+    degSequence: dSeq,
+    components: cy.elements().components().length,
+    circuitRank: circuitRank(cy.elements()).length,
+    diameter: diameter(cy.elements()).value,
+    detAdjacency: d,
+  };
+}
+
+function makeFile(cy: cytoscape.Core, filename: string) {
   const json = cy.json();
   const jsonString = JSON.stringify(json, null, 4);
 
@@ -78,4 +125,4 @@ function registerGraphs(data: GraphRegister[]) {
   registerAssets(data);
 }
 
-export { GraphRegister, registerGraphs, makeFile };
+export { GraphRegister, registerGraphs, makeFile, computeInvariants };
