@@ -221,25 +221,7 @@ const toolbarModes: ModeConfig[] = [
 void i18next.use(LanguageDetector).init(i18nextOptions);
 const localize = locI18next.init(i18next);
 
-/**
- * Specify types of global variables that are not yet defined on 'window'.
- * Technically, this declaration is not correct, because the variables are
- * only defined in main, but not before it is executed. The correct way would be
- * ```
- * declare global {
- *   interface Window {
- *     cy: cytoscape.Core | undefined;
- *     d3: typeof d3 | undefined;
- *   }
- * }
- * ```
- * But then you would need to check for 'undefined' everywhere in your code
- * where the global variables are used, which is quite cumbersome for debugging.
- *
- * A cleaner way would to do it would be to define a method on window that returns
- * a promise that resolves with cy after main is executed.
- * Similar to navigator.requestMIDIAccess().
- */
+// Specify types of global variables that are not yet defined on 'window'.
 declare global {
   interface Window {
     cy1: cytoscape.Core;
@@ -256,13 +238,8 @@ window.parameters2 = parameters2;
 
 function main() {
   // After this, window.cy is shadowing the function-local cy.
-  // This is because the globalThis pointer refers to 'window' in the browser environment.
-  // Both have no type assigned on the window object.
-  // Same for the global vs. local d3 object.
   window.cy1 = cy1;
   window.cy2 = cy2;
-
-  // d3.select('#output').html(i18next.t('Connected_components')); // test
 
   const modeNull1 = new ModeNull(cy1, parameters1);
   let primaryMode1: Mode = modeNull1;

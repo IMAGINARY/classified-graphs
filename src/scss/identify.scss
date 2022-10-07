@@ -78,14 +78,14 @@ body {
   margin: 1em;
 }
 
-
 .matrix {
   position: relative;
   margin-left: 10px;
   margin-right: 10px;
 }
-.matrix:before, .matrix:after {
-  content: "";
+.matrix:before,
+.matrix:after {
+  content: '';
   position: absolute;
   top: 0;
   border: 1px solid #000;
@@ -103,7 +103,7 @@ body {
   border-radius: 0 50px 50px 0;
 }
 .matrix td {
-  padding: 5px;    
+  padding: 5px;
   width: 15px;
   height: 15px;
   text-align: center;
