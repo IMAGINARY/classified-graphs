@@ -37,8 +37,16 @@ import ModeDetAdjacency from './modes/ModeDetAdjacency';
 import * as assets from './assets';
 import ModeIsoCheck from './modes/ModeIsoCheck';
 
-import { makeGraphGallery } from './uiFunctions';
+import {
+  makeGraphGallery,
+  createInvariantsTable,
+  updateInvariantsTable,
+  ModeConfig,
+} from './uiFunctions';
+
 import graphGalleryList from '../graph-gallery/graphs-list.json';
+
+import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 
 const cy1 = cytoscape({
   ...cloneDeep(cyOptions),
@@ -64,14 +72,6 @@ const parameters1: Parameters = {
   nodeIndex: [],
   isoTarget: cy2,
   isoTargetParams: parameters2,
-};
-
-type ModeConfig = {
-  modeName: string;
-  textKey: string;
-  icon?: string;
-  modeObj1: Mode;
-  modeObj2?: Mode;
 };
 
 const toolbarModes: ModeConfig[] = [
@@ -176,48 +176,56 @@ const toolbarModes: ModeConfig[] = [
 const invariants: ModeConfig[] = [
   {
     modeName: 'modeNumNodes',
+    invName: 'numNodes',
     textKey: 'Order',
     modeObj1: new ModeNumNodes(cy1, parameters1),
     modeObj2: new ModeNumNodes(cy2, parameters2),
   },
   {
     modeName: 'modeNumEdges',
+    invName: 'numEdges',
     textKey: 'Size',
     modeObj1: new ModeNumEdges(cy1, parameters1),
     modeObj2: new ModeNumEdges(cy2, parameters2),
   },
   {
     modeName: 'modeGirth',
+    invName: 'girth',
     textKey: 'Girth',
     modeObj1: new ModeGirth(cy1, parameters1),
     modeObj2: new ModeGirth(cy2, parameters2),
   },
   {
     modeName: 'modeDegSequence',
+    invName: 'degSequence',
     textKey: 'Degree_sequence',
     modeObj1: new ModeDegSequence(cy1, parameters1),
     modeObj2: new ModeDegSequence(cy2, parameters2),
   },
   {
-    modeName: 'modeCompponents',
+    modeName: 'modeComponents',
+    invName: 'components',
     textKey: 'Connected_components',
     modeObj1: new ModeComponents(cy1, parameters1),
     modeObj2: new ModeComponents(cy2, parameters2),
   },
   {
     modeName: 'modeCircuitRank',
+    invName: 'circuitRank',
     textKey: 'Circuit_rank',
     modeObj1: new ModeCircuitRank(cy1, parameters1),
     modeObj2: new ModeCircuitRank(cy2, parameters2),
   },
   {
     modeName: 'modeDiameter',
+    invName: 'diameter',
     textKey: 'Diameter',
     modeObj1: new ModeDiameter(cy1, parameters1),
     modeObj2: new ModeDiameter(cy2, parameters2),
   },
   {
     modeName: 'modeDetAdjacency',
+    invName: 'detAdjacency',
     textKey: 'Adjacency_det',
     modeObj1: new ModeDetAdjacency(cy1, parameters1),
     modeObj2: new ModeDetAdjacency(cy2, parameters2),
@@ -242,6 +250,7 @@ declare global {
     parameters2: Parameters;
     d3: typeof d3;
     findIso: (a: void) => void;
+    filter: (a: void) => void;
   }
 }
 window.d3 = d3;
@@ -340,57 +349,19 @@ function main() {
 
   // Make Invariants table
 
-  const invTable = d3
-    .select('#invariants')
-    .append('table')
-    .classed('invTable', true)
-    .append('tr');
-  invTable.append('th').html('Invariant');
-  invTable.append('th').html('Filter');
-  invTable.append('th').html('Your graph');
-  invTable.append('th').html('Target graph');
-
-  function updateInvariantsTable() {
-    const invariantsItem = d3
-      .select('#invariants')
-      .select('table')
-      .selectAll<HTMLTableRowElement, unknown>('tr.invariantTR')
-      .data(invariants);
-
-    // enter
-    const newInvariant = invariantsItem
-      .enter()
-      .append('tr')
-      .classed('invariantTR', true);
-
-    newInvariant
-      .append('td')
-      .classed('translate', true)
-      .attr('data-i18n', (d) => `[html]${d.textKey}`);
-
-    newInvariant.append('td').append('input');
-
-    newInvariant.append('td').classed('invCy1', true); // container for text
-    newInvariant.append('td').classed('invCy2', true);
-
-    // exit
-    invariantsItem.exit().remove();
-
-    // update
-    invariantsItem
-      .merge(newInvariant)
-      .select('.invCy1')
-      .html((d) => d.modeObj1.infobox());
-
-    invariantsItem
-      .merge(newInvariant)
-      .select('.invCy2')
-      .html((d) => d.modeObj2.infobox());
-  }
-
-  updateInvariantsTable();
+  createInvariantsTable(invariants);
   // Make Gallery
   makeGraphGallery(graphGalleryList, cy1, parameters1);
+
+  function filteredGallery() {
+    const filteredList = (graphGalleryList as GraphRegister[]).filter(
+      (d) => d.invariants.detAdjacency === 0,
+    );
+    // console.log(filteredList.map((d) => d.name));
+    makeGraphGallery(filteredList, cy1, parameters1);
+  }
+
+  window.filter = filteredGallery;
 
   // Make infobox items
   // function updateInfo() {
@@ -462,8 +433,8 @@ function main() {
 
   // window.infoboxModes = infoboxModes;
 
-  cy1.on('cm-graph-updated', updateInvariantsTable);
-  cy2.on('cm-graph-updated', updateInvariantsTable);
+  cy1.on('cm-graph-updated', () => updateInvariantsTable(invariants));
+  cy2.on('cm-graph-updated', () => updateInvariantsTable(invariants));
 
   // updateInfo();
   // d3.select('.infoItem').classed('infoItemActive', true);

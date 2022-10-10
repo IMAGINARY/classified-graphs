@@ -1,8 +1,20 @@
 import * as d3 from 'd3-selection';
 import { Core } from 'cytoscape';
-import { Parameters } from './modes/modes';
+import { Mode, Parameters } from './modes/modes';
 import graphGalleryList from '../graph-gallery/graphs-list.json';
 import * as agr from '../graph-gallery/graphs-assets';
+import { GraphRegister } from './graph-gallery-scripts/register-graphs';
+
+type ModeConfig = {
+  modeName: string;
+  invName?: string;
+  textKey: string;
+  icon?: string;
+  modeObj1: Mode;
+  modeObj2?: Mode;
+};
+
+/* Loading graph into cy instance */
 
 // Loads graph given by `grId` into the `cy` instance, with parameters `parameters`.
 function loadGraph(cy: Core, parameters: Parameters, grId: string) {
@@ -22,19 +34,24 @@ function loadGraph(cy: Core, parameters: Parameters, grId: string) {
     });
 }
 
+/* Gallery of graphs */
+
 function makeGraphGallery(
-  data: typeof graphGalleryList,
+  data: GraphRegister[],
   loadIntoCy: Core,
   parametersCy: Parameters,
 ) {
-  const galleryContainer = d3.select('#gallery').selectAll('div').data(data);
+  const galleryContainer = d3
+    .select('#gallery')
+    .selectAll('div.graphGalleryItem')
+    .data(data, (d) => (d as GraphRegister).file);
 
   // enter selection
   const newItems = galleryContainer
     .enter()
     .append('div')
     .classed('graphGalleryItem', true)
-    .attr('data-bs-dismiss', 'modal')
+    // .attr('data-bs-dismiss', 'modal')
     .on('click', (ev, d) => {
       loadGraph(loadIntoCy, parametersCy, d.file);
     });
@@ -53,4 +70,85 @@ function makeGraphGallery(
   // update selection: none
 }
 
-export { makeGraphGallery };
+function makeFilteredGraphGallery() {
+  // console.log(d3.selectAll('.filter'));
+  let graphs = graphGalleryList;
+  // console.log(graphs);
+  d3.selectAll('.filter').each((d, i, n) => {
+    if ((n[i] as HTMLInputElement).value !== '') {
+      graphs = graphs.filter(
+        (g) => g.invariants[(d as ModeConfig).invName] === Number(n[i].value),
+      );
+      // console.log(graphs);
+      // console.log(Number(n[i].value);
+      // console.log(d, i, n);
+    }
+  });
+  makeGraphGallery(graphs, cy1, parameters1);
+}
+
+/* Invariants table */
+
+function updateInvariantsTable(usedInvariants: ModeConfig[]) {
+  const invariantsItem = d3
+    .select('#invariants')
+    .select('table')
+    .selectAll<HTMLTableRowElement, unknown>('tr.invariantTR')
+    .data(usedInvariants);
+
+  // enter
+  const newInvariant = invariantsItem
+    .enter()
+    .append('tr')
+    .classed('invariantTR', true);
+
+  newInvariant
+    .append('td')
+    .classed('translate', true)
+    .attr('data-i18n', (d) => `[html]${d.textKey}`);
+
+  newInvariant
+    .append('td')
+    .append('input')
+    .classed('filter', true)
+    .attr('cm-invariant', (d) => `${d.modeName}`)
+    .on('change', () => makeFilteredGraphGallery());
+
+  newInvariant.append('td').classed('invCy1', true); // container for text
+  newInvariant.append('td').classed('invCy2', true);
+
+  // exit
+  invariantsItem.exit().remove();
+
+  // update
+  invariantsItem
+    .merge(newInvariant)
+    .select('.invCy1')
+    .html((d) => d.modeObj1.infobox());
+
+  invariantsItem
+    .merge(newInvariant)
+    .select('.invCy2')
+    .html((d) => d.modeObj2.infobox());
+}
+
+function createInvariantsTable(usedInvariants: ModeConfig[]) {
+  const invTable = d3
+    .select('#invariants')
+    .append('table')
+    .classed('invTable', true)
+    .append('tr');
+  invTable.append('th').html('Invariant');
+  invTable.append('th').html('Filter');
+  invTable.append('th').html('Your graph');
+  invTable.append('th').html('Target graph');
+  updateInvariantsTable(usedInvariants);
+}
+
+export {
+  ModeConfig,
+  loadGraph,
+  makeGraphGallery,
+  updateInvariantsTable,
+  createInvariantsTable,
+};

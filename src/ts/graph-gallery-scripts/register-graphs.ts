@@ -21,7 +21,7 @@ type GraphRegister = {
   invariants: {
     numNodes: number;
     numEdges: number;
-    girth: number;
+    girth: number | null; // json does not support Infinity
     degSequence: number[];
     components: number;
     circuitRank: number;
