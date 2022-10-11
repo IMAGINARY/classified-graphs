@@ -241,6 +241,56 @@ const invariants: ModeConfig[] = [
 void i18next.use(LanguageDetector).init(i18nextOptions);
 const localize = locI18next.init(i18next);
 
+// Make Language Selector
+function createLangSelector() {
+  const divLangSelector = d3.select('#langSelector').classed('dropdown', true);
+
+  divLangSelector
+    .append('button')
+    .attr('class', 'btn btn-secondary dropdown-toggle')
+    .attr('type', 'button')
+    .attr('data-bs-toggle', 'dropdown')
+    .append('img')
+    .attr('src', assets.iconTranslate)
+    .attr('width', '30px');
+
+  divLangSelector.append('ul').classed('dropdown-menu', true);
+
+  //   <div class="dropdown" id="langSelector">
+  //   <button
+  //     class="btn btn-secondary dropdown-toggle"
+  //     type="button"
+  //     data-bs-toggle="dropdown"
+  //   >
+  //     <img src="../img/translate.svg" width="30px" />
+  //   </button>
+  //   <ul class="dropdown-menu">
+  //     <!-- <li><a class="dropdown-item" href="#">English</a></li> -->
+  //   </ul>
+  // </div>
+
+  d3.select('#langSelector')
+    .select('.dropdown-menu')
+    .selectAll('li')
+    .data(langList)
+    .enter()
+    .append('li')
+    .append('a')
+    .classed('dropdown-item', true)
+    .attr('href', '#')
+    .on('click', (ev, d) => {
+      i18next
+        .changeLanguage(d.isoCode)
+        .then(() => localize('.translate'))
+        .catch((reason) => {
+          // TODO: Handle the error properly instead of ignoring it.
+          // eslint-disable-next-line no-console
+          console.error(`Changing to language ${d.isoCode} failed.`, reason);
+        });
+    })
+    .text((d) => d.endonym);
+}
+
 // Specify types of global variables that are not yet defined on 'window'.
 declare global {
   interface Window {
@@ -281,27 +331,7 @@ function main() {
   //   secondaryMode.activate();
   // }
 
-  // Make Language Selector
-  d3.select('#langSelector')
-    .select('.dropdown-menu')
-    .selectAll('li')
-    .data(langList)
-    .enter()
-    .append('li')
-    .append('a')
-    .classed('dropdown-item', true)
-    .attr('href', '#')
-    .on('click', (ev, d) => {
-      i18next
-        .changeLanguage(d.isoCode)
-        .then(() => localize('.translate'))
-        .catch((reason) => {
-          // TODO: Handle the error properly instead of ignoring it.
-          // eslint-disable-next-line no-console
-          console.error(`Changing to language ${d.isoCode} failed.`, reason);
-        });
-    })
-    .text((d) => d.endonym);
+  createLangSelector();
 
   // Make toolbar buttons
   const buttons = d3

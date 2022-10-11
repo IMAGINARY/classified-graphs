@@ -19,6 +19,7 @@
  * seems to be the best option.
  */
 
+const iconTranslate = new URL('../img/translate.svg', import.meta.url).href;
 const iconPointer = new URL('../img/pointer.svg', import.meta.url).href;
 const iconNode = new URL('../img/node.svg', import.meta.url).href;
 const iconEdge = new URL('../img/edge.svg', import.meta.url).href;
@@ -36,6 +37,7 @@ const iconQuestion = new URL('../img/question-square.svg', import.meta.url)
 const iconCheck = new URL('../img/check-square.svg', import.meta.url).href;
 
 export {
+  iconTranslate,
   iconPointer,
   iconNode,
   iconEdge,

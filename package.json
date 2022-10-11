@@ -22,7 +22,7 @@
   ],
   "targets": {
     "": {
-      "source": ["src/html/index.html","src/html/identify.html"],
+      "source": ["src/html/index.html","src/html/identify.html","src/html/index3.html"],
       "context": "browser",
       "isLibrary": false,
       "publicUrl": "."

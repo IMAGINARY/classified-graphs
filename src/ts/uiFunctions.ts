@@ -77,14 +77,16 @@ function makeFilteredGraphGallery() {
   d3.selectAll('.filter').each((d, i, n) => {
     if ((n[i] as HTMLInputElement).value !== '') {
       graphs = graphs.filter(
-        (g) => g.invariants[(d as ModeConfig).invName] === Number(n[i].value),
+        (g) =>
+          g.invariants[(d as ModeConfig).invName] ===
+          Number((n[i] as HTMLInputElement).value),
       );
       // console.log(graphs);
       // console.log(Number(n[i].value);
       // console.log(d, i, n);
     }
   });
-  makeGraphGallery(graphs, cy1, parameters1);
+  makeGraphGallery(graphs, window.cy1, window.parameters1);
 }
 
 /* Invariants table */
