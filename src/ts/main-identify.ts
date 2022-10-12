@@ -117,18 +117,6 @@ const toolbarModes: ModeConfig[] = [
     icon: assets.iconEdge,
     modeObj1: new ModeEdge(cy1, parameters1),
   },
-  {
-    modeName: 'modeLoadRandom',
-    textKey: 'Target',
-    icon: assets.iconQuestion,
-    modeObj1: new ModeLoadRandom(cy2, parameters2),
-  },
-  {
-    modeName: 'modeIsoCheck',
-    textKey: 'Check',
-    icon: assets.iconCheck,
-    modeObj1: new ModeIsoCheck(cy1, parameters1),
-  },
   // {
   //   modeName: 'modeClear',
   //   textKey: 'Clear',
@@ -171,6 +159,21 @@ const toolbarModes: ModeConfig[] = [
   //   icon: assets.iconEdge,
   //   modeObj: new ModeEdge(cy2, parameters2),
   // },
+];
+
+const targetToolbarModes = [
+  {
+    modeName: 'modeLoadRandom',
+    textKey: 'Target',
+    icon: assets.iconQuestion,
+    modeObj1: new ModeLoadRandom(cy2, parameters2),
+  },
+  {
+    modeName: 'modeIsoCheck',
+    textKey: 'Check',
+    icon: assets.iconCheck,
+    modeObj1: new ModeIsoCheck(cy1, parameters1),
+  },
 ];
 
 const invariants: ModeConfig[] = [
@@ -237,6 +240,22 @@ const invariants: ModeConfig[] = [
   // },
 ];
 
+const modeNull1 = new ModeNull(cy1, parameters1);
+let primaryMode1: Mode = modeNull1;
+// let secondaryMode: Mode = infoboxModes[0].modeObj;
+
+function switchPrimaryMode1(newMode: Mode) {
+  primaryMode1.deactivate();
+  primaryMode1 = newMode;
+  primaryMode1.activate();
+}
+
+// function switchSecondaryMode(newMode: Mode) {
+//   secondaryMode.deactivate();
+//   secondaryMode = newMode;
+//   secondaryMode.activate();
+// }
+
 // eslint-disable-next-line no-void
 void i18next.use(LanguageDetector).init(i18nextOptions);
 const localize = locI18next.init(i18next);
@@ -256,20 +275,7 @@ function createLangSelector() {
 
   divLangSelector.append('ul').classed('dropdown-menu', true);
 
-  //   <div class="dropdown" id="langSelector">
-  //   <button
-  //     class="btn btn-secondary dropdown-toggle"
-  //     type="button"
-  //     data-bs-toggle="dropdown"
-  //   >
-  //     <img src="../img/translate.svg" width="30px" />
-  //   </button>
-  //   <ul class="dropdown-menu">
-  //     <!-- <li><a class="dropdown-item" href="#">English</a></li> -->
-  //   </ul>
-  // </div>
-
-  d3.select('#langSelector')
+  divLangSelector
     .select('.dropdown-menu')
     .selectAll('li')
     .data(langList)
@@ -291,53 +297,12 @@ function createLangSelector() {
     .text((d) => d.endonym);
 }
 
-// Specify types of global variables that are not yet defined on 'window'.
-declare global {
-  interface Window {
-    cy1: cytoscape.Core;
-    cy2: cytoscape.Core;
-    parameters1: Parameters;
-    parameters2: Parameters;
-    d3: typeof d3;
-    findIso: (a: void) => void;
-    filter: (a: void) => void;
-  }
-}
-window.d3 = d3;
-window.parameters1 = parameters1;
-window.parameters2 = parameters2;
-
-function main() {
-  // After this, window.cy is shadowing the function-local cy.
-  window.cy1 = cy1;
-  window.cy2 = cy2;
-
-  const modeNull1 = new ModeNull(cy1, parameters1);
-  let primaryMode1: Mode = modeNull1;
-  // let secondaryMode: Mode = infoboxModes[0].modeObj;
-
-  primaryMode1.activate();
-  // secondaryMode.activate();
-
-  function switchPrimaryMode1(newMode: Mode) {
-    primaryMode1.deactivate();
-    primaryMode1 = newMode;
-    primaryMode1.activate();
-  }
-
-  // function switchSecondaryMode(newMode: Mode) {
-  //   secondaryMode.deactivate();
-  //   secondaryMode = newMode;
-  //   secondaryMode.activate();
-  // }
-
-  createLangSelector();
-
-  // Make toolbar buttons
+// Create toolbar buttons
+function createButtons(container: string, buttonsList: ModeConfig[]) {
   const buttons = d3
-    .select('#toolbar')
+    .select(container)
     .selectAll('button')
-    .data(toolbarModes)
+    .data(buttonsList)
     .enter()
     .append('button')
     .classed('toolbar-button', true)
@@ -371,6 +336,39 @@ function main() {
   buttons.on('click', (ev, d) => {
     switchPrimaryMode1(d.modeObj1);
   });
+}
+
+// Specify types of global variables that are not yet defined on 'window'.
+declare global {
+  interface Window {
+    cy1: cytoscape.Core;
+    cy2: cytoscape.Core;
+    parameters1: Parameters;
+    parameters2: Parameters;
+    d3: typeof d3;
+    findIso: (a: void) => void;
+    filter: (a: void) => void;
+  }
+}
+window.d3 = d3;
+window.parameters1 = parameters1;
+window.parameters2 = parameters2;
+
+/* MAIN */
+
+function main() {
+  // After this, window.cy is shadowing the function-local cy.
+  window.cy1 = cy1;
+  window.cy2 = cy2;
+
+  primaryMode1.activate();
+  // secondaryMode.activate();
+
+  createLangSelector();
+
+  // Make toolbar buttons
+  createButtons('#toolbar', toolbarModes);
+  createButtons('#target-tools', targetToolbarModes);
 
   // // Make Load modal
   // d3.select('#btn-modeLoad')
@@ -378,8 +376,8 @@ function main() {
   //   .attr('data-bs-target', '#exampleModal');
 
   // Make Invariants table
-
   createInvariantsTable(invariants);
+
   // Make Gallery
   makeGraphGallery(graphGalleryList, cy1, parameters1);
 

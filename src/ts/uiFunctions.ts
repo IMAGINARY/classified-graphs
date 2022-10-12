@@ -91,59 +91,143 @@ function makeFilteredGraphGallery() {
 
 /* Invariants table */
 
+// function updateInvariantsTable(usedInvariants: ModeConfig[]) {
+//   const invariantsItem = d3
+//     .select('#invariants')
+//     .select('table')
+//     .selectAll<HTMLTableRowElement, unknown>('tr.invariantTR')
+//     .data(usedInvariants);
+
+//   // enter
+//   const newInvariant = invariantsItem
+//     .enter()
+//     .append('tr')
+//     .classed('invariantTR', true);
+
+//   newInvariant
+//     .append('td')
+//     .classed('invariantTableInvName', true)
+//     .classed('translate', true)
+//     .attr('data-i18n', (d) => `[html]${d.textKey}`);
+
+//   newInvariant
+//     .append('td')
+//     .append('input')
+//     .classed('filter', true)
+//     .attr('cm-invariant', (d) => `${d.modeName}`)
+//     .on('change', () => makeFilteredGraphGallery());
+
+//   newInvariant.append('td').classed('invCy1', true); // container for text
+//   newInvariant.append('td').classed('invCy2', true);
+
+//   // exit
+//   invariantsItem.exit().remove();
+
+//   // update
+//   invariantsItem
+//     .merge(newInvariant)
+//     .select('.invCy1')
+//     .html((d) => d.modeObj1.infobox());
+
+//   invariantsItem
+//     .merge(newInvariant)
+//     .select('.invCy2')
+//     .html((d) => d.modeObj2.infobox());
+// }
+
+// function createInvariantsTable(usedInvariants: ModeConfig[]) {
+//   const invTable = d3
+//     .select('#invariants')
+//     .append('table')
+//     .classed('invTable', true)
+//     .append('tr');
+//   invTable.append('th').html('Invariant');
+//   invTable.append('th').html('Filter');
+//   invTable.append('th').html('Your graph');
+//   invTable.append('th').html('Target graph');
+//   updateInvariantsTable(usedInvariants);
+// }
+
+/* Invariants table horizontal */
+
 function updateInvariantsTable(usedInvariants: ModeConfig[]) {
-  const invariantsItem = d3
-    .select('#invariants')
-    .select('table')
-    .selectAll<HTMLTableRowElement, unknown>('tr.invariantTR')
+  const headers = d3
+    .select('.invTabHeaders')
+    .selectAll<HTMLTableCellElement, unknown>('td.invData')
+    .data(usedInvariants);
+
+  const filters = d3
+    .select('.invTabFilters')
+    .selectAll<HTMLTableCellElement, unknown>('td.invData')
+    .data(usedInvariants);
+
+  const invCy1 = d3
+    .select('.invTabCy1')
+    .selectAll<HTMLTableCellElement, unknown>('td.invData')
+    .data(usedInvariants);
+
+  const invCy2 = d3
+    .select('.invTabCy2')
+    .selectAll<HTMLTableCellElement, unknown>('td.invData')
     .data(usedInvariants);
 
   // enter
-  const newInvariant = invariantsItem
+  headers
     .enter()
-    .append('tr')
-    .classed('invariantTR', true);
-
-  newInvariant
     .append('td')
+    .classed('invData', true)
     .classed('translate', true)
     .attr('data-i18n', (d) => `[html]${d.textKey}`);
 
-  newInvariant
+  filters
+    .enter()
     .append('td')
+    .classed('invData', true)
     .append('input')
     .classed('filter', true)
     .attr('cm-invariant', (d) => `${d.modeName}`)
     .on('change', () => makeFilteredGraphGallery());
 
-  newInvariant.append('td').classed('invCy1', true); // container for text
-  newInvariant.append('td').classed('invCy2', true);
+  const newInvCy1 = invCy1.enter().append('td').classed('invData', true);
+  const newInvCy2 = invCy2.enter().append('td').classed('invData', true);
 
   // exit
-  invariantsItem.exit().remove();
+  headers.exit().remove();
+  filters.exit().remove();
+  invCy1.exit().remove();
+  invCy2.exit().remove();
 
   // update
-  invariantsItem
-    .merge(newInvariant)
-    .select('.invCy1')
-    .html((d) => d.modeObj1.infobox());
-
-  invariantsItem
-    .merge(newInvariant)
-    .select('.invCy2')
-    .html((d) => d.modeObj2.infobox());
+  invCy1.merge(newInvCy1).html((d) => d.modeObj1.infobox());
+  invCy2.merge(newInvCy2).html((d) => d.modeObj2.infobox());
 }
 
 function createInvariantsTable(usedInvariants: ModeConfig[]) {
   const invTable = d3
     .select('#invariants')
     .append('table')
-    .classed('invTable', true)
-    .append('tr');
-  invTable.append('th').html('Invariant');
-  invTable.append('th').html('Filter');
-  invTable.append('th').html('Your graph');
-  invTable.append('th').html('Target graph');
+    .classed('invTab', true);
+  invTable
+    .append('tr')
+    .classed('invTabHeaders', true)
+    .append('td')
+    .html('Invariant');
+  invTable
+    .append('tr')
+    .classed('invTabCy1', true)
+    .append('td')
+    .html('Your Graph');
+  invTable
+    .append('tr')
+    .classed('invTabCy2', true)
+    .append('td')
+    .html('Target Graph');
+  invTable
+    .append('tr')
+    .classed('invTabFilters', true)
+    .append('td')
+    .html('Gallery Filter');
+
   updateInvariantsTable(usedInvariants);
 }
 

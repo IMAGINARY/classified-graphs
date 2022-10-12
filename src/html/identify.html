@@ -34,7 +34,10 @@
     <!-- <h1 class="translate" data-i18n="title"></h1> -->
     <h1>Identify your graph</h1>
 
-    <nav id="toolbar"></nav>
+    <nav> 
+      <span id="toolbar"></span>
+      <span id="target-tools"></span>
+    </nav>
 
     <div id="output" style="height: 20px"></div>
 
@@ -51,12 +54,7 @@
     <pre id="outputText"></pre>
     -->
 
-    <input
-      type="file"
-      id="inputFile"
-      accept="application/json"
-      style="display: none"
-    />
+    
 
     <script src="../ts/main-identify.ts" type="module"></script>
   </body>

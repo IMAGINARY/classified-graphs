@@ -14,6 +14,20 @@ export default class ModeImport implements Mode {
     this.cy = cy;
     this.parameters = parameters;
 
+    // <input
+    //   type="file"
+    //   id="inputFile"
+    //   accept="application/json"
+    //   style="display: none"
+    // />
+
+    const inputElement = document.createElement('input');
+    inputElement.type = 'file';
+    inputElement.id = 'inputFile';
+    inputElement.accept = 'application/json';
+    inputElement.style.display = 'none';
+    document.body.appendChild(inputElement);
+
     this.inputFile = document.getElementById('inputFile') as HTMLInputElement;
 
     this.handleFile = () => {

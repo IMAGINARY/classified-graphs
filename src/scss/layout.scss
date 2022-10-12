@@ -24,25 +24,25 @@ body{
 .toolbar {grid-area: toolbar;}
 .main { grid-area: main; }
 .target { grid-area: target; }
-.targetools {grid-area: targetools;}
+.target-tools {grid-area: target-tools;}
 .invariants { 
   grid-area: invariants; 
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  height: 20em;
+  height: 10em;
  }
 
 .grid-container {
     height: 100vh;
   display: grid;
-  grid-template-columns: 20% auto 20%;
-  grid-template-rows: auto auto auto auto 20em;
+  grid-template-columns: 20% minmax(0, auto) 20%;
+  grid-template-rows: auto auto auto auto 10em;
   grid-template-areas:
     'header header header'
     'gallery toolbar toolbar'
     'gallery main target'
-    'gallery main targetools'
+    'gallery main target-tools'
     'gallery invariants invariants';
   gap: 10px;
   background-color: #2196F3;
@@ -103,3 +103,32 @@ border: 2px solid black;
 .filter{
   width: 5em;
 }
+
+
+.invTab  td {
+width: 8em;
+}
+.invTabHeaders{
+  font-weight: bold;
+}
+
+// Transpose table
+
+// tr { display: block; float: left; }
+// th, td { display: block; width: 8em; height: 4em;}
+
+// .invariants > table {
+// 	display: table;
+// }
+// .invariants > table tr {
+// 	display: table-cell;
+// }
+// .invariantTableInvName > td {
+//   height: 4em;
+// }
+// .invariants > table tr td,th {
+// 	display: block;
+//   height: 2em;
+//   width: 8em;
+//   margin: 2px;
+// }
