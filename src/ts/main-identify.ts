@@ -11,7 +11,7 @@ import './side-effects';
 
 import { cyOptions, i18nextOptions, langList } from './constants';
 
-import { Mode, Parameters } from './modes/modes';
+import { Parameters } from './modes/modes';
 
 // import { parameters, toolbarModes, infoboxModes } from './modesList';
 import ModeNull from './modes/ModeNull';
@@ -38,7 +38,10 @@ import * as assets from './assets';
 import ModeIsoCheck from './modes/ModeIsoCheck';
 
 import {
+  defaultMode,
   makeGraphGallery,
+  switchPrimaryMode,
+  // switchSecondaryMode,
   createInvariantsTable,
   updateInvariantsTable,
   ModeConfig,
@@ -80,18 +83,21 @@ const toolbarModes: ModeConfig[] = [
     textKey: 'Clear',
     icon: assets.iconClear,
     modeObj1: new ModeClear(cy1, parameters1),
+    modeObj2: new ModeNull(cy2, parameters2),
   },
   {
     modeName: 'modeExport',
     textKey: 'Export',
     icon: assets.iconExport,
     modeObj1: new ModeExport(cy1, parameters1),
+    modeObj2: new ModeNull(cy2, parameters2),
   },
   {
     modeName: 'modeImport',
     textKey: 'Import',
     icon: assets.iconImport,
     modeObj1: new ModeImport(cy1, parameters1),
+    modeObj2: new ModeNull(cy2, parameters2),
   },
   // {
   //   modeName: 'modeLoad',
@@ -104,18 +110,21 @@ const toolbarModes: ModeConfig[] = [
     textKey: 'Pointer',
     icon: assets.iconPointer,
     modeObj1: new ModeNull(cy1, parameters1),
+    modeObj2: new ModeNull(cy2, parameters2),
   },
   {
     modeName: 'modeNode',
     textKey: 'Nodes',
     icon: assets.iconNode,
     modeObj1: new ModeNode(cy1, parameters1),
+    modeObj2: new ModeNull(cy2, parameters2),
   },
   {
     modeName: 'modeEdge',
     textKey: 'Edges',
     icon: assets.iconEdge,
     modeObj1: new ModeEdge(cy1, parameters1),
+    modeObj2: new ModeNull(cy2, parameters2),
   },
   // {
   //   modeName: 'modeClear',
@@ -166,13 +175,15 @@ const targetToolbarModes = [
     modeName: 'modeLoadRandom',
     textKey: 'Target',
     icon: assets.iconQuestion,
-    modeObj1: new ModeLoadRandom(cy2, parameters2),
+    modeObj1: new ModeNull(cy1, parameters1),
+    modeObj2: new ModeLoadRandom(cy2, parameters2),
   },
   {
     modeName: 'modeIsoCheck',
     textKey: 'Check',
     icon: assets.iconCheck,
     modeObj1: new ModeIsoCheck(cy1, parameters1),
+    modeObj2: new ModeNull(cy2, parameters2),
   },
 ];
 
@@ -240,21 +251,8 @@ const invariants: ModeConfig[] = [
   // },
 ];
 
-const modeNull1 = new ModeNull(cy1, parameters1);
-let primaryMode1: Mode = modeNull1;
-// let secondaryMode: Mode = infoboxModes[0].modeObj;
-
-function switchPrimaryMode1(newMode: Mode) {
-  primaryMode1.deactivate();
-  primaryMode1 = newMode;
-  primaryMode1.activate();
-}
-
-// function switchSecondaryMode(newMode: Mode) {
-//   secondaryMode.deactivate();
-//   secondaryMode = newMode;
-//   secondaryMode.activate();
-// }
+const primaryMode: ModeConfig = defaultMode;
+const secondaryMode: ModeConfig = defaultMode;
 
 // eslint-disable-next-line no-void
 void i18next.use(LanguageDetector).init(i18nextOptions);
@@ -334,7 +332,7 @@ function createButtons(container: string, buttonsList: ModeConfig[]) {
   // .html((d) => i18next.t(d.textKey));
 
   buttons.on('click', (ev, d) => {
-    switchPrimaryMode1(d.modeObj1);
+    switchPrimaryMode(d);
   });
 }
 
@@ -348,6 +346,8 @@ declare global {
     d3: typeof d3;
     findIso: (a: void) => void;
     filter: (a: void) => void;
+    primaryMode: ModeConfig;
+    secondaryMode: ModeConfig;
   }
 }
 window.d3 = d3;
@@ -360,8 +360,11 @@ function main() {
   // After this, window.cy is shadowing the function-local cy.
   window.cy1 = cy1;
   window.cy2 = cy2;
+  window.primaryMode = primaryMode;
+  window.secondaryMode = secondaryMode;
 
-  primaryMode1.activate();
+  primaryMode.modeObj1.activate();
+  primaryMode.modeObj2.activate();
   // secondaryMode.activate();
 
   createLangSelector();

@@ -115,20 +115,36 @@ width: 8em;
 // Transpose table
 
 // tr { display: block; float: left; }
-// th, td { display: block; width: 8em; height: 4em;}
+// th, td { display: block; height: 2em;}
 
-// .invariants > table {
-// 	display: table;
-// }
-// .invariants > table tr {
-// 	display: table-cell;
-// }
-// .invariantTableInvName > td {
-//   height: 4em;
-// }
-// .invariants > table tr td,th {
-// 	display: block;
-//   height: 2em;
-//   width: 8em;
-//   margin: 2px;
-// }
+
+.matrix {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.matrix:before,
+.matrix:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  border: 1px solid #000;
+  width: 6px;
+  height: 100%;
+}
+.matrix:before {
+  left: -6px;
+  border-right: 0px;
+  border-radius: 50px 0 0 50px;
+}
+.matrix:after {
+  right: -6px;
+  border-left: 0px;
+  border-radius: 0 50px 50px 0;
+}
+.matrix td {
+  padding: 5px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+}

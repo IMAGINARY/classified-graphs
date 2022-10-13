@@ -4,6 +4,8 @@ import { Mode, Parameters } from './modes/modes';
 import graphGalleryList from '../graph-gallery/graphs-list.json';
 import * as agr from '../graph-gallery/graphs-assets';
 import { GraphRegister } from './graph-gallery-scripts/register-graphs';
+import ModeNull from './modes/ModeNull';
+import { iconPointer } from './assets';
 
 type ModeConfig = {
   modeName: string;
@@ -11,8 +13,34 @@ type ModeConfig = {
   textKey: string;
   icon?: string;
   modeObj1: Mode;
-  modeObj2?: Mode;
+  modeObj2: Mode;
 };
+
+const defaultMode = {
+  modeName: 'modeNull',
+  textKey: 'Pointer',
+  icon: iconPointer,
+  modeObj1: new ModeNull(window.cy1, window.parameters1),
+  modeObj2: new ModeNull(window.cy2, window.parameters2),
+};
+
+function switchPrimaryMode(newMode: ModeConfig) {
+  window.primaryMode.modeObj1.deactivate();
+  window.primaryMode.modeObj2.deactivate();
+  window.primaryMode = newMode;
+  window.primaryMode.modeObj1.activate();
+  window.primaryMode.modeObj2.activate();
+}
+
+function switchSecondaryMode(newMode: ModeConfig) {
+  window.secondaryMode.modeObj1.deactivate();
+  // window.secondaryMode.modeObj2.deactivate();
+  window.secondaryMode = newMode;
+  window.secondaryMode.modeObj1.activate();
+  // window.secondaryMode.modeObj2.activate();
+  window.cy1.emit('cm-graph-updated');
+  window.cy2.emit('cm-graph-updated');
+}
 
 /* Loading graph into cy instance */
 
@@ -177,7 +205,22 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
     .append('td')
     .classed('invData', true)
     .classed('translate', true)
-    .attr('data-i18n', (d) => `[html]${d.textKey}`);
+    .attr('data-i18n', (d) => `[html]${d.textKey}`)
+    // .classed('btn', true)
+    // .classed('btn-primary', true)
+    .on('click', (ev: MouseEvent, d) => {
+      const target = ev.currentTarget;
+      if (target instanceof Element) {
+        if (d === window.secondaryMode) {
+          switchSecondaryMode(defaultMode);
+          d3.select(target).classed('infoItemActive', false);
+        } else {
+          switchSecondaryMode(d);
+          d3.select('.infoItemActive').classed('infoItemActive', false);
+          d3.select(target).classed('infoItemActive', true);
+        }
+      }
+    });
 
   filters
     .enter()
@@ -200,6 +243,11 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
   // update
   invCy1.merge(newInvCy1).html((d) => d.modeObj1.infobox());
   invCy2.merge(newInvCy2).html((d) => d.modeObj2.infobox());
+
+  if (window.secondaryMode !== defaultMode) {
+    window.secondaryMode.modeObj1.render();
+    // window.secondaryMode.modeObj2.render();
+  }
 }
 
 function createInvariantsTable(usedInvariants: ModeConfig[]) {
@@ -233,6 +281,9 @@ function createInvariantsTable(usedInvariants: ModeConfig[]) {
 
 export {
   ModeConfig,
+  defaultMode,
+  switchPrimaryMode,
+  switchSecondaryMode,
   loadGraph,
   makeGraphGallery,
   updateInvariantsTable,
