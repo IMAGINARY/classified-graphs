@@ -49,7 +49,7 @@ import {
 
 import graphGalleryList from '../graph-gallery/graphs-list.json';
 
-import { GraphRegister } from './graph-gallery-scripts/register-graphs';
+// import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 
 const cy1 = cytoscape({
   ...cloneDeep(cyOptions),
@@ -345,9 +345,10 @@ declare global {
     parameters2: Parameters;
     d3: typeof d3;
     findIso: (a: void) => void;
-    filter: (a: void) => void;
     primaryMode: ModeConfig;
     secondaryMode: ModeConfig;
+    collapseTarget: (a: void) => void;
+    uncollapseTarget: (a: void) => void;
   }
 }
 window.d3 = d3;
@@ -369,6 +370,46 @@ function main() {
 
   createLangSelector();
 
+  // Make Target-collapse button
+  function collapseTarget() {
+    d3.select('#grid-container').classed('full-mode', false);
+    d3.select('#grid-container').classed('collapsed-mode', true);
+    d3.selectAll('.target, .target-tools').style('display', 'none');
+  }
+  // window.collapseTarget = collapseTarget;
+
+  function uncollapseTarget() {
+    d3.select('#grid-container').classed('collapsed-mode', false);
+    d3.select('#grid-container').classed('full-mode', true);
+    d3.selectAll('.target, .target-tools').style('display', 'initial');
+  }
+  // window.uncollapseTarget = uncollapseTarget;
+
+  d3.select('#toolbar')
+    .append('input')
+    .attr('type', 'checkbox')
+    .attr('id', 'targetCollapseButton')
+    .classed('btn-check', true)
+    .attr('autocomplete', 'off')
+    .on('click', () => {
+      if (
+        (d3.select('#targetCollapseButton').node() as HTMLInputElement).checked
+      ) {
+        uncollapseTarget();
+      } else {
+        collapseTarget();
+      }
+    });
+
+  d3.select('#toolbar')
+    .append('label')
+    .style('float', 'right')
+    .classed('btn btn-secondary', true)
+    .attr('for', 'targetCollapseButton')
+    .html('Which graph is this?');
+
+  collapseTarget();
+
   // Make toolbar buttons
   createButtons('#toolbar', toolbarModes);
   createButtons('#target-tools', targetToolbarModes);
@@ -383,16 +424,6 @@ function main() {
 
   // Make Gallery
   makeGraphGallery(graphGalleryList, cy1, parameters1);
-
-  function filteredGallery() {
-    const filteredList = (graphGalleryList as GraphRegister[]).filter(
-      (d) => d.invariants.detAdjacency === 0,
-    );
-    // console.log(filteredList.map((d) => d.name));
-    makeGraphGallery(filteredList, cy1, parameters1);
-  }
-
-  window.filter = filteredGallery;
 
   // Make infobox items
   // function updateInfo() {

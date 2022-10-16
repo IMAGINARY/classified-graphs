@@ -255,26 +255,23 @@ function createInvariantsTable(usedInvariants: ModeConfig[]) {
     .select('#invariants')
     .append('table')
     .classed('invTab', true);
-  invTable
-    .append('tr')
-    .classed('invTabHeaders', true)
-    .append('td')
-    .html('Invariant');
+  invTable.append('tr').classed('invTabHeaders', true).append('td');
+  // .html('Invariant');
   invTable
     .append('tr')
     .classed('invTabCy1', true)
     .append('td')
-    .html('Your Graph');
+    .html('Your graph');
   invTable
     .append('tr')
     .classed('invTabCy2', true)
     .append('td')
-    .html('Target Graph');
+    .html('Target graph');
   invTable
     .append('tr')
     .classed('invTabFilters', true)
     .append('td')
-    .html('Gallery Filter');
+    .html('Gallery filter');
 
   updateInvariantsTable(usedInvariants);
 }

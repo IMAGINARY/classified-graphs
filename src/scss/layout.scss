@@ -1,5 +1,12 @@
 @import 'bootstrap/scss/bootstrap.scss';
 
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
+}
+
 body{
   overflow: hidden;
   padding: 0;
@@ -10,6 +17,15 @@ body{
     grid-area: header; 
     // height: fit-content;
     text-align: center;
+}
+.mainTitle {  
+  font-family: 'Josefin Sans', sans-serif;
+  color: black;
+  text-align: center;
+  padding: 1em;
+  font-size: 300%;
+  font-weight: bold;
+  top:0;
 }
 
 #langSelector {
@@ -31,60 +47,92 @@ body{
   margin-right: auto;
   text-align: center;
   height: 10em;
+  overflow: scroll;
  }
 
-.grid-container {
-    height: 100vh;
+ #grid-container{
+  height: 100vh;
   display: grid;
-  grid-template-columns: 20% minmax(0, auto) 20%;
-  grid-template-rows: auto auto auto auto 10em;
+  gap: 10px;
+  background-color: hsl(51, 52%, 95%);
+  padding: 10px;
+  grid-template-columns: 20% calc(60% - 20px) 20%;
+  grid-template-rows: 4em 80px auto 10% 10em;
+ }
+
+.full-mode {
+  // grid-template-columns: 480px auto 20%;
+  // grid-template-columns: calc(4* 8em) auto 20%;
+  // grid-template-columns: 20% calc(60% - 20px) 20%;
+  // grid-template-columns: 20% 60% 20%;
+  // grid-template-rows: 3em 80px auto 10% 10em;
   grid-template-areas:
     'header header header'
     'gallery toolbar toolbar'
     'gallery main target'
     'gallery main target-tools'
     'gallery invariants invariants';
-  gap: 10px;
-  background-color: #2196F3;
-  padding: 10px;
 }
 
+.collapsed-mode{
+  grid-template-areas:
+    'header header header'
+    'gallery toolbar toolbar'
+    'gallery main main'
+    'gallery main main'
+    'gallery invariants invariants';}
+
+
 .grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  // text-align: center;
-  // padding: 20px 0;
-  font-size: 15px;
+  // background-color: rgba(255, 255, 255, 0.8);
+  // font-size: 15px;
 }
 
 
 #gallery{
+  background-color: hsl(51, 82%, 85%);
+  border: 2px solid black;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
-  // justify-content: space-evenly;
+  justify-content: space-evenly;
   overflow: scroll;
-  border: 2px solid black;
 }
 
 
 
 .graphGalleryItem {
-  width: 8em;
-  height: 8em;
+  //  width: 8em;
+  // height: 8em;
   border: solid 3px grey;
+  border-radius: 5px;
   background-color: white;
   display: inline-table;
   text-align: center;
-  padding: 5px;
-  margin: 1em;
+  padding: 0.2em;
+  margin: 0.3em;
+  //  flex-basis: 4em;
+  flex: 0 1 15%;
 }
 
 #cy1{
-// width: 100%;
-// display: inline-block;
-border: 2px solid black;
+  // width: 100%;
+  // display: inline-block;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow: hidden;
 }
+#cy2{
+  // width: 100%;
+  // display: inline-block;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow: hidden;
+  }
 
 
 .toolbar-button {
@@ -93,6 +141,7 @@ border: 2px solid black;
   // margin: 4px;
   margin-left: 4px;
   margin-right: 4px;
+  border-radius: 5px;
 }
 
 .toolbar-button img {
@@ -110,6 +159,11 @@ width: 8em;
 }
 .invTabHeaders{
   font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
+.invTab input {
+  text-align: center;
 }
 
 // Transpose table
