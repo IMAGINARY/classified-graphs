@@ -106,8 +106,8 @@ function makeFilteredGraphGallery() {
     if ((n[i] as HTMLInputElement).value !== '') {
       graphs = graphs.filter(
         (g) =>
-          g.invariants[(d as ModeConfig).invName] ===
-          Number((n[i] as HTMLInputElement).value),
+          String(g.invariants[(d as ModeConfig).invName]) ===
+          (n[i] as HTMLInputElement).value,
       );
       // console.log(graphs);
       // console.log(Number(n[i].value);
