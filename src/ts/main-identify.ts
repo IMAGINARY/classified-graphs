@@ -40,11 +40,10 @@ import ModeIsoCheck from './modes/ModeIsoCheck';
 import {
   defaultMode,
   makeGraphGallery,
-  switchPrimaryMode,
-  // switchSecondaryMode,
   createInvariantsTable,
   updateInvariantsTable,
   ModeConfig,
+  createButton,
 } from './uiFunctions';
 
 import graphGalleryList from '../graph-gallery/graphs-list.json';
@@ -172,18 +171,18 @@ const toolbarModes: ModeConfig[] = [
 
 const targetToolbarModes = [
   {
-    modeName: 'modeLoadRandom',
-    textKey: 'Target',
-    icon: assets.iconQuestion,
-    modeObj1: new ModeNull(cy1, parameters1),
-    modeObj2: new ModeLoadRandom(cy2, parameters2),
-  },
-  {
     modeName: 'modeIsoCheck',
     textKey: 'Check',
     icon: assets.iconCheck,
     modeObj1: new ModeIsoCheck(cy1, parameters1),
     modeObj2: new ModeNull(cy2, parameters2),
+  },
+  {
+    modeName: 'modeLoadRandom',
+    textKey: 'Target',
+    icon: assets.iconQuestion,
+    modeObj1: new ModeNull(cy1, parameters1),
+    modeObj2: new ModeLoadRandom(cy2, parameters2),
   },
 ];
 
@@ -295,47 +294,6 @@ function createLangSelector() {
     .text((d) => d.endonym);
 }
 
-// Create toolbar buttons
-function createButtons(container: string, buttonsList: ModeConfig[]) {
-  const buttons = d3
-    .select(container)
-    .selectAll('button')
-    .data(buttonsList)
-    .enter()
-    .append('button')
-    .classed('toolbar-button', true)
-    .attr('id', (d) => `btn-${d.modeName}`);
-
-  buttons
-    .append('img')
-    .attr('src', (d) => (d.icon ? d.icon : assets.iconDijkstra));
-
-  // d3.select('#btn-modeLayout')
-  //   .append('select')
-  //   .attr('id', 'selectLayout')
-  //   .selectAll('option')
-  //   .data([
-  //     { value: 'circle', textKey: 'Circle' },
-  //     { value: 'random', textKey: 'Random' },
-  //   ])
-  //   .enter()
-  //   .append('option')
-  //   .attr('value', (d) => d.value)
-  //   // .classed('translate', true)
-  //   // .attr('data-i18n', (d) => d.textKey);
-  //   .html((d) => d.textKey);
-
-  buttons
-    .append('div')
-    .classed('translate', true)
-    .attr('data-i18n', (d) => d.textKey);
-  // .html((d) => i18next.t(d.textKey));
-
-  buttons.on('click', (ev, d) => {
-    switchPrimaryMode(d);
-  });
-}
-
 // Specify types of global variables that are not yet defined on 'window'.
 declare global {
   interface Window {
@@ -411,8 +369,26 @@ function main() {
     .html('Which graph is this?');
 
   // Make toolbar buttons
-  createButtons('#toolbar', toolbarModes);
-  createButtons('#target-tools', targetToolbarModes);
+  // createButtons('#toolbar', toolbarModes);
+  // createButtons('#target-tools', targetToolbarModes);
+
+  const toolbarButtons = toolbarModes.map((d) => createButton(d));
+  d3.select('#toolbar')
+    .selectAll('span')
+    .data(toolbarButtons)
+    .enter()
+    .append((d) => d);
+
+  const targetToolbarButtons = targetToolbarModes.map((d) => createButton(d));
+  const output = document.createElement('span');
+  d3.select(output).attr('id', 'isoOutput').append('div');
+  targetToolbarButtons.splice(1, 0, output);
+
+  d3.select('#target-tools')
+    .selectAll('span')
+    .data(targetToolbarButtons)
+    .enter()
+    .append((d) => d);
 
   // // Make Load modal
   // d3.select('#btn-modeLoad')

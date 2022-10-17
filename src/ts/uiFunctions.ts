@@ -5,7 +5,7 @@ import graphGalleryList from '../graph-gallery/graphs-list.json';
 import * as agr from '../graph-gallery/graphs-assets';
 import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 import ModeNull from './modes/ModeNull';
-import { iconPointer } from './assets';
+import { iconPointer, iconDijkstra } from './assets';
 
 type ModeConfig = {
   modeName: string;
@@ -276,6 +276,28 @@ function createInvariantsTable(usedInvariants: ModeConfig[]) {
   updateInvariantsTable(usedInvariants);
 }
 
+// Create toolbar buttons
+function createButton(modeconfig: ModeConfig) {
+  const container = document.createElement('span');
+  const button = d3
+    .select(container)
+    .append('button')
+    .classed('toolbar-button', true)
+    .attr('id', `btn-${modeconfig.modeName}`);
+  button
+    .append('img')
+    .attr('src', modeconfig.icon ? modeconfig.icon : iconDijkstra);
+  button
+    .append('div')
+    .classed('translate', true)
+    .attr('data-i18n', modeconfig.textKey);
+
+  button.on('click', () => {
+    switchPrimaryMode(modeconfig);
+  });
+  return container;
+}
+
 export {
   ModeConfig,
   defaultMode,
@@ -285,4 +307,5 @@ export {
   makeGraphGallery,
   updateInvariantsTable,
   createInvariantsTable,
+  createButton,
 };

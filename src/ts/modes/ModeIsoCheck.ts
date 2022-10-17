@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-// import * as d3 from 'd3-selection';
+import * as d3 from 'd3-selection';
 import { Core } from 'cytoscape';
 import { Mode, Parameters } from './modes';
 
@@ -59,10 +59,15 @@ export default class ModeIsoCheck implements Mode {
                 },
               })
               .run();
-            this.parameters.outputContainer.textContent = 'Isomorphism found!';
+            d3.select('#isoOutput')
+              .classed('yes', true)
+              .select('div')
+              .html('Graphs are isomorphic');
           } else {
-            this.parameters.outputContainer.textContent =
-              'Isomorphism NOT found!';
+            d3.select('#isoOutput')
+              .classed('no', true)
+              .select('div')
+              .html('Graphs are <strong> not </strong> isomorphic');
           }
         };
       } else {
@@ -85,6 +90,10 @@ export default class ModeIsoCheck implements Mode {
   }
 
   deactivate = () => {
-    this.parameters.outputContainer.textContent = '';
+    d3.select('#isoOutput')
+      .classed('yes', false)
+      .classed('no', false)
+      .select('div')
+      .html('');
   };
 }

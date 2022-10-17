@@ -54,18 +54,13 @@ body{
   height: 100vh;
   display: grid;
   gap: 10px;
-  background-color: hsl(51, 52%, 95%);
+  background-color: hsl(206deg 90% 98%);;
   padding: 10px;
-  grid-template-columns: 20% calc(60% - 20px) 20%;
+  grid-template-columns: 20% min(calc(60% - 20px),calc(80% - 20px - 300px)) max(20%,300px);
   grid-template-rows: 4em 80px auto 10% 10em;
  }
 
 .full-mode {
-  // grid-template-columns: 480px auto 20%;
-  // grid-template-columns: calc(4* 8em) auto 20%;
-  // grid-template-columns: 20% calc(60% - 20px) 20%;
-  // grid-template-columns: 20% 60% 20%;
-  // grid-template-rows: 3em 80px auto 10% 10em;
   grid-template-areas:
     'header header header'
     'gallery toolbar toolbar'
@@ -83,14 +78,8 @@ body{
     'gallery invariants invariants';}
 
 
-// .grid-container > div {
-//   // background-color: rgba(255, 255, 255, 0.8);
-//   // font-size: 15px;
-// }
-
-
 #gallery{
-  background-color: hsl(51, 82%, 85%);
+  background-color: hsl(231deg 48% 95%);
   border: 2px solid black;
   border-radius: 5px;
   display: flex;
@@ -148,6 +137,40 @@ body{
   width: 50%;
   margin: 3px;
 }
+
+// .target-tools{
+//   // display: flex;
+// }
+#isoOutput {
+  text-align: center;
+  display: inline-block;
+  vertical-align: bottom;
+  background-color: white;
+
+  // flex: 10 0 200px;
+  width: calc(100% - 2 *80px - 4 * 4px);
+  height: 70px;
+  // margin: 4px;
+  // margin-left: 4px;
+  // margin-right: 4px;
+  border-radius: 5px;  
+  border: 1px solid black;
+}
+
+#isoOutput div {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+#isoOutput.yes {
+  background-color: #00ff0040;
+}
+#isoOutput.no {
+  background-color: #ff000040;
+}
+
 
 .filter{
   width: 5em;
