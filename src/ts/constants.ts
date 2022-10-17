@@ -5,7 +5,7 @@ const cyOptions = {
     {
       selector: 'node',
       style: {
-        'background-color': '#666',
+        'background-color': '#3f51b5',
         // 'label': 'data(id)',
       },
     },
@@ -14,7 +14,7 @@ const cyOptions = {
       selector: 'edge',
       style: {
         'width': 3,
-        'line-color': '#ccc',
+        'line-color': '#2196f3',
         'curve-style': 'bezier',
         // 'label': 'data(id)',
       },
@@ -29,8 +29,8 @@ const cyOptions = {
     {
       selector: '.highlighted',
       style: {
-        'background-color': 'yellow',
-        'line-color': 'yellow',
+        'background-color': '#f44336',
+        'line-color': '#f44336',
       },
     },
     // {
@@ -42,10 +42,6 @@ const cyOptions = {
     //   },
     // },
   ],
-  layout: {
-    name: 'circle',
-    rows: 1,
-  },
 };
 
 const langList = locales.map(({ isoCode, endonym }) => ({ isoCode, endonym }));

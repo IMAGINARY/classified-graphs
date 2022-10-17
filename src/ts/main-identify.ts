@@ -375,6 +375,7 @@ function main() {
     d3.select('#grid-container').classed('full-mode', false);
     d3.select('#grid-container').classed('collapsed-mode', true);
     d3.selectAll('.target, .target-tools').style('display', 'none');
+    d3.selectAll('.invTabCy2').style('display', 'none');
   }
   // window.collapseTarget = collapseTarget;
 
@@ -382,6 +383,7 @@ function main() {
     d3.select('#grid-container').classed('collapsed-mode', false);
     d3.select('#grid-container').classed('full-mode', true);
     d3.selectAll('.target, .target-tools').style('display', 'initial');
+    d3.selectAll('.invTabCy2').style('display', 'table-row');
   }
   // window.uncollapseTarget = uncollapseTarget;
 
@@ -407,8 +409,6 @@ function main() {
     .classed('btn btn-secondary', true)
     .attr('for', 'targetCollapseButton')
     .html('Which graph is this?');
-
-  collapseTarget();
 
   // Make toolbar buttons
   createButtons('#toolbar', toolbarModes);
@@ -508,6 +508,8 @@ function main() {
   //   d3.select('#outputText').text(jsonString);
   // }
   // d3.select('#showJSON').on('click', showGraphExport);
+
+  collapseTarget();
 
   localize('.translate');
 }
