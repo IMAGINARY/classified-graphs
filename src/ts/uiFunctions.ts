@@ -5,7 +5,7 @@ import graphGalleryList from '../graph-gallery/graphs-list.json';
 import * as agr from '../graph-gallery/graphs-assets';
 import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 import ModeNull from './modes/ModeNull';
-import { iconPointer, iconDijkstra } from './assets';
+import { iconPointer, iconDijkstra, iconInfo } from './assets';
 
 type ModeConfig = {
   modeName: string;
@@ -179,6 +179,11 @@ function makeFilteredGraphGallery() {
 /* Invariants table horizontal */
 
 function updateInvariantsTable(usedInvariants: ModeConfig[]) {
+  const tooltips = d3
+    .select('.invTabTooltips')
+    .selectAll<HTMLTableCellElement, unknown>('td.invData')
+    .data(usedInvariants);
+
   const headers = d3
     .select('.invTabHeaders')
     .selectAll<HTMLTableCellElement, unknown>('td.invData')
@@ -200,10 +205,34 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
     .data(usedInvariants);
 
   // enter
-  headers
+  tooltips
     .enter()
     .append('td')
     .classed('invData', true)
+    .append('div')
+    .attr('id', (d) => `infoItem-text-${d.modeName}`)
+    .attr('data-bs-parent', '.invTabTooltips')
+    .attr('data-bs-toggle', 'collapse')
+    .classed('tipText', true)
+    .classed('collapse', true)
+    .classed('translate', true)
+    .attr('data-i18n', (d) => `[html]${d.textKey}_Tip`);
+
+  const newHeaders = headers.enter().append('td').classed('invData', true);
+
+  newHeaders // Info icon
+    .append('img')
+    .attr('src', iconInfo)
+    .classed('iconInfo', true)
+    .attr('data-bs-toggle', 'collapse')
+    .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
+    .on('click', (ev: Event) => {
+      ev.stopPropagation();
+    });
+
+  newHeaders
+    .append('div')
+    .classed('invHeadersText', true)
     .classed('translate', true)
     .attr('data-i18n', (d) => `[html]${d.textKey}`)
     // .classed('btn', true)
@@ -235,6 +264,7 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
   const newInvCy2 = invCy2.enter().append('td').classed('invData', true);
 
   // exit
+  tooltips.exit().remove();
   headers.exit().remove();
   filters.exit().remove();
   invCy1.exit().remove();
@@ -255,18 +285,23 @@ function createInvariantsTable(usedInvariants: ModeConfig[]) {
     .select('#invariants')
     .append('table')
     .classed('invTab', true);
+
+  invTable.append('tr').classed('invTabTooltips', true).append('td');
+
   invTable.append('tr').classed('invTabHeaders', true).append('td');
-  // .html('Invariant');
+
   invTable
     .append('tr')
     .classed('invTabCy1', true)
     .append('td')
     .html('Your graph');
+
   invTable
     .append('tr')
     .classed('invTabCy2', true)
     .append('td')
     .html('Target graph');
+
   invTable
     .append('tr')
     .classed('invTabFilters', true)

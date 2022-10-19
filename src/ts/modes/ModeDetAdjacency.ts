@@ -36,7 +36,7 @@ export default class ModeDetAdjacency implements Mode {
 
     this.matrixContainer = document.createElement('div');
     this.matrixContainer.style.position = 'absolute';
-    this.matrixContainer.style.right = '5px';
+    this.matrixContainer.style.left = '5px';
     this.matrixContainer.style.bottom = '5px';
     this.cy.container()?.appendChild(this.matrixContainer);
   }

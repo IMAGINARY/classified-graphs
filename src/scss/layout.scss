@@ -7,6 +7,11 @@
   src: url('../fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
 }
 
+:root {
+  --color1: hsl(206deg 90% 98%);
+  --color2: hsl(231deg 48% 95%);
+}
+
 body{
   overflow: hidden;
   padding: 0;
@@ -47,14 +52,14 @@ body{
   margin-right: auto;
   text-align: center;
   height: 10em;
-  overflow: scroll;
+  // overflow: scroll;
  }
 
  #grid-container{
   height: 100vh;
   display: grid;
   gap: 10px;
-  background-color: hsl(206deg 90% 98%);;
+  background-color: var(--color1);
   padding: 10px;
   grid-template-columns: 20% min(calc(60% - 20px),calc(80% - 20px - 300px)) max(20%,300px);
   grid-template-rows: 4em 80px auto 10% 10em;
@@ -79,7 +84,7 @@ body{
 
 
 #gallery{
-  background-color: hsl(231deg 48% 95%);
+  background-color: var(--color2);
   border: 2px solid black;
   border-radius: 5px;
   display: flex;
@@ -179,15 +184,39 @@ body{
 
 .invTab  td {
 width: 8em;
+position: relative;
 }
 .invTabHeaders{
-  font-weight: bold;
+  border-radius: 5px;
   border-bottom: 1px solid black;
+}
+
+.invHeadersText {
+  font-weight: bold;
+}
+
+.tipText {
+  display: block;
+  position: absolute;
+  width: 12em;
+  bottom: 5px;
+  left: calc( (8em - 12em) / 2);
+  background-color: var(--color2);
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  text-align: left;
 }
 
 .invTab input {
   text-align: center;
 }
+
+.iconInfo {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 
 // Transpose table
 
