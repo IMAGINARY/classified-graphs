@@ -5,7 +5,7 @@ import graphGalleryList from '../graph-gallery/graphs-list.json';
 import * as agr from '../graph-gallery/graphs-assets';
 import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 import ModeNull from './modes/ModeNull';
-import { iconPointer, iconDijkstra, iconInfo } from './assets';
+import { iconPointer, iconDijkstra, iconInfo, iconClear } from './assets';
 
 type ModeConfig = {
   modeName: string;
@@ -59,6 +59,8 @@ function loadGraph(cy: Core, parameters: Parameters, grId: string) {
       // eslint-disable-next-line no-param-reassign
       parameters.nodeIndex = cy.nodes().map((e) => e.id());
       cy.emit('cm-graph-updated');
+      window.primaryMode.modeObj1.deactivate();
+      window.primaryMode.modeObj2.deactivate();
     });
 }
 
@@ -186,7 +188,7 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
 
   const headers = d3
     .select('.invTabHeaders')
-    .selectAll<HTMLTableCellElement, unknown>('td.invData')
+    .selectAll<HTMLTableCellElement, unknown>('th.invData')
     .data(usedInvariants);
 
   const filters = d3
@@ -218,25 +220,30 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
     .classed('translate', true)
     .attr('data-i18n', (d) => `[html]${d.textKey}_Tip`);
 
-  const newHeaders = headers.enter().append('td').classed('invData', true);
+  const newHeaders = headers.enter().append('th').classed('invData', true);
 
-  newHeaders // Info icon
-    .append('img')
-    .attr('src', iconInfo)
-    .classed('iconInfo', true)
-    .attr('data-bs-toggle', 'collapse')
-    .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
-    .on('click', (ev: Event) => {
-      ev.stopPropagation();
-    });
+  // newHeaders // Info icon
+  //   .append('img')
+  //   .attr('src', iconInfo)
+  //   .classed('iconInfo', true)
+  //   .attr('data-bs-toggle', 'collapse')
+  //   .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
+  //   .on('click', (ev: Event) => {
+  //     ev.stopPropagation();
+  //   });
 
   newHeaders
     .append('div')
     .classed('invHeadersText', true)
     .classed('translate', true)
-    .attr('data-i18n', (d) => `[html]${d.textKey}`)
-    // .classed('btn', true)
-    // .classed('btn-primary', true)
+    .attr('data-i18n', (d) => `[html]${d.textKey}`);
+
+  newHeaders
+    .attr('data-bs-toggle', 'collapse')
+    .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
+    //   .on('click', (ev: Event) => {
+    //     ev.stopPropagation();
+    //   });
     .on('click', (ev: MouseEvent, d) => {
       const target = ev.currentTarget;
       if (target instanceof Element) {
@@ -286,27 +293,49 @@ function createInvariantsTable(usedInvariants: ModeConfig[]) {
     .append('table')
     .classed('invTab', true);
 
-  invTable.append('tr').classed('invTabTooltips', true).append('td');
+  const tooltips = invTable.append('tr').classed('invTabTooltips', true);
+  tooltips.append('td').classed('invTabRowTitle', true);
+  tooltips.append('td').classed('invTabControls', true);
 
-  invTable.append('tr').classed('invTabHeaders', true).append('td');
+  const headers = invTable.append('tr').classed('invTabHeaders', true);
+  headers.append('th').classed('invTabRowTitle', true);
+  headers
+    .append('th')
+    .classed('invTabControls', true)
+    .append('img')
+    .attr('src', iconInfo)
+    .on('click', () => {
+      const state = d3.select('.tipText').style('visibility');
+      d3.selectAll('.tipText').style(
+        'visibility',
+        state === 'visible' ? 'hidden' : 'visible',
+      );
+    });
 
-  invTable
-    .append('tr')
-    .classed('invTabCy1', true)
+  const invCy1 = invTable.append('tr').classed('invTabCy1', true);
+  invCy1.append('td').classed('invTabRowTitle', true).html('Your graph');
+  invCy1.append('td').classed('invTabControls', true);
+
+  const invCy2 = invTable.append('tr').classed('invTabCy2', true);
+  invCy2.append('td').classed('invTabRowTitle', true).html('Target graph');
+  invCy2.append('td').classed('invTabControls', true);
+
+  const filters = invTable.append('tr').classed('invTabFilters', true);
+  filters.append('td').classed('invTabRowTitle', true).html('Gallery filter');
+  filters
     .append('td')
-    .html('Your graph');
-
-  invTable
-    .append('tr')
-    .classed('invTabCy2', true)
-    .append('td')
-    .html('Target graph');
-
-  invTable
-    .append('tr')
-    .classed('invTabFilters', true)
-    .append('td')
-    .html('Gallery filter');
+    .classed('invTabControls', true)
+    .append('img')
+    .attr('src', iconClear)
+    .on('click', () => {
+      d3.selectAll('.filter')
+        .nodes()
+        .forEach((d) => {
+          // eslint-disable-next-line no-param-reassign
+          (d as HTMLInputElement).value = '';
+        });
+      makeFilteredGraphGallery();
+    });
 
   updateInvariantsTable(usedInvariants);
 }

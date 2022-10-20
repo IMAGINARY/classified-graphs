@@ -10,6 +10,8 @@
 :root {
   --color1: hsl(206deg 90% 98%);
   --color2: hsl(231deg 48% 95%);
+  --color3: hsl(231deg 48% 85%);
+
 }
 
 body{
@@ -147,26 +149,19 @@ body{
 //   // display: flex;
 // }
 #isoOutput {
-  text-align: center;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   vertical-align: bottom;
   background-color: white;
-
-  // flex: 10 0 200px;
   width: calc(100% - 2 *80px - 4 * 4px);
   height: 70px;
-  // margin: 4px;
-  // margin-left: 4px;
-  // margin-right: 4px;
   border-radius: 5px;  
   border: 1px solid black;
 }
 
 #isoOutput div {
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: auto;
-  margin-bottom: 0;
+  text-align: center;
 }
 
 #isoOutput.yes {
@@ -182,20 +177,42 @@ body{
 }
 
 
-.invTab  td {
-width: 8em;
+.invTab  td,th {
 position: relative;
 }
 .invTabHeaders{
+  height: 100%;
   border-radius: 5px;
   border-bottom: 1px solid black;
 }
 
+.invTabRowTitle {
+  width: 8em;
+  padding-right: 1em;
+}
+
+.invTabControls {
+  width: 1em;
+}
 .invHeadersText {
+  width: 8em;
   font-weight: bold;
 }
 
+.invTab th.invData{
+  border-radius: 5px;
+}
+
+.invTab th.invData:hover {
+  background-color: var(--color2);
+}
+
+.infoItemActive{
+  background-color: var(--color3);
+}
+
 .tipText {
+  visibility: hidden;
   display: block;
   position: absolute;
   width: 12em;
