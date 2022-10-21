@@ -18,6 +18,7 @@ body{
   overflow: hidden;
   padding: 0;
   max-height: 100vh;
+  font-family: sans-serif;
 }
 
 .header { 
@@ -270,4 +271,8 @@ position: relative;
   width: 15px;
   height: 15px;
   text-align: center;
+}
+
+#invariantsModal label {
+  padding: 1em;
 }

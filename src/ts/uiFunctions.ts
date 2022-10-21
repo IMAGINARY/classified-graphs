@@ -5,7 +5,13 @@ import graphGalleryList from '../graph-gallery/graphs-list.json';
 import * as agr from '../graph-gallery/graphs-assets';
 import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 import ModeNull from './modes/ModeNull';
-import { iconPointer, iconDijkstra, iconInfo, iconClear } from './assets';
+import {
+  iconPointer,
+  iconDijkstra,
+  iconInfo,
+  iconClear,
+  iconCalculator,
+} from './assets';
 
 type ModeConfig = {
   modeName: string;
@@ -121,6 +127,13 @@ function makeFilteredGraphGallery() {
 
 /* Invariants table */
 
+function getSelectedInvariants() {
+  return d3
+    .selectAll('.checkInvariant')
+    .filter((d, i, n) => (n[i] as HTMLInputElement).checked)
+    .data() as ModeConfig[];
+}
+
 // function updateInvariantsTable(usedInvariants: ModeConfig[]) {
 //   const invariantsItem = d3
 //     .select('#invariants')
@@ -180,31 +193,32 @@ function makeFilteredGraphGallery() {
 
 /* Invariants table horizontal */
 
-function updateInvariantsTable(usedInvariants: ModeConfig[]) {
+function updateInvariantsTable() {
+  const usedInvariants = getSelectedInvariants();
   const tooltips = d3
     .select('.invTabTooltips')
     .selectAll<HTMLTableCellElement, unknown>('td.invData')
-    .data(usedInvariants);
+    .data(usedInvariants, (d) => (d as ModeConfig).modeName);
 
   const headers = d3
     .select('.invTabHeaders')
     .selectAll<HTMLTableCellElement, unknown>('th.invData')
-    .data(usedInvariants);
+    .data(usedInvariants, (d) => (d as ModeConfig).modeName);
 
   const filters = d3
     .select('.invTabFilters')
     .selectAll<HTMLTableCellElement, unknown>('td.invData')
-    .data(usedInvariants);
+    .data(usedInvariants, (d) => (d as ModeConfig).modeName);
 
   const invCy1 = d3
     .select('.invTabCy1')
     .selectAll<HTMLTableCellElement, unknown>('td.invData')
-    .data(usedInvariants);
+    .data(usedInvariants, (d) => (d as ModeConfig).modeName);
 
   const invCy2 = d3
     .select('.invTabCy2')
     .selectAll<HTMLTableCellElement, unknown>('td.invData')
-    .data(usedInvariants);
+    .data(usedInvariants, (d) => (d as ModeConfig).modeName);
 
   // enter
   tooltips
@@ -222,16 +236,6 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
 
   const newHeaders = headers.enter().append('th').classed('invData', true);
 
-  // newHeaders // Info icon
-  //   .append('img')
-  //   .attr('src', iconInfo)
-  //   .classed('iconInfo', true)
-  //   .attr('data-bs-toggle', 'collapse')
-  //   .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
-  //   .on('click', (ev: Event) => {
-  //     ev.stopPropagation();
-  //   });
-
   newHeaders
     .append('div')
     .classed('invHeadersText', true)
@@ -241,9 +245,6 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
   newHeaders
     .attr('data-bs-toggle', 'collapse')
     .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
-    //   .on('click', (ev: Event) => {
-    //     ev.stopPropagation();
-    //   });
     .on('click', (ev: MouseEvent, d) => {
       const target = ev.currentTarget;
       if (target instanceof Element) {
@@ -285,9 +286,10 @@ function updateInvariantsTable(usedInvariants: ModeConfig[]) {
     window.secondaryMode.modeObj1.render();
     // window.secondaryMode.modeObj2.render();
   }
+  window.localize('.invTab .translate');
 }
 
-function createInvariantsTable(usedInvariants: ModeConfig[]) {
+function createInvariantsTable() {
   const invTable = d3
     .select('#invariants')
     .append('table')
@@ -337,7 +339,7 @@ function createInvariantsTable(usedInvariants: ModeConfig[]) {
       makeFilteredGraphGallery();
     });
 
-  updateInvariantsTable(usedInvariants);
+  updateInvariantsTable();
 }
 
 // Create toolbar buttons
@@ -362,6 +364,72 @@ function createButton(modeconfig: ModeConfig) {
   return container;
 }
 
+// Invariants selector
+function createInvariantsSelector(allInvariants: ModeConfig[]) {
+  // create modal
+  const modal = d3
+    .select('body')
+    .append('div')
+    .classed('modal', true)
+    .attr('id', 'invariantsModal')
+    .append('div')
+    .classed('modal-dialog modal-dialog-centered modal-sm', true)
+    .append('div')
+    .classed('modal-content', true);
+
+  const modalHeader = modal.append('div').classed('modal-header', true);
+  modalHeader.append('h5').html('Invariants');
+  modalHeader
+    .append('button')
+    .attr('type', 'button')
+    .classed('btn-close', true)
+    .attr('data-bs-dismiss', 'modal');
+
+  const invItems = modal
+    .append('div')
+    .classed('modal-body', true)
+    .selectAll('div')
+    .data(allInvariants)
+    .enter()
+    .append('div');
+
+  invItems
+    .append('input')
+    .attr('type', 'checkbox')
+    .attr('id', (d) => `checkbox-${d.modeName}`)
+    // .attr('checked', true) // enable to have all invariants by default
+    .classed('checkInvariant', true)
+    .on('change', updateInvariantsTable);
+
+  invItems
+    .append('label')
+    .attr('for', (d) => `checkbox-${d.modeName}`)
+    .classed('translate', true)
+    .attr('data-i18n', (d) => d.textKey);
+
+  // invariants shown by default
+  d3.select('#checkbox-modeNumNodes').attr('checked', true);
+  d3.select('#checkbox-modeNumEdges').attr('checked', true);
+
+  const container = document.createElement('span');
+
+  const button = d3
+    .select(container)
+    .append('button')
+    .classed('toolbar-button', true)
+    .attr('id', `btn-InvariantsSelector`);
+  button.append('img').attr('src', iconCalculator);
+  button.append('div').html('Invariants');
+  // .classed('translate', true)
+  // .attr('data-i18n', modeconfig.textKey);
+
+  button
+    .attr('data-bs-toggle', 'modal')
+    .attr('data-bs-target', '#invariantsModal');
+
+  return container;
+}
+
 export {
   ModeConfig,
   defaultMode,
@@ -372,4 +440,5 @@ export {
   updateInvariantsTable,
   createInvariantsTable,
   createButton,
+  createInvariantsSelector,
 };

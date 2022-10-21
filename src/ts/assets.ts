@@ -35,6 +35,7 @@ const iconClear = new URL('../img/trash3.svg', import.meta.url).href;
 const iconQuestion = new URL('../img/question-square.svg', import.meta.url)
   .href;
 const iconCheck = new URL('../img/check-square.svg', import.meta.url).href;
+const iconCalculator = new URL('../img/calculator.svg', import.meta.url).href;
 
 export {
   iconTranslate,
@@ -50,4 +51,5 @@ export {
   iconClear,
   iconQuestion,
   iconCheck,
+  iconCalculator,
 };

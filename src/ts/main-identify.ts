@@ -44,6 +44,7 @@ import {
   updateInvariantsTable,
   ModeConfig,
   createButton,
+  createInvariantsSelector,
 } from './uiFunctions';
 
 import graphGalleryList from '../graph-gallery/graphs-list.json';
@@ -307,6 +308,7 @@ declare global {
     secondaryMode: ModeConfig;
     collapseTarget: (a: void) => void;
     uncollapseTarget: (a: void) => void;
+    localize: typeof localize;
   }
 }
 window.d3 = d3;
@@ -321,6 +323,7 @@ function main() {
   window.cy2 = cy2;
   window.primaryMode = primaryMode;
   window.secondaryMode = secondaryMode;
+  window.localize = localize;
 
   primaryMode.modeObj1.activate();
   primaryMode.modeObj2.activate();
@@ -373,6 +376,8 @@ function main() {
   // createButtons('#target-tools', targetToolbarModes);
 
   const toolbarButtons = toolbarModes.map((d) => createButton(d));
+  toolbarButtons.push(createInvariantsSelector(invariants));
+
   d3.select('#toolbar')
     .selectAll('span')
     .data(toolbarButtons)
@@ -396,7 +401,7 @@ function main() {
   //   .attr('data-bs-target', '#exampleModal');
 
   // Make Invariants table
-  createInvariantsTable(invariants);
+  createInvariantsTable();
 
   // Make Gallery
   makeGraphGallery(graphGalleryList, cy1, parameters1);
@@ -471,8 +476,8 @@ function main() {
 
   // window.infoboxModes = infoboxModes;
 
-  cy1.on('cm-graph-updated', () => updateInvariantsTable(invariants));
-  cy2.on('cm-graph-updated', () => updateInvariantsTable(invariants));
+  cy1.on('cm-graph-updated', () => updateInvariantsTable());
+  cy2.on('cm-graph-updated', () => updateInvariantsTable());
 
   // updateInfo();
   // d3.select('.infoItem').classed('infoItemActive', true);
