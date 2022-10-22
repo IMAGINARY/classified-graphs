@@ -276,3 +276,13 @@ position: relative;
 #invariantsModal label {
   padding: 1em;
 }
+
+#loadTargetModal .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#loadTargetModal .modal-body div{
+  margin: 0.5em;
+}

@@ -56,5 +56,6 @@ const i18nextOptions = {
   ),
 };
 
+const targetChoices = ['complete_4', 'trivalent_5_70'];
 // eslint-disable-next-line import/prefer-default-export
-export { cyOptions, langList, i18nextOptions };
+export { cyOptions, langList, i18nextOptions, targetChoices };

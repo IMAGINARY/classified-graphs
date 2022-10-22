@@ -28,7 +28,7 @@ import ModeDiameter from './modes/ModeDiameter';
 import ModeExport from './modes/ModeExport';
 import ModeImport from './modes/ModeImport';
 // import ModeLoad from './modes/ModeLoad';
-import ModeLoadRandom from './modes/ModeLoadRandom';
+import ModeLoadTarget from './modes/ModeLoadTarget';
 // import ModeLayout from './modes/ModeLayout';
 import ModeClear from './modes/ModeClear';
 import ModeDetAdjacency from './modes/ModeDetAdjacency';
@@ -179,11 +179,11 @@ const targetToolbarModes = [
     modeObj2: new ModeNull(cy2, parameters2),
   },
   {
-    modeName: 'modeLoadRandom',
+    modeName: 'modeLoadTarget',
     textKey: 'Target',
     icon: assets.iconQuestion,
     modeObj1: new ModeNull(cy1, parameters1),
-    modeObj2: new ModeLoadRandom(cy2, parameters2),
+    modeObj2: new ModeLoadTarget(cy2, parameters2),
   },
 ];
 
@@ -385,9 +385,9 @@ function main() {
     .append((d) => d);
 
   const targetToolbarButtons = targetToolbarModes.map((d) => createButton(d));
-  const output = document.createElement('span');
-  d3.select(output).attr('id', 'isoOutput').append('div');
-  targetToolbarButtons.splice(1, 0, output);
+  const isoOutput = document.createElement('span');
+  d3.select(isoOutput).attr('id', 'isoOutput').append('div');
+  targetToolbarButtons.splice(1, 0, isoOutput);
 
   d3.select('#target-tools')
     .selectAll('span')
@@ -395,10 +395,10 @@ function main() {
     .enter()
     .append((d) => d);
 
-  // // Make Load modal
-  // d3.select('#btn-modeLoad')
-  //   .attr('data-bs-toggle', 'modal')
-  //   .attr('data-bs-target', '#exampleModal');
+  // attach button to loadTargetModal
+  d3.select('#btn-modeLoadTarget')
+    .attr('data-bs-toggle', 'modal')
+    .attr('data-bs-target', '#loadTargetModal');
 
   // Make Invariants table
   createInvariantsTable();

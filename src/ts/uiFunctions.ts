@@ -411,6 +411,7 @@ function createInvariantsSelector(allInvariants: ModeConfig[]) {
   d3.select('#checkbox-modeNumNodes').attr('checked', true);
   d3.select('#checkbox-modeNumEdges').attr('checked', true);
 
+  // create button
   const container = document.createElement('span');
 
   const button = d3

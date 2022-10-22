@@ -10,13 +10,13 @@ export default class ModeLoadRandom implements Mode {
 
   parameters;
 
-  loadFile: (filename: string) => void;
+  loadFileScrambled: (filename: string) => void;
 
   constructor(cy: Core, parameters: Parameters) {
     this.cy = cy;
     this.parameters = parameters;
 
-    this.loadFile = (grId) => {
+    this.loadFileScrambled = (grId) => {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       fetch(agr[grId as keyof typeof agr])
         .then((response) => response.json())
@@ -37,7 +37,7 @@ export default class ModeLoadRandom implements Mode {
   activate = () => {
     const numGraphs = graphGalleryList.length;
     const idx = Math.floor(Math.random() * numGraphs);
-    this.loadFile(graphGalleryList[idx].file);
+    this.loadFileScrambled(graphGalleryList[idx].file);
     // eslint-disable-next-line no-console
     console.log(`Loaded ${graphGalleryList[idx].name}`);
   };
