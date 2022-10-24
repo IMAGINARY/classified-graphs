@@ -341,7 +341,7 @@ function main() {
     .data([
       createTextModal(
         'about',
-        new URL('../html/about.html', import.meta.url).href,
+        new URL('../html/about-en.html', import.meta.url).href,
       ),
       createLangSelector(),
     ])

@@ -23,10 +23,7 @@
   "targets": {
     "": {
       "source": [
-        "src/html/index.html",
-        "src/html/identify.html",
-        "src/html/index3.html",
-        "src/html/about.html"
+        "src/html/index.html"
       ],
       "context": "browser",
       "isLibrary": false,

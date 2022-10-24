@@ -450,6 +450,7 @@ function createTextModal(id: string, textFile: string) {
       modal.html(text);
       // console.log(text);
     })
+    // eslint-disable-next-line no-console
     .catch((error) => console.log(error));
 
   // create button
