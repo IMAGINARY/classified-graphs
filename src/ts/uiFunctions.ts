@@ -431,6 +431,46 @@ function createInvariantsSelector(allInvariants: ModeConfig[]) {
   return container;
 }
 
+// About modal
+function createTextModal(id: string, textFile: string) {
+  // create modal
+  const modal = d3
+    .select('body')
+    .append('div')
+    .classed('modal', true)
+    .attr('id', id)
+    .append('div')
+    .classed('modal-dialog modal-dialog-centered modal-xl', true)
+    .append('div')
+    .classed('modal-content', true);
+
+  fetch(textFile)
+    .then((x) => x.text())
+    .then((text) => {
+      modal.html(text);
+      // console.log(text);
+    })
+    .catch((error) => console.log(error));
+
+  // create button
+  const container = document.createElement('span');
+
+  const button = d3
+    .select(container)
+    .append('button')
+    .classed('btn btn-secondary', true)
+    // .classed('toolbar-button', true)
+    .attr('id', `btn-${id}`);
+  // button.append('img').attr('src', iconCalculator);
+  button.append('div').html('About');
+  // .classed('translate', true)
+  // .attr('data-i18n', modeconfig.textKey);
+
+  button.attr('data-bs-toggle', 'modal').attr('data-bs-target', `#${id}`);
+
+  return container;
+}
+
 export {
   ModeConfig,
   defaultMode,
@@ -442,4 +482,5 @@ export {
   createInvariantsTable,
   createButton,
   createInvariantsSelector,
+  createTextModal,
 };

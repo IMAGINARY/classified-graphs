@@ -6,6 +6,9 @@
   font-weight: normal;
   src: url('../fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
 }
+.btn-secondary {
+  color: #000;
+}
 
 :root {
   --color1: hsl(206deg 90% 98%);
@@ -36,10 +39,20 @@ body{
   top:0;
 }
 
-#langSelector {
+#top-toolbar {
+  display: flex;
+  flex-flow: row;
   float: right;
-  margin: 5px;
+  // margin: 5px;
 }
+
+#top-toolbar span {
+  margin: 0.5em;
+  flex: 2 1 auto;
+
+}
+
+
 .btn-secondary {
   background-color: lightgrey;
 }

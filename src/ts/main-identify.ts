@@ -45,6 +45,7 @@ import {
   ModeConfig,
   createButton,
   createInvariantsSelector,
+  createTextModal,
 } from './uiFunctions';
 
 import graphGalleryList from '../graph-gallery/graphs-list.json';
@@ -260,7 +261,9 @@ const localize = locI18next.init(i18next);
 
 // Make Language Selector
 function createLangSelector() {
-  const divLangSelector = d3.select('#langSelector').classed('dropdown', true);
+  // const divLangSelector = d3.select('#langSelector').classed('dropdown', true);
+  const container = document.createElement('span');
+  const divLangSelector = d3.select(container).classed('dropdown', true);
 
   divLangSelector
     .append('button')
@@ -269,7 +272,8 @@ function createLangSelector() {
     .attr('data-bs-toggle', 'dropdown')
     .append('img')
     .attr('src', assets.iconTranslate)
-    .attr('width', '30px');
+    .style('height', '1.4em');
+  // .attr('width', '30px');
 
   divLangSelector.append('ul').classed('dropdown-menu', true);
 
@@ -293,6 +297,7 @@ function createLangSelector() {
         });
     })
     .text((d) => d.endonym);
+  return container;
 }
 
 // Specify types of global variables that are not yet defined on 'window'.
@@ -329,7 +334,19 @@ function main() {
   primaryMode.modeObj2.activate();
   // secondaryMode.activate();
 
-  createLangSelector();
+  // createLangSelector();
+
+  d3.select('#top-toolbar')
+    .selectAll('span')
+    .data([
+      createTextModal(
+        'about',
+        new URL('../html/about.html', import.meta.url).href,
+      ),
+      createLangSelector(),
+    ])
+    .enter()
+    .append((d) => d);
 
   // Make Target-collapse button
   function collapseTarget() {
@@ -376,6 +393,7 @@ function main() {
   // createButtons('#target-tools', targetToolbarModes);
 
   const toolbarButtons = toolbarModes.map((d) => createButton(d));
+
   toolbarButtons.push(createInvariantsSelector(invariants));
 
   d3.select('#toolbar')
