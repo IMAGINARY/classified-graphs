@@ -94,6 +94,6 @@
     "lint": "cd src/ts && eslint '{**/*,*}.{js,ts,jsx,tsx}'",
     "lint:fix": "cd src/ts && eslint --fix '{**/*,*}.{js,ts,jsx,tsx}'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -r dist dist-dev .parcel-cache src/graph-gallery/*"
+    "clean": "rm -r dist dist-dev .parcel-cache src/graph-gallery/graphs* src/graph-gallery/data/*"
   }
 }

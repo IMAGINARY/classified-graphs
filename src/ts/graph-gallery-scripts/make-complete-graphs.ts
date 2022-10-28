@@ -12,7 +12,6 @@ import {
 } from './register-graphs';
 
 console.log('Creating files for Complete graphs');
-console.log('==================================');
 
 /* Define the function that creates a graph, for any given parameter(s) */
 function makeGraph(N: number) {
@@ -39,7 +38,7 @@ function makeGraph(N: number) {
 }
 
 const layoutOpts = {
-  name: 'cose',
+  name: 'circle',
   boundingBox: { x1: 0, y1: 0, x2: 300, y2: 300 },
 };
 
@@ -59,13 +58,13 @@ for (let i = 2; i < 9; i += 1) {
   const layouted = applyLayout(cy, layoutOpts); // async, returns promise
 
   layouted
-    .then(() => makeFile(cy, `./src/graph-gallery/${id.file}.data`))
+    .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
     .catch((err) => {
       console.error(err);
     });
 
   layouted
-    .then(() => makeThumb(cy, `./src/graph-gallery/${id.file}.png`))
+    .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
     .catch((err) => {
       console.error(err);
     });

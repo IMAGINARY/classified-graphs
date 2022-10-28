@@ -25,7 +25,7 @@ type GraphRegister = {
     degSequence: number[];
     components: number;
     circuitRank: number;
-    diameter: number;
+    diameter: number | null; // json does not support Infinity
     detAdjacency: number | undefined;
   };
 };
@@ -111,10 +111,10 @@ function registerAssets(data: GraphRegister[]) {
 
   data.forEach((d) => {
     stream.write(
-      `export const ${d.file} = new URL('../graph-gallery/${d.file}.data', import.meta.url).href;`,
+      `export const ${d.file} = new URL('../graph-gallery/data/${d.file}.data', import.meta.url).href;`,
     );
     stream.write(
-      `export const ${d.file}_Icon = new URL('../graph-gallery/${d.file}.png', import.meta.url).href;`,
+      `export const ${d.file}_Icon = new URL('../graph-gallery/data/${d.file}.png', import.meta.url).href;`,
     );
   });
   stream.end();

@@ -7,6 +7,7 @@ import * as fs from 'fs/promises';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import cytosnap from 'cytosnap';
+import cytoscape from 'cytoscape';
 
 // list of layout extensions to use
 // NB you must `npm install` these yourself for your project
@@ -60,8 +61,38 @@ function makeThumb(cy: cytoscape.Core, filename: string) {
 
 function applyLayout(cy: cytoscape.Core, layout: cytoscape.LayoutOptions) {
   const lay = cy.layout(layout);
+  const prom = lay.promiseOn('layoutstop');
   lay.run();
-  return lay.promiseOn('layoutstop');
+  return prom;
 }
 
-export { makeThumb, applyLayout };
+function graphFromAdjacencyMatrix(M: number[][]): cytoscape.Core {
+  const cy = cytoscape();
+
+  const N = M.length; // we assume square symmetric matrix,
+
+  // add vertices
+  for (let i = 0; i < N; i += 1) {
+    cy.add({ group: 'nodes', data: { id: `N-${i}` } });
+  }
+
+  // add edges
+  for (let i = 0; i < N; i += 1) {
+    for (let j = i; j < N; j += 1) {
+      // add the correct amount of edges
+      for (let l = 0; l < M[i][j]; l += 1) {
+        cy.add({
+          group: 'edges',
+          data: {
+            source: cy.nodes()[i].id(),
+            target: cy.nodes()[j].id(),
+            id: `E-${i}-${j}-${l}`,
+          },
+        });
+      }
+    }
+  }
+  return cy;
+}
+
+export { makeThumb, applyLayout, graphFromAdjacencyMatrix };

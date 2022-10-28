@@ -112,7 +112,6 @@ const matrices = [
 ];
 
 console.log('Creating files for trivalent graphs');
-console.log('===================================');
 
 function graphFromUpperTriangular(M: string): cytoscape.Core {
   const cy = cytoscape();
@@ -181,13 +180,13 @@ for (const M of matrices) {
   const layouted = applyLayout(cy, layoutOpts); // async, returns promise
 
   layouted
-    .then(() => makeFile(cy, `./src/graph-gallery/${id.file}.data`))
+    .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
     .catch((err) => {
       console.error(err);
     });
 
   layouted
-    .then(() => makeThumb(cy, `./src/graph-gallery/${id.file}.png`))
+    .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
     .catch((err) => {
       console.error(err);
     });
