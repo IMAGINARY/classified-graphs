@@ -443,14 +443,33 @@ function createTextModal(id: string, textFile: string) {
     .classed('modal', true)
     .attr('id', id)
     .append('div')
-    .classed('modal-dialog modal-dialog-centered modal-xl', true)
+    .classed('modal-dialog modal-dialog-centered modal-lg', true)
     .append('div')
     .classed('modal-content', true);
+
+  //     <div class="modal-header">
+  //     <h5 class="modal-title">About <i>Classified graphs</i></h5>
+  //     <button
+  //     type="button"
+  //     class="btn-close"
+  //     data-bs-dismiss="modal"
+  //     ></button>
+  // </div>
+
+  const modalHeader = modal.append('div').classed('modal-header', true);
+  modalHeader.append('h5').classed('modal-title', true).html('About');
+  modalHeader
+    .append('button')
+    .attr('type', 'button')
+    .classed('btn-close', true)
+    .attr('data-bs-dismiss', 'modal');
+
+  const modalBody = modal.append('div').classed('modal-body', true);
 
   fetch(textFile)
     .then((x) => x.text())
     .then((text) => {
-      modal.html(text);
+      modalBody.html(text);
       // console.log(text);
     })
     // eslint-disable-next-line no-console

@@ -1,4 +1,4 @@
-import Locale from './locale';
+import Locale from '../locale';
 
 const en: Locale = {
   isoCode: 'en',
@@ -34,11 +34,12 @@ const en: Locale = {
         concatenation and deformation (homotopy).`,
       Diameter: 'Diameter',
       Diameter_Tip: 'The longest distance between two nodes.',
-      Adjacency_matrix: 'Adjacency matrix',
-      Adjacency_matrix_Tip:
-        'The entry a<sub>ij</sub> is the number of edges from node i to node j.',
+      // Adjacency_matrix: 'Adjacency matrix',
+      // Adjacency_matrix_Tip:
+      //   'The entry a<sub>ij</sub> is the number of edges from node i to node j.',
       Adjacency_det: 'Adjacency determinant',
-      Adjacency_det_Tip: 'The determinant of the adjacency matrix.',
+      Adjacency_det_Tip:
+        'The adjacency matrix is built by setting a<sub>ij</sub> equal to the number of edges from node i to node j. Its determinant is an invariant of the graph.',
       Target: 'Target',
       Check: 'Check',
     },
