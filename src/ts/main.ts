@@ -37,6 +37,8 @@ import ModeDetAdjacency from './modes/ModeDetAdjacency';
 import * as assets from './assets';
 import ModeIsoCheck from './modes/ModeIsoCheck';
 
+import * as texts from './locales/text-assets';
+
 import {
   defaultMode,
   makeGraphGallery,
@@ -259,6 +261,25 @@ const secondaryMode: ModeConfig = defaultMode;
 void i18next.use(LanguageDetector).init(i18nextOptions);
 const localize = locI18next.init(i18next);
 
+function localizeBlocks() {
+  Array.from(document.getElementsByClassName('cm-data-i18n-block')).forEach(
+    (d) => {
+      const fileid = d.getAttribute('cm-data-i18n-block-fileid') as string;
+      const textUrl =
+        texts[`${fileid}_${i18next.language}` as keyof typeof texts];
+
+      fetch(textUrl)
+        .then((x) => x.text())
+        .then((text) => {
+          // eslint-disable-next-line no-param-reassign
+          d.innerHTML = text;
+        })
+        // eslint-disable-next-line no-console
+        .catch((error) => console.log(error));
+    },
+  );
+}
+
 // Make Language Selector
 function createLangSelector() {
   // const divLangSelector = d3.select('#langSelector').classed('dropdown', true);
@@ -295,6 +316,7 @@ function createLangSelector() {
           // eslint-disable-next-line no-console
           console.error(`Changing to language ${d.isoCode} failed.`, reason);
         });
+      localizeBlocks();
     })
     .text((d) => d.endonym);
   return container;
@@ -338,13 +360,7 @@ function main() {
 
   d3.select('#top-toolbar')
     .selectAll('span')
-    .data([
-      createTextModal(
-        'about',
-        new URL('./locales/en/about.html', import.meta.url).href,
-      ),
-      createLangSelector(),
-    ])
+    .data([createTextModal('about', 'about', 'about'), createLangSelector()])
     .enter()
     .append((d) => d);
 
@@ -511,6 +527,18 @@ function main() {
   collapseTarget();
 
   localize('.translate');
+
+  d3.select('body')
+    .append('div')
+    .classed('cm-data-i18n-block', true)
+    .attr('cm-data-i18n-block-fileid', 'about');
+
+  d3.select('body')
+    .append('div')
+    .classed('cm-data-i18n-block', true)
+    .attr('cm-data-i18n-block-fileid', 'intro');
+
+  localizeBlocks();
 }
 
 ready(main);

@@ -7,6 +7,8 @@ const en: Locale = {
     translation: {
       title: 'Classified graphs',
       hello: 'Hello world',
+      about: 'About',
+      intro: 'Introduction',
       Clear: 'Clear',
       Pointer: 'Pointer',
       Export: 'Export',

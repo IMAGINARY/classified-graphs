@@ -434,9 +434,16 @@ function createInvariantsSelector(allInvariants: ModeConfig[]) {
   return container;
 }
 
-// About modal
-function createTextModal(id: string, textFile: string) {
-  // create modal
+// Text modals
+function createTextModal(
+  id: string,
+  titleKey: string,
+  textId: string,
+): HTMLSpanElement {
+  // Creates a modal (HTMLDivElement) and a button that activates the modal.
+  // Returns an HTMLSpanElement that contains the button.
+
+  // 1. Create modal
   const modal = d3
     .select('body')
     .append('div')
@@ -447,35 +454,25 @@ function createTextModal(id: string, textFile: string) {
     .append('div')
     .classed('modal-content', true);
 
-  //     <div class="modal-header">
-  //     <h5 class="modal-title">About <i>Classified graphs</i></h5>
-  //     <button
-  //     type="button"
-  //     class="btn-close"
-  //     data-bs-dismiss="modal"
-  //     ></button>
-  // </div>
-
   const modalHeader = modal.append('div').classed('modal-header', true);
-  modalHeader.append('h5').classed('modal-title', true).html('About');
+
+  modalHeader
+    .append('h5')
+    .classed('modal-title translate', true)
+    .attr('data-i18n', `[html]${titleKey}`);
+
   modalHeader
     .append('button')
     .attr('type', 'button')
     .classed('btn-close', true)
     .attr('data-bs-dismiss', 'modal');
 
-  const modalBody = modal.append('div').classed('modal-body', true);
+  modal
+    .append('div')
+    .classed('modal-body cm-data-i18n-block', true)
+    .attr('cm-data-i18n-block-fileid', textId);
 
-  fetch(textFile)
-    .then((x) => x.text())
-    .then((text) => {
-      modalBody.html(text);
-      // console.log(text);
-    })
-    // eslint-disable-next-line no-console
-    .catch((error) => console.log(error));
-
-  // create button
+  // 2. Create button
   const container = document.createElement('span');
 
   const button = d3
@@ -485,9 +482,11 @@ function createTextModal(id: string, textFile: string) {
     // .classed('toolbar-button', true)
     .attr('id', `btn-${id}`);
   // button.append('img').attr('src', iconCalculator);
-  button.append('div').html('About');
-  // .classed('translate', true)
-  // .attr('data-i18n', modeconfig.textKey);
+
+  button
+    .append('div')
+    .classed('translate', true)
+    .attr('data-i18n', `[html]${titleKey}`);
 
   button.attr('data-bs-toggle', 'modal').attr('data-bs-target', `#${id}`);
 
