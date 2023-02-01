@@ -5,7 +5,7 @@ const de: Locale = {
   endonym: 'Deutsch',
   resource: {
     translation: {
-      title: 'Graph-Erkunder',
+      title: 'Classified graphs (DE)',
       hello: 'Hallo Welt',
       Pointer: 'Zeiger',
       // Export: 'Export',

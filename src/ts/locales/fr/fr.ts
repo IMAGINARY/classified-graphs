@@ -5,7 +5,7 @@ const fr: Locale = {
   endonym: 'Français',
   resource: {
     translation: {
-      title: 'Explorateur des graphes',
+      title: 'Graphes classifiés',
       hello: 'Bonjour monde',
       Pointer: 'Pointeur',
       // Export: 'Export',
