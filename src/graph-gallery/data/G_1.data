@@ -6,8 +6,8 @@
                     "id": "N-0"
                 },
                 "position": {
-                    "x": 300,
-                    "y": 300
+                    "x": 0,
+                    "y": 0
                 },
                 "group": "nodes",
                 "removed": false,
@@ -23,8 +23,8 @@
                     "id": "N-1"
                 },
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 300,
+                    "y": 300
                 },
                 "group": "nodes",
                 "removed": false,
@@ -40,8 +40,8 @@
                     "id": "N-2"
                 },
                 "position": {
-                    "x": 148.12173409841074,
-                    "y": 153.71169835649485
+                    "x": 152.65440227034946,
+                    "y": 149.11604230644625
                 },
                 "group": "nodes",
                 "removed": false,

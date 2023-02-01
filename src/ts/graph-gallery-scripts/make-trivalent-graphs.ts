@@ -172,7 +172,9 @@ for (const M of matrices) {
 
   const id = {
     family: 'Trivalent',
-    name: `Trivalent ${g}<sub>${i}</sub>`,
+    name_en: `Trivalent ${g}<sub>${i}</sub>`,
+    name_fr: `Graphe cubique ${g}<sub>${i}</sub>`,
+    name_de: `Kubischer Graph ${g}<sub>${i}</sub>`,
     file: `trivalent_${g}_${i}`,
     invariants: computeInvariants(cy),
   };

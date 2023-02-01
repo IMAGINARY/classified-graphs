@@ -46,7 +46,9 @@ https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
 
   const id = {
     family: 'Special',
-    name: `Königsberg`,
+    name_en: `Königsberg`,
+    name_fr: `Königsberg`,
+    name_de: `Königsberg`,
     file: `konigsberg`,
     invariants: computeInvariants(cy),
   };
@@ -88,7 +90,9 @@ https://en.wikipedia.org/wiki/File:3-cube_column_graph.svg
 
   const id = {
     family: 'Platonic',
-    name: `Cube`,
+    name_en: `Cube`,
+    name_fr: `Cube`,
+    name_de: `Würfel`,
     file: `cube`,
     invariants: computeInvariants(cy),
   };
@@ -129,7 +133,9 @@ Platonic solids: Octahedral
 
   const id = {
     family: 'Platonic',
-    name: `Octahedron`,
+    name_en: `Octahedron`,
+    name_fr: `Octaèdre`,
+    name_de: `Oktaeder`,
     file: `octahedron`,
     invariants: computeInvariants(cy),
   };
@@ -222,7 +228,9 @@ https://en.wikipedia.org/wiki/Moser_spindle
 
   const id = {
     family: 'Other',
-    name: `Moser spindle`,
+    name_en: `Moser spindle`,
+    name_fr: `Graphe de Moser`,
+    name_de: `Moser-Spindel`,
     file: `moser_spindle`,
     invariants: computeInvariants(cy),
   };

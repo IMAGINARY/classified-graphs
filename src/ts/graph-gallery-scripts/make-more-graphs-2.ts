@@ -543,7 +543,9 @@ for (let i = 0; i < matrices.length; i += 1) {
 
   const id = {
     family: 'Samples',
-    name: `Graph G<sub>${i}</sub>`,
+    name_en: `Graph G<sub>${i}</sub>`,
+    name_fr: `Graphe G<sub>${i}</sub>`,
+    name_de: `(DE)Graph G<sub>${i}</sub>`, // TO TRANSLATE
     file: `G_${i}`,
     invariants: computeInvariants(cy),
   };

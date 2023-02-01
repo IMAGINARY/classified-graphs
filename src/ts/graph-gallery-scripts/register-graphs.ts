@@ -16,7 +16,9 @@ import adjacencyMatrix from '../utils/adjacency-matrix';
 
 type GraphRegister = {
   family: string;
-  name: string;
+  name_en: string;
+  name_fr: string;
+  name_de: string;
   file: string;
   invariants: {
     numNodes: number;

@@ -98,7 +98,11 @@ function makeGraphGallery(
     .attr('src', (d) => agr[`${d.file}_Icon` as keyof typeof agr])
     .attr('height', '80px');
 
-  newItems.append('div').html((d) => d.name);
+  // newItems.append('div').html((d) => d.name_en);
+  newItems
+    .append('div')
+    .classed('translate', true)
+    .attr('data-i18n', (d) => `[html]${d.file}`);
 
   // exit selection
   galleryContainer.exit().remove();
