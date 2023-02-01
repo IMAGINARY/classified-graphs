@@ -360,7 +360,11 @@ function main() {
 
   d3.select('#top-toolbar')
     .selectAll('span')
-    .data([createTextModal('about', 'about', 'about'), createLangSelector()])
+    .data([
+      createTextModal('intro', 'intro', 'intro'),
+      createTextModal('about', 'about', 'about'),
+      createLangSelector(),
+    ])
     .enter()
     .append((d) => d);
 
