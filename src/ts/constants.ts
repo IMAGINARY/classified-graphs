@@ -79,6 +79,7 @@ resour.de.translation = { ...resour.de.translation, ...resourcesGraphs_de };
 const i18nextOptions = {
   supportedLngs: locales.map(({ isoCode }) => isoCode),
   fallbackLng: 'en',
+  // fallbackLng: 'false',
   debug: true,
   resources: resour,
 };

@@ -40,8 +40,8 @@ export default class ModeLoadTarget implements Mode {
       const numGraphs = graphGalleryList.length;
       const idx = Math.floor(Math.random() * numGraphs);
       this.loadFileScrambled(graphGalleryList[idx].file);
-      // eslint-disable-next-line no-console
-      console.log(`Loaded ${graphGalleryList[idx].name}`);
+      // eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+      console.log(`Loaded ${graphGalleryList[idx].name_en}`);
     };
 
     // create modal
@@ -56,7 +56,11 @@ export default class ModeLoadTarget implements Mode {
       .classed('modal-content', true);
 
     const modalHeader = modal.append('div').classed('modal-header', true);
-    modalHeader.append('h5').html('Load target graph');
+    modalHeader
+      .append('h5')
+      .classed('translate', true)
+      .attr('data-i18n', 'Load_target');
+
     modalHeader
       .append('button')
       .attr('type', 'button')
@@ -69,14 +73,14 @@ export default class ModeLoadTarget implements Mode {
       .append('div')
       .append('button')
       .attr('type', 'button')
-      .classed('btn btn-primary', true)
+      .classed('btn btn-primary translate', true)
       .attr('data-bs-dismiss', 'modal')
-      .html('Random')
+      .attr('data-i18n', 'Random')
       .on('click', () => {
         this.loadRandomGraph();
       });
 
-    modalBody
+    const challengeButtons = modalBody
       .selectAll('div.challenges')
       .data(targetChoices as unknown[] as (keyof typeof agr)[])
       .enter()
@@ -86,10 +90,17 @@ export default class ModeLoadTarget implements Mode {
       .classed('btn btn-primary', true)
       .attr('data-bs-dismiss', 'modal')
       .attr('challenges', true)
-      .html((d, i) => `Challenge ${i + 1}`)
+      // .html((d, i) => `Challenge ${i + 1}`)
       .on('click', (ev, d) => {
         this.loadFileScrambled(d);
       });
+
+    challengeButtons
+      .append('span')
+      .classed('translate', true)
+      .attr('data-i18n', 'Challenge');
+
+    challengeButtons.append('span').html((d, i) => ` ${i + 1}`);
   }
 
   activate = () => {};

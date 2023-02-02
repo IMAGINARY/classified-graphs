@@ -322,15 +322,24 @@ function createInvariantsTable() {
     });
 
   const invCy1 = invTable.append('tr').classed('invTabCy1', true);
-  invCy1.append('td').classed('invTabRowTitle', true).html('Your graph');
+  invCy1
+    .append('td')
+    .classed('invTabRowTitle translate', true)
+    .attr('data-i18n', 'Your_graph');
   invCy1.append('td').classed('invTabControls', true);
 
   const invCy2 = invTable.append('tr').classed('invTabCy2', true);
-  invCy2.append('td').classed('invTabRowTitle', true).html('Target graph');
+  invCy2
+    .append('td')
+    .classed('invTabRowTitle translate', true)
+    .attr('data-i18n', 'Target_graph');
   invCy2.append('td').classed('invTabControls', true);
 
   const filters = invTable.append('tr').classed('invTabFilters', true);
-  filters.append('td').classed('invTabRowTitle', true).html('Gallery filter');
+  filters
+    .append('td')
+    .classed('invTabRowTitle translate', true)
+    .attr('data-i18n', 'Gallery_filter');
   filters
     .append('td')
     .classed('invTabControls', true)
@@ -385,7 +394,11 @@ function createInvariantsSelector(allInvariants: ModeConfig[]) {
     .classed('modal-content', true);
 
   const modalHeader = modal.append('div').classed('modal-header', true);
-  modalHeader.append('h5').html('Invariants');
+  modalHeader
+    .append('h5')
+    .classed('translate', true)
+    .attr('data-i18n', 'Invariants');
+
   modalHeader
     .append('button')
     .attr('type', 'button')
@@ -427,7 +440,10 @@ function createInvariantsSelector(allInvariants: ModeConfig[]) {
     .classed('toolbar-button', true)
     .attr('id', `btn-InvariantsSelector`);
   button.append('img').attr('src', iconCalculator);
-  button.append('div').html('Invariants');
+  button
+    .append('div')
+    .classed('translate', true)
+    .attr('data-i18n', 'Invariants');
   // .classed('translate', true)
   // .attr('data-i18n', modeconfig.textKey);
 

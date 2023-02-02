@@ -404,9 +404,10 @@ function main() {
   d3.select('#toolbar')
     .append('label')
     .style('float', 'right')
-    .classed('btn btn-secondary', true)
+    .classed('btn btn-secondary translate', true)
     .attr('for', 'targetCollapseButton')
-    .html('Which graph is this?');
+    .attr('data-i18n', 'Identify_question');
+  // .html('Which graph is this?');
 
   // Make toolbar buttons
   // createButtons('#toolbar', toolbarModes);

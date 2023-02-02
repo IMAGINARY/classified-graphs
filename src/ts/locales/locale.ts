@@ -16,6 +16,10 @@ type Locale = {
       Edges: string;
       Layout: string;
       Shortest_path: string;
+      Invariants: string;
+      Your_graph: string;
+      Target_graph: string;
+      Gallery_filter: string;
       Order: string;
       Order_Tip: string;
       Size: string;
@@ -34,8 +38,14 @@ type Locale = {
       Adjacency_matrix_Tip: string;
       Adjacency_det: string;
       Adjacency_det_Tip: string;
+      Identify_question: string;
+      Load_target: string;
       Target: string;
+      Random: string;
+      Challenge: string;
       Check: string;
+      Graphs_isomorphic: string;
+      Graphs_non_isomorphic: string;
     }>;
   };
 };
