@@ -52,7 +52,7 @@ for (let i = 2; i < 9; i += 1) {
     family: 'Complete',
     name_en: `Complete of order ${i}`,
     name_fr: `Complet d'ordre ${i}`,
-    name_de: `(DE) Complete of order ${i}`, // TO TRANSLATE
+    name_de: `Vollständiger der Ordnung ${i}`,
     file: `complete_${i}`,
     invariants: computeInvariants(cy),
   };

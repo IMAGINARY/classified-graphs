@@ -545,7 +545,7 @@ for (let i = 0; i < matrices.length; i += 1) {
     family: 'Samples',
     name_en: `Graph G<sub>${i}</sub>`,
     name_fr: `Graphe G<sub>${i}</sub>`,
-    name_de: `(DE)Graph G<sub>${i}</sub>`, // TO TRANSLATE
+    name_de: `Graph G<sub>${i}</sub>`,
     file: `G_${i}`,
     invariants: computeInvariants(cy),
   };
