@@ -63,14 +63,15 @@ export default class ModeIsoCheck implements Mode {
               .classed('yes', true)
               .select('div')
               .classed('translate', true)
-              .attr('data-i18n', 'Graphs_isomorphic');
+              .attr('data-i18n', '[html]Graphs_isomorphic');
           } else {
             d3.select('#isoOutput')
               .classed('no', true)
               .select('div')
               .classed('translate', true)
-              .attr('data-i18n', 'Graphs_non_isomorphic');
+              .attr('data-i18n', '[html]Graphs_non_isomorphic');
           }
+          window.localize('#isoOutput');
         };
       } else {
         // eslint-disable-next-line no-console
