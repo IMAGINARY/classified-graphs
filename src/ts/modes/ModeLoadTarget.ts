@@ -4,7 +4,7 @@ import { Core } from 'cytoscape';
 import { Mode, Parameters } from './modes';
 import graphGalleryList from '../../graph-gallery/graphs-list.json';
 import * as agr from '../../graph-gallery/graphs-assets';
-import { targetChoices } from '../constants';
+import targetChoices from '../targetChoices';
 
 export default class ModeLoadTarget implements Mode {
   cy;

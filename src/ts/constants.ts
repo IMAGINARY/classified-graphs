@@ -84,6 +84,5 @@ const i18nextOptions = {
   resources: resour,
 };
 
-const targetChoices = ['complete_4', 'trivalent_5_70'];
 // eslint-disable-next-line import/prefer-default-export
-export { cyOptions, langList, i18nextOptions, targetChoices };
+export { cyOptions, langList, i18nextOptions };
