@@ -5,12 +5,15 @@ import graphGalleryList from '../graph-gallery/graphs-list.json';
 import * as agr from '../graph-gallery/graphs-assets';
 import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 import ModeNull from './modes/ModeNull';
+import { langList } from './constants';
+
 import {
   iconPointer,
   iconDijkstra,
   iconInfo,
   iconClear,
   iconCalculator,
+  iconTranslate,
 } from './assets';
 
 type ModeConfig = {
@@ -141,6 +144,7 @@ function getSelectedInvariants() {
     .data() as ModeConfig[];
 }
 
+/* Invariants table vertical (not used) */
 // function updateInvariantsTable(usedInvariants: ModeConfig[]) {
 //   const invariantsItem = d3
 //     .select('#invariants')
@@ -380,6 +384,48 @@ function createButton(modeconfig: ModeConfig) {
   return container;
 }
 
+// Make Language Selector
+function createLangSelector() {
+  // const divLangSelector = d3.select('#langSelector').classed('dropdown', true);
+  const container = document.createElement('span');
+  const divLangSelector = d3.select(container).classed('dropdown', true);
+
+  divLangSelector
+    .append('button')
+    .attr('class', 'btn btn-secondary dropdown-toggle')
+    .attr('type', 'button')
+    .attr('data-bs-toggle', 'dropdown')
+    .append('img')
+    .attr('src', iconTranslate)
+    .style('height', '1.4em');
+  // .attr('width', '30px');
+
+  divLangSelector.append('ul').classed('dropdown-menu', true);
+
+  divLangSelector
+    .select('.dropdown-menu')
+    .selectAll('li')
+    .data(langList)
+    .enter()
+    .append('li')
+    .append('a')
+    .classed('dropdown-item', true)
+    .attr('href', '#')
+    .on('click', (ev, d) => {
+      window.i18next
+        .changeLanguage(d.isoCode)
+        .then(() => window.localize('.translate'))
+        .catch((reason) => {
+          // TODO: Handle the error properly instead of ignoring it.
+          // eslint-disable-next-line no-console
+          console.error(`Changing to language ${d.isoCode} failed.`, reason);
+        });
+      window.localizeBlocks();
+    })
+    .text((d) => d.endonym);
+  return container;
+}
+
 // Invariants selector
 function createInvariantsSelector(allInvariants: ModeConfig[]) {
   // create modal
@@ -523,6 +569,7 @@ export {
   updateInvariantsTable,
   createInvariantsTable,
   createButton,
+  createLangSelector,
   createInvariantsSelector,
   createTextModal,
 };

@@ -8,9 +8,7 @@ import locI18next from 'loc-i18next';
 import cloneDeep from 'lodash/cloneDeep';
 
 import './side-effects';
-
-import { cyOptions, i18nextOptions, langList } from './constants';
-
+import { cyOptions, i18nextOptions } from './constants';
 import { Parameters } from './modes/modes';
 
 // import { parameters, toolbarModes, infoboxModes } from './modesList';
@@ -33,10 +31,9 @@ import ModeLoadTarget from './modes/ModeLoadTarget';
 import ModeClear from './modes/ModeClear';
 import ModeDetAdjacency from './modes/ModeDetAdjacency';
 // import ModeAdjacencyMatrix from './modes/ModeAdjacencyMatrix';
-
-import * as assets from './assets';
 import ModeIsoCheck from './modes/ModeIsoCheck';
 
+import * as assets from './assets';
 import * as texts from './locales/text-assets';
 
 import {
@@ -46,6 +43,7 @@ import {
   updateInvariantsTable,
   ModeConfig,
   createButton,
+  createLangSelector,
   createInvariantsSelector,
   createTextModal,
 } from './uiFunctions';
@@ -54,11 +52,13 @@ import graphGalleryList from '../graph-gallery/graphs-list.json';
 
 // import { GraphRegister } from './graph-gallery-scripts/register-graphs';
 
+// Graph of the main window
 const cy1 = cytoscape({
   ...cloneDeep(cyOptions),
   ...{ container: document.getElementById('cy1') },
 });
 
+// Graph of the Target window
 const cy2 = cytoscape({
   ...cloneDeep(cyOptions),
   ...{ container: document.getElementById('cy2') },
@@ -80,6 +80,9 @@ const parameters1: Parameters = {
   isoTargetParams: parameters2,
 };
 
+/** Configuration */
+
+// List of the modes available as buttons in the toolbar
 const toolbarModes: ModeConfig[] = [
   {
     modeName: 'modeClear',
@@ -173,6 +176,7 @@ const toolbarModes: ModeConfig[] = [
   // },
 ];
 
+// List of modes available as buttons in the Target toolbar
 const targetToolbarModes = [
   {
     modeName: 'modeIsoCheck',
@@ -190,6 +194,7 @@ const targetToolbarModes = [
   },
 ];
 
+// List of invariants available in the Invariants menu
 const invariants: ModeConfig[] = [
   {
     modeName: 'modeNumNodes',
@@ -257,6 +262,8 @@ const invariants: ModeConfig[] = [
 const primaryMode: ModeConfig = defaultMode;
 const secondaryMode: ModeConfig = defaultMode;
 
+/** Translation setup */
+
 // eslint-disable-next-line no-void
 void i18next.use(LanguageDetector).init(i18nextOptions);
 const localize = locI18next.init(i18next);
@@ -280,48 +287,6 @@ function localizeBlocks() {
   );
 }
 
-// Make Language Selector
-function createLangSelector() {
-  // const divLangSelector = d3.select('#langSelector').classed('dropdown', true);
-  const container = document.createElement('span');
-  const divLangSelector = d3.select(container).classed('dropdown', true);
-
-  divLangSelector
-    .append('button')
-    .attr('class', 'btn btn-secondary dropdown-toggle')
-    .attr('type', 'button')
-    .attr('data-bs-toggle', 'dropdown')
-    .append('img')
-    .attr('src', assets.iconTranslate)
-    .style('height', '1.4em');
-  // .attr('width', '30px');
-
-  divLangSelector.append('ul').classed('dropdown-menu', true);
-
-  divLangSelector
-    .select('.dropdown-menu')
-    .selectAll('li')
-    .data(langList)
-    .enter()
-    .append('li')
-    .append('a')
-    .classed('dropdown-item', true)
-    .attr('href', '#')
-    .on('click', (ev, d) => {
-      i18next
-        .changeLanguage(d.isoCode)
-        .then(() => localize('.translate'))
-        .catch((reason) => {
-          // TODO: Handle the error properly instead of ignoring it.
-          // eslint-disable-next-line no-console
-          console.error(`Changing to language ${d.isoCode} failed.`, reason);
-        });
-      localizeBlocks();
-    })
-    .text((d) => d.endonym);
-  return container;
-}
-
 // Specify types of global variables that are not yet defined on 'window'.
 declare global {
   interface Window {
@@ -335,7 +300,9 @@ declare global {
     secondaryMode: ModeConfig;
     collapseTarget: (a: void) => void;
     uncollapseTarget: (a: void) => void;
+    i18next: typeof i18next;
     localize: typeof localize;
+    localizeBlocks: (a: void) => void;
   }
 }
 window.d3 = d3;
@@ -345,19 +312,21 @@ window.parameters2 = parameters2;
 /* MAIN */
 
 function main() {
+  // Set global variables, accessibles from auxiliary modules and from the browser console.
   // After this, window.cy is shadowing the function-local cy.
   window.cy1 = cy1;
   window.cy2 = cy2;
   window.primaryMode = primaryMode;
   window.secondaryMode = secondaryMode;
+  window.i18next = i18next;
   window.localize = localize;
+  window.localizeBlocks = localizeBlocks;
 
   primaryMode.modeObj1.activate();
   primaryMode.modeObj2.activate();
   // secondaryMode.activate();
 
-  // createLangSelector();
-
+  /** Creation of UI elements */
   d3.select('#top-toolbar')
     .selectAll('span')
     .data([
@@ -407,14 +376,10 @@ function main() {
     .classed('btn btn-secondary translate', true)
     .attr('for', 'targetCollapseButton')
     .attr('data-i18n', 'Identify_question');
-  // .html('Which graph is this?');
 
   // Make toolbar buttons
-  // createButtons('#toolbar', toolbarModes);
-  // createButtons('#target-tools', targetToolbarModes);
 
   const toolbarButtons = toolbarModes.map((d) => createButton(d));
-
   toolbarButtons.push(createInvariantsSelector(invariants));
 
   d3.select('#toolbar')
@@ -445,104 +410,15 @@ function main() {
   // Make Gallery
   makeGraphGallery(graphGalleryList, cy1, parameters1);
 
-  // Make infobox items
-  // function updateInfo() {
-  //   const infoboxItems = d3
-  //     .select('#infobox')
-  //     .selectAll<HTMLDivElement, unknown>('div.infoItem')
-  //     .data(infoboxModes);
-
-  //   const newItems = infoboxItems
-  //     .enter()
-  //     .append('div')
-  //     .attr('id', (d) => `infoItem-${d.modeName}`)
-  //     .classed('infoItem', true);
-
-  //   newItems // Info icon
-  //     .append('img')
-  //     .attr('src', assets.iconInfo)
-  //     .attr('data-bs-toggle', 'collapse')
-  //     .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
-  //     .on('click', (ev: Event) => {
-  //       ev.stopPropagation();
-  //     });
-
-  //   newItems.append('div').classed('outputText', true); // container for text
-
-  //   newItems // Tip text
-  //     .append('div')
-  //     .attr('id', (d) => `infoItem-text-${d.modeName}`)
-  //     .attr('data-bs-parent', '#infobox')
-  //     .attr('data-bs-toggle', 'collapse')
-  //     .classed('tipText', true)
-  //     .classed('collapse', true)
-  //     .classed('translate', true)
-  //     .attr('data-i18n', (d) => `[html]${d.textKey}_Tip`);
-  //   // .html((d) => i18next.t(`${d.textKey}_Tip`));
-
-  //   newItems.on('click', (ev: MouseEvent, d) => {
-  //     const target = ev.currentTarget;
-  //     if (target instanceof Element) {
-  //       if (d.modeObj === secondaryMode) {
-  //         switchSecondaryMode(modeNull);
-  //         d3.select(target).classed('infoItemActive', false);
-  //       } else {
-  //         switchSecondaryMode(d.modeObj);
-  //         d3.select('.infoItemActive').classed('infoItemActive', false);
-  //         d3.select(target).classed('infoItemActive', true);
-  //       }
-  //     }
-  //   });
-
-  //   // update selection
-  //   infoboxItems
-  //     .merge(newItems)
-  //     .select('.outputText')
-  //     .html(
-  //       (d) =>
-  //         `<span class="translate" data-i18n="[html]${d.textKey}">
-  //         ${i18next.t(d.textKey)}
-  //         </span>:
-  //         ${d.modeObj.infobox()}`,
-  //     );
-
-  //   // if (!d3.select('.infoItemActive').empty()) {
-  //   //   d3.select('.infoItemActive').datum().modeObj.render();
-  //   if (secondaryMode !== modeNull) {
-  //     secondaryMode.render();
-  //   }
-  // }
-
-  // window.infoboxModes = infoboxModes;
-
+  // Attach listeners to the graphs
   cy1.on('cm-graph-updated', () => updateInvariantsTable());
   cy2.on('cm-graph-updated', () => updateInvariantsTable());
 
-  // updateInfo();
-  // d3.select('.infoItem').classed('infoItemActive', true);
-
-  // //Other test functions
-  // function showGraphExport() {
-  //   const json = cy.json();
-  //   const jsonString = JSON.stringify(json, null, 4);
-  //   d3.select('#outputText').text(jsonString);
-  // }
-  // d3.select('#showJSON').on('click', showGraphExport);
-
+  // Close the Target panel by default
   collapseTarget();
 
+  // Trigger initial translation to fill the texts
   localize('.translate');
-
-  d3.select('body')
-    .append('div')
-    .classed('cm-data-i18n-block', true)
-    .attr('cm-data-i18n-block-fileid', 'about');
-
-  d3.select('body')
-    .append('div')
-    .classed('cm-data-i18n-block', true)
-    .attr('cm-data-i18n-block-fileid', 'intro');
-
   localizeBlocks();
 }
 
