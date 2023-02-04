@@ -6,6 +6,25 @@
   font-weight: normal;
   src: url('../fonts/Josefin_Sans/static/JosefinSans-Regular.ttf') format('truetype');
 }
+
+.footnote {
+  font-size: smaller;
+  margin-top: 3em;
+}
+
+.action-tip {
+  background-color: var(--color2);
+  border-radius: 5px;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding: 1em; 
+}
+
+.legal{
+  font-size: small;
+}
+
+
 .btn-secondary {
   color: #000;
 }
