@@ -107,6 +107,8 @@ function makeGraphGallery(
     .classed('translate', true)
     .attr('data-i18n', (d) => `[html]${d.file}`);
 
+  window.localize('.graphGalleryItem .translate');
+
   // exit selection
   galleryContainer.exit().remove();
 
