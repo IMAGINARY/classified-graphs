@@ -1,70 +1,16 @@
-/* eslint-disable no-console */
-/* eslint-disable */
-
-// const cytosnap = require( 'cytosnap');
-
-import * as fs from 'fs/promises';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import cytosnap from 'cytosnap';
 import cytoscape from 'cytoscape';
+import { det } from 'mathjs';
+import girth from '../invariants/girth';
+import circuitRank from '../invariants/circuitRank';
+import diameter from '../invariants/diameter';
+import adjacencyMatrix from '../utils/adjacency-matrix';
 
-// list of layout extensions to use
-// NB you must `npm install` these yourself for your project
-// cytosnap.use([ 'cytoscape-dagre', 'cytoscape-cose-bilkent' ]);
+/* Can't load extensions in headless mode (no window object) ?? */
+// import invariants from '../cytoscape-extensions/invariants';
+// import utils from '../cytoscape-extensions/utils';
 
-const snap = cytosnap();
-
-function makeThumb(cy: cytoscape.Core, filename: string) {
-  snap
-    .start()
-    .then(() =>
-      snap.shot({
-        elements: (cy.json() as cytoscape.Core).elements,
-        layout: { name: 'preset' },
-        style: [
-          // http://js.cytoscape.org/#style
-          {
-            selector: 'node',
-            style: {
-              'background-color': 'red',
-            },
-          },
-          {
-            selector: 'edge',
-            style: {
-              'line-color': 'red',
-              'curve-style': 'bezier',
-            },
-          },
-        ],
-        resolvesTo: 'base64uri',
-        format: 'png',
-        width: 640,
-        height: 480,
-        background: 'transparent',
-      }),
-    )
-    .then((img: string) => {
-      // https://stackoverflow.com/questions/43487543/writing-binary-data-using-node-js-fs-writefile-to-create-an-image-file
-      const data = img.replace(/^data:image\/\w+;base64,/, '');
-      const buf = Buffer.from(data, 'base64');
-      fs.writeFile(filename, buf)
-        .then(() => {
-          console.log('Saved thumbnail ' + filename);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    });
-}
-
-function applyLayout(cy: cytoscape.Core, layout: cytoscape.LayoutOptions) {
-  const lay = cy.layout(layout);
-  const prom = lay.promiseOn('layoutstop');
-  lay.run();
-  return prom;
-}
+// cytoscape.use(invariants);
+// cytoscape.use(utils);
 
 function graphFromAdjacencyMatrix(M: number[][]): cytoscape.Core {
   const cy = cytoscape();
@@ -95,4 +41,29 @@ function graphFromAdjacencyMatrix(M: number[][]): cytoscape.Core {
   return cy;
 }
 
-export { makeThumb, applyLayout, graphFromAdjacencyMatrix };
+function computeInvariants(cy: cytoscape.Core) {
+  const dSeq = cy
+    .elements()
+    .nodes()
+    .map((n) => n.degree(true))
+    .sort((a, b) => b - a);
+
+  let d;
+  if (cy.nodes().size() > 0) {
+    const A = adjacencyMatrix(cy.elements());
+    d = det(A);
+  }
+
+  return {
+    numNodes: cy.elements().nodes().size(),
+    numEdges: cy.elements().edges().size(),
+    girth: girth(cy.elements()).value,
+    degSequence: dSeq,
+    components: cy.elements().components().length,
+    circuitRank: circuitRank(cy.elements()).length,
+    diameter: diameter(cy.elements()).value,
+    detAdjacency: d,
+  };
+}
+
+export { graphFromAdjacencyMatrix, computeInvariants };

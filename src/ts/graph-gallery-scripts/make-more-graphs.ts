@@ -1,31 +1,18 @@
 /* eslint-disable no-console */
-// import cytoscape, { Core } from 'cytoscape';
-
+import cytoscape from 'cytoscape';
+import { GraphRegister, processGraph } from './registration-tools';
 import {
-  makeThumb,
-  applyLayout,
+  computeInvariants,
   graphFromAdjacencyMatrix,
 } from './generating-tools';
 
-import {
-  GraphRegister,
-  registerGraphs,
-  makeFile,
-  computeInvariants,
-} from './register-graphs';
-
 console.log('Creating files for More graphs');
 
-// type GraphData = {
-//   //   adjMatrix: number[][];
-//   cy: Core;
-//   id: GraphRegister;
-//   layoutOpts: cytoscape.LayoutOptions;
-// };
-
-// const graphData = [] as GraphData[];
-
-const register = [] as GraphRegister[];
+const graphs = [] as {
+  cy: cytoscape.Core;
+  layout: cytoscape.LayoutOptions;
+  id: GraphRegister;
+}[];
 
 /* 
 Königsberg graph
@@ -53,18 +40,7 @@ https://en.wikipedia.org/wiki/Seven_Bridges_of_K%C3%B6nigsberg
     invariants: computeInvariants(cy),
   };
 
-  const layouted = applyLayout(cy, layout); // async, returns promise
-  layouted
-    .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
-    .catch((err) => {
-      console.error(err);
-    });
-  layouted
-    .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
-    .catch((err) => {
-      console.error(err);
-    });
-  register.push(id);
+  graphs.push({ cy, layout, id });
 }
 
 /*
@@ -97,18 +73,7 @@ https://en.wikipedia.org/wiki/File:3-cube_column_graph.svg
     invariants: computeInvariants(cy),
   };
 
-  const layouted = applyLayout(cy, layout); // async, returns promise
-  layouted
-    .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
-    .catch((err) => {
-      console.error(err);
-    });
-  layouted
-    .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
-    .catch((err) => {
-      console.error(err);
-    });
-  register.push(id);
+  graphs.push({ cy, layout, id });
 }
 
 /*
@@ -140,18 +105,7 @@ Platonic solids: Octahedral
     invariants: computeInvariants(cy),
   };
 
-  const layouted = applyLayout(cy, layout); // async, returns promise
-  layouted
-    .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
-    .catch((err) => {
-      console.error(err);
-    });
-  layouted
-    .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
-    .catch((err) => {
-      console.error(err);
-    });
-  register.push(id);
+  graphs.push({ cy, layout, id });
 }
 
 // https://en.wikipedia.org/wiki/File:Dodecahedral_graph.neato.svg
@@ -170,7 +124,6 @@ Platonic solids: Octahedral
 Moser spindle
 https://en.wikipedia.org/wiki/Moser_spindle
 */
-
 {
   const cy = graphFromAdjacencyMatrix([
     [0, 1, 1, 1, 1, 0, 0],
@@ -235,42 +188,13 @@ https://en.wikipedia.org/wiki/Moser_spindle
     invariants: computeInvariants(cy),
   };
 
-  const layouted = applyLayout(cy, layout); // async, returns promise
-  layouted
-    .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
-    .catch((err) => {
-      console.error(err);
-    });
-  layouted
-    .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
-    .catch((err) => {
-      console.error(err);
-    });
-  register.push(id);
+  graphs.push({ cy, layout, id });
 }
 
-// for (let i = 0; i < graphData.length; i += 1) {
-//   const { cy, layoutOpts: layout, id } = graphData[i];
+async function createMoreGraphs(): Promise<GraphRegister[] | void> {
+  const graphList = graphs.map((d) => d.id);
+  const promiseList = graphs.map((d) => processGraph(d.cy, d.layout, d.id));
+  return Promise.allSettled(promiseList).then(() => graphList);
+}
 
-//   //   const cy = graphFromAdjacencyMatrix(M); // sync
-
-//   //   id.invariants = computeInvariants(cy);
-
-//   const layouted = applyLayout(cy, layout); // async, returns promise
-
-//   layouted
-//     .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
-//     .catch((err) => {
-//       console.error(err);
-//     });
-
-//   layouted
-//     .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
-//     .catch((err) => {
-//       console.error(err);
-//     });
-
-//   register.push(id);
-// }
-
-registerGraphs(register);
+export default createMoreGraphs;

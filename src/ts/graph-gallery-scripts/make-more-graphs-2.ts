@@ -1,20 +1,13 @@
 /* eslint-disable no-console */
+import { GraphRegister, processGraph } from './registration-tools';
 import {
-  makeThumb,
-  applyLayout,
+  computeInvariants,
   graphFromAdjacencyMatrix,
 } from './generating-tools';
 
-import {
-  GraphRegister,
-  registerGraphs,
-  makeFile,
-  computeInvariants,
-} from './register-graphs';
-
 console.log('Creating files for More graphs 2');
 
-const matrices = [];
+const matrices = [] as number[][][];
 matrices[0] = [
   [0, 1, 0],
   [1, 0, 0],
@@ -529,42 +522,32 @@ matrices[64] = [
   [1, 1, 1, 0, 1, 1, 1, 0],
 ];
 
-const register = [] as GraphRegister[];
+const layoutOpts = {
+  name: 'cose',
+  boundingBox: { x1: 0, y1: 0, x2: 300, y2: 300 },
+};
 
-for (let i = 0; i < matrices.length; i += 1) {
-  const M = matrices[i];
+async function createMoreGraphs2(): Promise<GraphRegister[] | void> {
+  const graphList = [] as GraphRegister[];
+  const promiseList = [] as Promise<GraphRegister | void>[];
 
-  const layoutOpts = {
-    name: 'cose',
-    boundingBox: { x1: 0, y1: 0, x2: 300, y2: 300 },
-  };
+  for (let i = 0; i < matrices.length; i += 1) {
+    const M = matrices[i];
+    const cy = graphFromAdjacencyMatrix(M); // sync
 
-  const cy = graphFromAdjacencyMatrix(M); // sync
+    const id = {
+      family: 'Samples',
+      name_en: `Graph G<sub>${i}</sub>`,
+      name_fr: `Graphe G<sub>${i}</sub>`,
+      name_de: `Graph G<sub>${i}</sub>`,
+      file: `G_${i}`,
+      invariants: computeInvariants(cy),
+    };
 
-  const id = {
-    family: 'Samples',
-    name_en: `Graph G<sub>${i}</sub>`,
-    name_fr: `Graphe G<sub>${i}</sub>`,
-    name_de: `Graph G<sub>${i}</sub>`,
-    file: `G_${i}`,
-    invariants: computeInvariants(cy),
-  };
-
-  const layouted = applyLayout(cy, layoutOpts); // async, returns promise
-
-  layouted
-    .then(() => makeFile(cy, `./src/graph-gallery/data/${id.file}.data`))
-    .catch((err) => {
-      console.error(err);
-    });
-
-  layouted
-    .then(() => makeThumb(cy, `./src/graph-gallery/data/${id.file}.png`))
-    .catch((err) => {
-      console.error(err);
-    });
-
-  register.push(id);
+    graphList.push(id);
+    promiseList.push(processGraph(cy, layoutOpts, id));
+  }
+  return Promise.allSettled(promiseList).then(() => graphList);
 }
 
-registerGraphs(register);
+export default createMoreGraphs2;
