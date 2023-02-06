@@ -363,14 +363,14 @@ function createInvariantsTable() {
     .append('td')
     .classed('invTabRowTitle translate', true)
     .attr('data-i18n', 'Your_graph');
-  invCy1.append('td'); //.classed('invTabControls', true);
+  invCy1.append('td'); // .classed('invTabControls', true);
 
   const invCy2 = invTable.append('tr').classed('invTabCy2', true);
   invCy2
     .append('td')
     .classed('invTabRowTitle translate', true)
     .attr('data-i18n', 'Target_graph');
-  invCy2.append('td'); //.classed('invTabControls', true);
+  invCy2.append('td'); // .classed('invTabControls', true);
 
   const filters = invTable.append('tr').classed('invTabFilters', true);
   filters

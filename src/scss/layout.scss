@@ -57,6 +57,7 @@ body{
   font-size: 300%;
   font-weight: bold;
   top:0;
+  user-select: none;
 }
 
 #top-toolbar {
@@ -146,6 +147,7 @@ body{
   //  flex-basis: 4em;
   flex: 0 1 15%;
   cursor: pointer;
+  user-select: none;
 }
 
 #cy1{

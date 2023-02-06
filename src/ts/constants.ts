@@ -9,6 +9,7 @@ const cyOptions = {
       style: {
         'background-color': '#3f51b5',
         // 'label': 'data(id)',
+        'overlay-shape': 'ellipse',
       },
     },
 
