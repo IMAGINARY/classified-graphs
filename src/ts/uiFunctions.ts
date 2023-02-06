@@ -208,10 +208,10 @@ function getSelectedInvariants() {
 
 function updateInvariantsTable() {
   const usedInvariants = getSelectedInvariants();
-  const tooltips = d3
-    .select('.invTabTooltips')
-    .selectAll<HTMLTableCellElement, unknown>('td.invData')
-    .data(usedInvariants, (d) => (d as ModeConfig).modeName);
+  // const tooltips = d3
+  //   .select('.invTabTooltips')
+  //   .selectAll<HTMLTableCellElement, unknown>('td.invData')
+  //   .data(usedInvariants, (d) => (d as ModeConfig).modeName);
 
   const headers = d3
     .select('.invTabHeaders')
@@ -234,18 +234,19 @@ function updateInvariantsTable() {
     .data(usedInvariants, (d) => (d as ModeConfig).modeName);
 
   // enter
-  tooltips
-    .enter()
-    .append('td')
-    .classed('invData', true)
-    .append('div')
-    .attr('id', (d) => `infoItem-text-${d.modeName}`)
-    .attr('data-bs-parent', '.invTabTooltips')
-    .attr('data-bs-toggle', 'collapse')
-    .classed('tipText', true)
-    .classed('collapse', true)
-    .classed('translate', true)
-    .attr('data-i18n', (d) => `[html]${d.textKey}_Tip`);
+
+  // tooltips
+  //   .enter()
+  //   .append('td')
+  //   .classed('invData', true)
+  //   .append('div')
+  //   .attr('id', (d) => `infoItem-text-${d.modeName}`)
+  //   .attr('data-bs-parent', '.invTabTooltips')
+  //   .attr('data-bs-toggle', 'collapse')
+  //   .classed('tipText', true)
+  //   .classed('collapse', true)
+  //   .classed('translate', true)
+  //   .attr('data-i18n', (d) => `[html]${d.textKey}_Tip`);
 
   const newHeaders = headers.enter().append('th').classed('invData', true);
 
@@ -255,21 +256,25 @@ function updateInvariantsTable() {
     .classed('translate', true)
     .attr('data-i18n', (d) => `[html]${d.textKey}`);
 
+  if (d3.select('#tipText').style('visibility') === 'visible') {
+    newHeaders.classed('infoItemClickable', true);
+  }
   newHeaders
-    .attr('data-bs-toggle', 'collapse')
-    .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
-    .on('click', (ev: MouseEvent, d) => {
+    // .attr('data-bs-toggle', 'collapse')
+    // .attr('data-bs-target', (d) => `#infoItem-text-${d.modeName}`)
+    .on('click', (ev: PointerEvent, d) => {
       const target = ev.currentTarget;
       if (target instanceof Element) {
-        if (d === window.secondaryMode) {
-          switchSecondaryMode(defaultMode);
-          d3.select(target).classed('infoItemActive', false);
-        } else {
+        const state = d3.select('#tipText').style('visibility');
+        if (state === 'visible') {
           switchSecondaryMode(d);
           d3.select('.infoItemActive').classed('infoItemActive', false);
           d3.select(target).classed('infoItemActive', true);
         }
       }
+
+      d3.select('#tipText').attr('data-i18n', `[html]${d.textKey}_Tip`);
+      window.localize('#tipText');
     });
 
   filters
@@ -285,7 +290,7 @@ function updateInvariantsTable() {
   const newInvCy2 = invCy2.enter().append('td').classed('invData', true);
 
   // exit
-  tooltips.exit().remove();
+  // tooltips.exit().remove();
   headers.exit().remove();
   filters.exit().remove();
   invCy1.exit().remove();
@@ -308,9 +313,14 @@ function createInvariantsTable() {
     .append('table')
     .classed('invTab', true);
 
-  const tooltips = invTable.append('tr').classed('invTabTooltips', true);
-  tooltips.append('td').classed('invTabRowTitle', true);
-  tooltips.append('td').classed('invTabControls', true);
+  // const tooltips = invTable.append('tr').classed('invTabTooltips', true);
+  // tooltips.append('td').classed('invTabRowTitle', true);
+  // tooltips.append('td').classed('invTabControls', true);
+
+  d3.select('.main')
+    .append('div')
+    .attr('id', 'tipText')
+    .classed('translate', true);
 
   const headers = invTable.append('tr').classed('invTabHeaders', true);
   headers.append('th').classed('invTabRowTitle', true);
@@ -319,12 +329,33 @@ function createInvariantsTable() {
     .classed('invTabControls', true)
     .append('img')
     .attr('src', iconInfo)
-    .on('click', () => {
-      const state = d3.select('.tipText').style('visibility');
-      d3.selectAll('.tipText').style(
-        'visibility',
-        state === 'visible' ? 'hidden' : 'visible',
-      );
+    .on('click', (ev: PointerEvent) => {
+      const state = d3.select('#tipText').style('visibility');
+      if (state === 'visible') {
+        // deactivate
+        d3.select('#tipText').style('visibility', 'hidden');
+        switchSecondaryMode(defaultMode);
+        d3.selectAll('.infoItemActive').classed('infoItemActive', false);
+        d3.selectAll('th.invData').classed('infoItemClickable', false);
+        d3.select(ev.currentTarget as Element).classed(
+          'invTabControlActive',
+          false,
+        );
+      } else {
+        // activate
+        d3.selectAll('th.invData').classed('infoItemClickable', true);
+        const firstInvShown = d3.select('th.invData');
+        const itsMode = firstInvShown.datum() as ModeConfig;
+        firstInvShown.classed('infoItemActive', true);
+        switchSecondaryMode(itsMode);
+        d3.select('#tipText').style('visibility', 'visible');
+        d3.select(ev.currentTarget as Element).classed(
+          'invTabControlActive',
+          true,
+        );
+        d3.select('#tipText').attr('data-i18n', `[html]${itsMode.textKey}_Tip`);
+        window.localize('#tipText');
+      }
     });
 
   const invCy1 = invTable.append('tr').classed('invTabCy1', true);
@@ -332,14 +363,14 @@ function createInvariantsTable() {
     .append('td')
     .classed('invTabRowTitle translate', true)
     .attr('data-i18n', 'Your_graph');
-  invCy1.append('td').classed('invTabControls', true);
+  invCy1.append('td'); //.classed('invTabControls', true);
 
   const invCy2 = invTable.append('tr').classed('invTabCy2', true);
   invCy2
     .append('td')
     .classed('invTabRowTitle translate', true)
     .attr('data-i18n', 'Target_graph');
-  invCy2.append('td').classed('invTabControls', true);
+  invCy2.append('td'); //.classed('invTabControls', true);
 
   const filters = invTable.append('tr').classed('invTabFilters', true);
   filters

@@ -32,6 +32,7 @@
 :root {
   --color1: hsl(206deg 90% 98%);
   --color2: hsl(231deg 48% 95%);
+  --color2Trans: rgba(236, 238, 248, 0.85);
   --color3: hsl(231deg 48% 85%);
 
 }
@@ -144,6 +145,7 @@ body{
   margin: 0.3em;
   //  flex-basis: 4em;
   flex: 0 1 15%;
+  cursor: pointer;
 }
 
 #cy1{
@@ -236,25 +238,54 @@ position: relative;
   border-radius: 5px;
 }
 
-.invTab th.invData:hover {
+// .invTab th.invData:hover {
+//   background-color: var(--color2);
+// }
+
+.infoItemClickable {
   background-color: var(--color2);
+  cursor: pointer;
 }
+
+.invTabControls{
+  cursor: pointer;
+}
+
+.invTabControlActive {
+  filter: invert(0.5) sepia(1) saturate(50) hue-rotate(4deg);
+  //  background-color: rgb(hsl(4, 90%, 58%))
+  ;
+}
+
 
 .infoItemActive{
   background-color: var(--color3);
 }
 
-.tipText {
+// .tipText {
+//   visibility: hidden;
+//   display: block;
+//   position: absolute;
+//   width: 12em;
+//   bottom: 5px;
+//   left: calc( (8em - 12em) / 2);
+//   background-color: var(--color2);
+//   border: 2px solid lightgray;
+//   border-radius: 5px;
+//   text-align: left;
+// }
+#tipText {
   visibility: hidden;
   display: block;
   position: absolute;
-  width: 12em;
+  max-width: 40%;
   bottom: 5px;
-  left: calc( (8em - 12em) / 2);
-  background-color: var(--color2);
+  right: 5px;
+  padding: 5px;
+  background-color: var(--color2Trans);
   border: 2px solid lightgray;
-  border-radius: 5px;
-  text-align: left;
+  border-radius: 10px;
+  text-align: right;
 }
 
 .invTab input {
