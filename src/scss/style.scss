@@ -1,0 +1,263 @@
+@import 'bootstrap/scss/bootstrap.scss';
+
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/Josefin_Sans/static/JosefinSans-Regular.ttf')
+    format('truetype');
+}
+
+.footnote {
+  font-size: smaller;
+  margin-top: 3em;
+}
+
+.action-tip {
+  background-color: var(--color2);
+  border-radius: 5px;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding: 1em;
+}
+
+.legal {
+  font-size: small;
+}
+
+.btn-secondary {
+  color: #000;
+  background-color: lightgrey;
+}
+
+:root {
+  --color1: hsl(206deg 90% 98%);
+  --color2: hsl(231deg 48% 95%);
+  --color2Trans: rgba(236, 238, 248, 0.85);
+  --color3: hsl(231deg 48% 85%);
+}
+
+#gallery {
+  background-color: var(--color2);
+  border: 2px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  overflow: scroll;
+}
+
+.graphGalleryItem {
+  //  width: 8em;
+  // height: 8em;
+  border: solid 3px grey;
+  border-radius: 5px;
+  background-color: white;
+  display: inline-table;
+  text-align: center;
+  padding: 0.2em;
+  margin: 0.3em;
+  //  flex-basis: 4em;
+  flex: 0 1 15%;
+  cursor: pointer;
+  user-select: none;
+}
+
+#cy1 {
+  // width: 100%;
+  // display: inline-block;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#cy2 {
+  // width: 100%;
+  // display: inline-block;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.toolbar-button {
+  min-width: 86px;
+  // height: 60px;
+  // margin: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
+  border-radius: 5px;
+}
+
+.toolbar-button img {
+  width: 35px;
+  margin: 3px;
+}
+
+// .target-tools{
+//   // display: flex;
+// }
+#isoOutput {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: bottom;
+  background-color: white;
+  width: calc(100% - 2 * 86px - 4 * 4px);
+  height: 70px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+#isoOutput div {
+  text-align: center;
+}
+
+#isoOutput.yes {
+  font-size: 90%;
+  background-color: #00ff0040;
+}
+#isoOutput.no {
+  font-size: 90%;
+  background-color: #ff000040;
+}
+
+.filter {
+  width: 5em;
+}
+
+.invTab td, th {
+  position: relative;
+}
+.invTabHeaders {
+  height: 100%;
+  border-radius: 5px;
+  border-bottom: 1px solid black;
+}
+
+.invTabRowTitle {
+  width: 8em;
+  padding-right: 1em;
+}
+
+.invTabControls {
+  width: 1em;
+}
+.invHeadersText {
+  width: 8em;
+  font-weight: bold;
+}
+
+.invTab th.invData {
+  border-radius: 5px;
+}
+
+// .invTab th.invData:hover {
+//   background-color: var(--color2);
+// }
+
+.infoItemClickable {
+  background-color: var(--color2);
+  cursor: pointer;
+}
+
+.invTabControls {
+  cursor: pointer;
+}
+
+.invTabControlActive {
+  filter: invert(0.5) sepia(1) saturate(50) hue-rotate(4deg);
+  //  background-color: rgb(hsl(4, 90%, 58%))
+}
+
+.infoItemActive {
+  background-color: var(--color3);
+}
+
+// .tipText {
+//   visibility: hidden;
+//   display: block;
+//   position: absolute;
+//   width: 12em;
+//   bottom: 5px;
+//   left: calc( (8em - 12em) / 2);
+//   background-color: var(--color2);
+//   border: 2px solid lightgray;
+//   border-radius: 5px;
+//   text-align: left;
+// }
+#tipText {
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  max-width: 40%;
+  bottom: 5px;
+  right: 5px;
+  padding: 5px;
+  background-color: var(--color2Trans);
+  border: 2px solid lightgray;
+  border-radius: 10px;
+  text-align: right;
+}
+
+.invTab input {
+  text-align: center;
+}
+
+.iconInfo {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+// Transpose table
+
+// tr { display: block; float: left; }
+// th, td { display: block; height: 2em;}
+
+.matrix {
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.matrix:before,
+.matrix:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  border: 1px solid #000;
+  width: 6px;
+  height: 100%;
+}
+.matrix:before {
+  left: -6px;
+  border-right: 0px;
+  border-radius: 50px 0 0 50px;
+}
+.matrix:after {
+  right: -6px;
+  border-left: 0px;
+  border-radius: 0 50px 50px 0;
+}
+.matrix td {
+  padding: 5px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+}
+
+#invariantsModal label {
+  padding: 1em;
+}
+
+#loadTargetModal .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#loadTargetModal .modal-body div {
+  margin: 0.5em;
+}
