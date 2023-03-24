@@ -48,6 +48,7 @@ body{
     grid-area: header; 
     // height: fit-content;
     text-align: center;
+    position: relative;
 }
 .mainTitle {  
   font-family: 'Josefin Sans', sans-serif;
@@ -63,14 +64,13 @@ body{
 #top-toolbar {
   display: flex;
   flex-flow: row;
-  float: right;
-  // margin: 5px;
+  gap: 0.5em;
+  position: absolute;
+  right: 0px;
 }
 
 #top-toolbar span {
-  margin: 0.5em;
   flex: 2 1 auto;
-
 }
 
 
