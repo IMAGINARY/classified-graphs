@@ -191,7 +191,7 @@ body{
   justify-content: center;
   vertical-align: bottom;
   background-color: white;
-  width: calc(100% - 2 *80px - 4 * 4px);
+  width: calc(100% - 2 *86px - 4 * 4px);
   height: 70px;
   border-radius: 5px;  
   border: 1px solid black;
@@ -202,9 +202,11 @@ body{
 }
 
 #isoOutput.yes {
+  font-size: 90%;
   background-color: #00ff0040;
 }
 #isoOutput.no {
+  font-size: 90%;
   background-color: #ff000040;
 }
 
