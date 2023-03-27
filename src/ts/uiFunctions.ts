@@ -113,6 +113,9 @@ function makeGraphGallery(
   galleryContainer.exit().remove();
 
   // update selection: none
+
+  // Update graphCount
+  d3.select('#graphCounterNum').html(data.length.toString());
 }
 
 function makeFilteredGraphGallery() {

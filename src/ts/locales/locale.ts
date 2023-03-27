@@ -46,6 +46,7 @@ type Locale = {
       Check: string;
       Graphs_isomorphic: string;
       Graphs_non_isomorphic: string;
+      Number_of_graphs: string;
     }>;
   };
 };

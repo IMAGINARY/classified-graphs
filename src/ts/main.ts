@@ -404,6 +404,14 @@ function main() {
   createInvariantsTable();
 
   // Make Gallery
+  const graphCounter = d3.select('#graphCounter');
+  graphCounter
+    .append('span')
+    .attr('id', 'graphCounterText')
+    .classed('translate', true)
+    .attr('data-i18n', 'Number_of_graphs');
+  graphCounter.append('span').attr('id', 'graphCounterNum');
+
   makeGraphGallery(graphGalleryList, cy1, parameters1);
 
   // Attach listeners to the graphs

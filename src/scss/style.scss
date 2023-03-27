@@ -37,7 +37,7 @@
   --color3: hsl(231deg 48% 85%);
 }
 
-#gallery {
+#gallery , #graphCounter{
   background-color: var(--color2);
   border: 2px solid black;
   border-radius: 5px;
@@ -126,6 +126,10 @@
 
 .filter {
   width: 5em;
+}
+
+#graphCounterNum {
+    font-weight: bold;
 }
 
 .invTab td, th {

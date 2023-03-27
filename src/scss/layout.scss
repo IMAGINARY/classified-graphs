@@ -41,7 +41,7 @@ body {
   grid-area: collection;
   height: 100% ;
   display: grid;
-  gap: 10px;
+  gap: 3px;
   grid-template-rows: 2em auto;
   overflow: scroll;
 }
@@ -82,7 +82,7 @@ body {
   grid-template-rows: 4em fit-content(0) auto 10em;
   grid-template-areas:
     'header header header'
-    'collection toolbar toolbar'
+    'toolbar toolbar toolbar'
     'collection main target'
     'collection invariants invariants';
   transition: 300ms;

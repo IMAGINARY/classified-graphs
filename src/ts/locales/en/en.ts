@@ -47,6 +47,7 @@ const en: Locale = {
       Check: 'Check',
       Graphs_isomorphic: 'Graphs are isomorphic',
       Graphs_non_isomorphic: 'Graphs are <strong> not </strong> isomorphic',
+      Number_of_graphs: 'Number of graphs: ',
     },
   },
 };
