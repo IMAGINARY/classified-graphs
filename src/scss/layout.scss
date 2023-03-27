@@ -47,10 +47,12 @@ body {
 }
 .target {
   grid-area: target;
+  display: grid;
+  overflow: hidden;
+  gap: 10px;
+  grid-template-rows: auto fit-content(0);
 }
-.target-tools {
-  grid-area: target-tools;
-}
+
 .invariants {
   grid-area: invariants;
   margin-left: auto;
@@ -70,7 +72,7 @@ body {
       20%,
       300px
     );
-  grid-template-rows: 4em fit-content(0) auto 10% 10em;
+  grid-template-rows: 4em fit-content(0) auto 10em;
 }
 
 .full-mode {
@@ -78,7 +80,6 @@ body {
     'header header header'
     'gallery toolbar toolbar'
     'gallery main target'
-    'gallery main target-tools'
     'gallery invariants invariants';
 }
 
@@ -86,7 +87,6 @@ body {
   grid-template-areas:
     'header header header'
     'gallery toolbar toolbar'
-    'gallery main main'
     'gallery main main'
     'gallery invariants invariants';
 }
