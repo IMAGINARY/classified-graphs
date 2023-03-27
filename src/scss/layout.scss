@@ -3,7 +3,8 @@
 body {
   overflow: hidden;
   padding: 0;
-  max-height: 100vh;
+  height: 100vh;
+  position: relative;
   font-family: sans-serif;
 }
 
@@ -36,12 +37,20 @@ body {
   flex: 2 1 auto;
 }
 
-.gallery {
-  grid-area: gallery;
+.collection {
+  grid-area: collection;
+  height: 100% ;
+  display: grid;
+  gap: 10px;
+  grid-template-rows: 2em auto;
+  overflow: scroll;
 }
+
+
 .toolbar {
   grid-area: toolbar;
 }
+
 .main {
   grid-area: main;
 }
@@ -61,11 +70,11 @@ body {
   margin-right: auto;
   text-align: center;
   height: 10em;
-  // overflow: scroll;
+  overflow-x: scroll;
 }
 
 #grid-container {
-  height: 100vh;
+  height: 100%;
   display: grid;
   gap: 10px;
   background-color: var(--color1);
@@ -73,10 +82,10 @@ body {
   grid-template-rows: 4em fit-content(0) auto 10em;
   grid-template-areas:
     'header header header'
-    'gallery toolbar toolbar'
-    'gallery main target'
-    'gallery invariants invariants';
-    transition: 300ms;
+    'collection toolbar toolbar'
+    'collection main target'
+    'collection invariants invariants';
+  transition: 300ms;
 
 }
 
