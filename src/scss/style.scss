@@ -1,3 +1,4 @@
+$secondary : lightgrey;
 @import 'bootstrap/scss/bootstrap.scss';
 
 @font-face {
@@ -25,10 +26,12 @@
   font-size: small;
 }
 
-.btn-secondary {
-  color: #000;
-  background-color: lightgrey;
-}
+// .btn-secondary {
+//   color: #000;
+//   background-color: lightgrey;
+// }
+
+
 
 :root {
   --color1: hsl(206deg 90% 98%);
