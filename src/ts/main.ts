@@ -339,14 +339,12 @@ function main() {
 
   // Make Target-collapse button
   function collapseTarget() {
-    d3.select('#grid-container').classed('full-mode', false);
-    d3.select('#grid-container').classed('collapsed-mode', true);
+    d3.select('#grid-container').classed('collapsed-target', true);
     d3.selectAll('.invTabCy2').style('display', 'none');
   }
 
   function uncollapseTarget() {
-    d3.select('#grid-container').classed('collapsed-mode', false);
-    d3.select('#grid-container').classed('full-mode', true);
+    d3.select('#grid-container').classed('collapsed-target', false);
     d3.selectAll('.invTabCy2').style('display', 'table-row');
   }
 
@@ -368,10 +366,47 @@ function main() {
 
   d3.select('#toolbar')
     .append('label')
-    .style('float', 'right')
+    .style('position', 'absolute')
+    .style('right', '0')
     .classed('btn btn-secondary translate', true)
     .attr('for', 'targetCollapseButton')
     .attr('data-i18n', 'Identify_question');
+
+  // Make Collection-collapse button
+  function collapseCollection() {
+    d3.select('#grid-container').classed('collapsed-collection', true);
+    d3.selectAll('.invTabFilters').style('display', 'none');
+  }
+
+  function uncollapseCollection() {
+    d3.select('#grid-container').classed('collapsed-collection', false);
+    d3.selectAll('.invTabFilters').style('display', 'table-row');
+  }
+
+  d3.select('#toolbar')
+    .append('input')
+    .attr('type', 'checkbox')
+    .attr('id', 'collectionCollapseButton')
+    .classed('btn-check', true)
+    .attr('autocomplete', 'off')
+    .on('click', () => {
+      if (
+        (d3.select('#collectionCollapseButton').node() as HTMLInputElement)
+          .checked
+      ) {
+        uncollapseCollection();
+      } else {
+        collapseCollection();
+      }
+    });
+
+  d3.select('#toolbar')
+    .append('label')
+    .style('position', 'absolute')
+    .style('left', '0')
+    .classed('btn btn-secondary translate', true)
+    .attr('for', 'collectionCollapseButton')
+    .attr('data-i18n', 'Collection_question');
 
   // Make toolbar buttons
 
@@ -420,6 +455,7 @@ function main() {
 
   // Close the Target panel by default
   collapseTarget();
+  collapseCollection();
 
   // Trigger initial translation to fill the texts
   localize('.translate');

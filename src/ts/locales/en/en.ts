@@ -39,7 +39,8 @@ const en: Locale = {
       Adjacency_det: 'Adjacency determinant',
       Adjacency_det_Tip:
         'The adjacency matrix is built by setting a<sub>ij</sub> equal to the number of edges from vertex i to vertex j. Its determinant is an invariant of the graph.',
-      Identify_question: 'Which graph is this?',
+      Identify_question: 'Identify',
+      Collection_question: 'Collection',
       Load_target: 'Load target graph',
       Random: 'Random',
       Challenge: 'Challenge',

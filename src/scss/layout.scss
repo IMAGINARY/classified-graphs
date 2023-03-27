@@ -49,6 +49,8 @@ body {
 
 .toolbar {
   grid-area: toolbar;
+  text-align: center;
+  position: relative;
 }
 
 .main {
@@ -86,20 +88,36 @@ body {
     'collection main target'
     'collection invariants invariants';
   transition: 300ms;
+//   grid-template-columns: 20% calc(60% - 20px) 20%
 
 }
 
 .full-mode {
-  grid-template-columns: 20% min(calc(60% - 20px), calc(80% - 20px - 300px)) max(
-      20%,
-      300px
-    );
+  grid-template-columns: 20% calc(60% - 20px) 20%
 }
 
-.collapsed-mode {
+.collapsed-target {
   grid-template-columns: 20% calc(80% - 20px) 0;
 }
 
-.collapsed-mode .main {
+.collapsed-target .main {
   margin-right: -10px;
+}
+
+.collapsed-collection {
+  grid-template-columns: 0 calc(80% - 20px) 20%;
+}
+
+.collapsed-collection .main {
+  margin-left: -10px;
+}
+
+.collapsed-target.collapsed-collection {
+  grid-template-columns: 0 calc(100% - 20px) 0;
+}
+
+.collapsed-target.collapsed-collection .main {
+  margin-left: -10px;
+  margin-right: -10px;
+
 }

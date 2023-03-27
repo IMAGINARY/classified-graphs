@@ -39,6 +39,7 @@ type Locale = {
       Adjacency_det: string;
       Adjacency_det_Tip: string;
       Identify_question: string;
+      Collection_question: string;
       Load_target: string;
       Target: string;
       Random: string;
