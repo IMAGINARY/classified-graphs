@@ -70,7 +70,7 @@ body {
       20%,
       300px
     );
-  grid-template-rows: 4em 80px auto 10% 10em;
+  grid-template-rows: 4em fit-content(0) auto 10% 10em;
 }
 
 .full-mode {
