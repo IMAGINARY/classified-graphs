@@ -259,6 +259,10 @@ $secondary : lightgrey;
   padding: 1em;
 }
 
+#invariantsModal .modal-body > div {
+  display: flex;
+}
+
 #loadTargetModal .modal-body {
   display: flex;
   flex-direction: column;
