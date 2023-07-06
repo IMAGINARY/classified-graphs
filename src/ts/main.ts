@@ -450,7 +450,19 @@ function main() {
   makeGraphGallery(graphGalleryList, cy1, parameters1);
 
   // Attach listeners to the graphs
-  cy1.on('cm-graph-updated', () => updateInvariantsTable());
+  cy1.on('cm-graph-loaded', () => {
+    console.log('cm-graph-loaded');
+    updateInvariantsTable();
+  });
+
+  cy1.on('cm-graph-updated', () => {
+    d3.selectAll('.graphGalleryItem').classed(
+      'graphGalleryItemHighlighted',
+      false,
+    );
+    updateInvariantsTable();
+  });
+
   cy2.on('cm-graph-updated', () => updateInvariantsTable());
 
   // Close the Target panel by default

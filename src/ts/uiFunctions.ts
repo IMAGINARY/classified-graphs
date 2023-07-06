@@ -67,7 +67,7 @@ function loadGraph(cy: Core, parameters: Parameters, grId: string) {
 
       // eslint-disable-next-line no-param-reassign
       parameters.nodeIndex = cy.nodes().map((e) => e.id());
-      cy.emit('cm-graph-updated');
+      cy.emit('cm-graph-loaded');
       window.primaryMode.modeObj1.deactivate();
       window.primaryMode.modeObj2.deactivate();
     });
@@ -91,8 +91,16 @@ function makeGraphGallery(
     .append('div')
     .classed('graphGalleryItem', true)
     // .attr('data-bs-dismiss', 'modal')
-    .on('click', (ev, d) => {
+    .on('click', (ev: Event, d) => {
       loadGraph(loadIntoCy, parametersCy, d.file);
+      d3.selectAll('.graphGalleryItem').classed(
+        'graphGalleryItemHighlighted',
+        false,
+      );
+      d3.select(ev.currentTarget as d3.BaseType).classed(
+        'graphGalleryItemHighlighted',
+        true,
+      );
     });
 
   newItems

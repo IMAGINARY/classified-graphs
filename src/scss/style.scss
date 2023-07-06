@@ -70,6 +70,10 @@ $secondary : lightgrey;
   user-select: none;
 }
 
+.graphGalleryItemHighlighted {
+  border: solid 6px #f44336 !important;
+}
+
 #cy1 {
   // width: 100%;
   // display: inline-block;

@@ -42,6 +42,7 @@ body {
   height: 100% ;
   display: grid;
   gap: 0.25em;
+  grid-template-rows: min-content auto;
   overflow: scroll;
 }
 
