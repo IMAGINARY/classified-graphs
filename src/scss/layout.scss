@@ -41,8 +41,7 @@ body {
   grid-area: collection;
   height: 100% ;
   display: grid;
-  gap: 3px;
-  grid-template-rows: 2em auto;
+  gap: 0.25em;
   overflow: scroll;
 }
 
