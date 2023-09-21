@@ -47,12 +47,10 @@ const cyOptions = {
   ],
 };
 
-const langList = locales.map(({ isoCode, endonym }) => ({ isoCode, endonym }));
-
-// const resour = locales.reduce(
-//   (acc, { isoCode, resource }) => ({ ...acc, ...{ [isoCode]: resource } }),
-//   {},
-// );
+// Filter here the languages to appear in the UI.
+const langList = locales
+  .map(({ isoCode, endonym }) => ({ isoCode, endonym }))
+  .filter((d) => ['en', 'fr'].includes(d.isoCode));
 
 const resourcesGraphs_en = {} as { [key: string]: string };
 const resourcesGraphs_fr = {} as { [key: string]: string };
@@ -78,7 +76,7 @@ resour.fr.translation = { ...resour.fr.translation, ...resourcesGraphs_fr };
 resour.de.translation = { ...resour.de.translation, ...resourcesGraphs_de };
 
 const i18nextOptions = {
-  supportedLngs: locales.map(({ isoCode }) => isoCode),
+  supportedLngs: langList.map(({ isoCode }) => isoCode),
   fallbackLng: 'en',
   // fallbackLng: 'false',
   debug: true,
